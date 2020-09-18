@@ -8,31 +8,15 @@
         <version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>piinterface-rest</artifactId>
-	<name>REST API</name>
-	<description>Interface to the back-end functionality of the PI Interface</description>
+	<artifactId>piinterface-common</artifactId>
+	<name>COMMON</name>
+	<description>Exceptions, cross-project reusables, etc</description>
 
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.desolatetimelines</groupId>
-        	<artifactId>piinterface-service</artifactId>
-        	<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.desolatetimelines</groupId>
-        	<artifactId>piinterface-common</artifactId>
-        	<version>${project.version}</version>
-		</dependency>
-	
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -45,14 +29,5 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

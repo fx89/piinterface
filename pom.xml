@@ -21,6 +21,9 @@
 
     <modules>
         <module>piinterface-rest</module>
+        <module>piinterface-service</module>
+        <module>piinterface-data</module>
+        <module>piinterface-common</module>
     </modules>
 
     <dependencyManagement>

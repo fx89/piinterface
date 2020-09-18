@@ -1,0 +1,105 @@
+-- ********************************************************************************
+-- Initial model for the PI Interface application
+-- ********************************************************************************
+
+
+drop table if exists `PIN_GROUP_PIN`;
+
+create table `PIN_GROUP_PIN` (
+	ID BIGINT NOT NULL AUTO_INCREMENT,
+
+	PIN_GROUP_ID BIGINT  NULL,
+	PIN_ID BIGINT  NULL,
+	`ORDER` INT  NULL,
+	STATES_COUNT INT  NULL,
+
+	primary key (ID)
+);
+
+
+drop table if exists `PIN_GROUP_TYPE`;
+
+create table `PIN_GROUP_TYPE` (
+	ID BIGINT NOT NULL AUTO_INCREMENT,
+
+	NAME VARCHAR(250) NULL,
+
+	primary key (ID)
+);
+
+
+drop table if exists `PIN_GROUP`;
+
+create table `PIN_GROUP` (
+	ID BIGINT NOT NULL AUTO_INCREMENT,
+
+	NAME VARCHAR(250) NULL,
+	TYPE_ID BIGINT  NULL,
+
+	primary key (ID)
+);
+
+
+drop table if exists `PIN_OPERATING_MODE`;
+
+create table `PIN_OPERATING_MODE` (
+	ID BIGINT NOT NULL AUTO_INCREMENT,
+
+	NAME VARCHAR(250) NULL,
+
+	primary key (ID)
+);
+
+
+drop table if exists `PIN`;
+
+create table `PIN` (
+	ID BIGINT NOT NULL AUTO_INCREMENT,
+
+	NAME VARCHAR(250) NULL,
+	BOARD_ID BIGINT  NULL,
+	GPIO_ID BIGINT  NULL,
+	OPERATING_MODE_ID BIGINT  NULL,
+	DELAY_MS INT NULL,
+
+	primary key (ID)
+);
+
+
+
+
+-- ADD CONSTRAINTS for the PIN_GROUP_PIN table --
+ALTER TABLE `PIN_GROUP_PIN` 
+ADD CONSTRAINT `FK_PIN_GROUP_PIN_PIN_GROUP_ID` FOREIGN KEY (PIN_GROUP_ID)
+REFERENCES `PIN_GROUP` (ID);
+
+ALTER TABLE `PIN_GROUP_PIN` 
+ADD CONSTRAINT `FK_PIN_GROUP_PIN_PIN_ID` FOREIGN KEY (PIN_ID)
+REFERENCES `PIN` (ID);
+
+
+-- ADD CONSTRAINTS for the PIN_GROUP table --
+ALTER TABLE `PIN_GROUP` 
+ADD CONSTRAINT `FK_PIN_GROUP_TYPE_ID` FOREIGN KEY (TYPE_ID)
+REFERENCES `PIN_GROUP_TYPE` (ID);
+
+
+-- ADD CONSTRAINTS for the PIN table --
+ALTER TABLE `PIN` 
+ADD CONSTRAINT `FK_PIN_OPERATING_MODE_ID` FOREIGN KEY (OPERATING_MODE_ID)
+REFERENCES `PIN_OPERATING_MODE` (ID);
+
+
+
+
+
+-- Add registry values for PIN_OPERATING_MODE
+INSERT INTO PIN_OPERATING_MODE(name) VALUES('SWITCH');
+INSERT INTO PIN_OPERATING_MODE(name) VALUES('PUSHBUTTON');
+
+-- Add registry values for PIN_GROUP_TYPE
+INSERT INTO PIN_GROUP_TYPE(name) VALUES('SIMULTANEOUS');
+INSERT INTO PIN_GROUP_TYPE(name) VALUES('SEQUENTIAL');
+INSERT INTO PIN_GROUP_TYPE(name) VALUES('TREE');
+
+COMMIT;
