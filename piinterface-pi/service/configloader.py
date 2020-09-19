@@ -19,7 +19,7 @@ def loadPins(config):
     for i in range(0,41):
         try:
             pinData = json.loads(config['Pins']["Pin{0}".format(i)])
-            ret.append(PIN.Pin(int(pinData['boardId']), int(pinData['gpioId']), 0))
+            ret.append(PIN.Pin(int(pinData['boardId']), int(pinData['gpioId']), int(pinData['isSignalInverted']), 0))
         except:
             n = 1
     return ret
