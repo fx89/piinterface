@@ -104,7 +104,7 @@ def switchPinByBoardId():
         state = int(request.args.get('state'))
         return toJSON(gpioService.switchPinByBoardId(boardId, state))
     except Exception as e:
-        return toJSON({"message": str(e)})
+        return toJSON({"message": str(e)}), 500
 
 @app.route('/switchPinByGpioId', methods=['GET'])
 def switchPinByGpioId():
@@ -113,7 +113,7 @@ def switchPinByGpioId():
         state = int(request.args.get('state'))
         return toJSON(gpioService.switchPinByGpioId(gpioId, state))
     except Exception as e:
-        return toJSON({"message": str(e)})
+        return toJSON({"message": str(e)}), 500
 
 @app.route('/togglePinByBoardId', methods=['GET'])
 def togglePinByBoardId():
@@ -121,7 +121,7 @@ def togglePinByBoardId():
         boardId = int(request.args.get('boardId'))
         return toJSON(gpioService.togglePinByBoardId(boardId))
     except Exception as e:
-        return toJSON({"message": str(e)})
+        return toJSON({"message": str(e)}), 500
 
 @app.route('/togglePinByGpioId', methods=['GET'])
 def togglePinByGpioId():
@@ -129,7 +129,7 @@ def togglePinByGpioId():
         gpioId = int(request.args.get('gpioId'))
         return toJSON(gpioService.togglePinByGpioId(gpioId))
     except Exception as e:
-        return toJSON({"message": str(e)})
+        return toJSON({"message": str(e)}), 500
 
 @app.route('/clickPinByBoardId', methods=['GET'])
 def clickPinByBoardId():
@@ -141,7 +141,7 @@ def clickPinByBoardId():
             pressTimeMS = None
         return toJSON(gpioService.clickPinByBoardId(boardId, pressTimeMS))
     except Exception as e:
-        return toJSON({"message": str(e)})
+        return toJSON({"message": str(e)}), 500
 
 @app.route('/clickPinByGpioId', methods=['GET'])
 def clickPinByGpioId():
@@ -153,7 +153,7 @@ def clickPinByGpioId():
             pressTimeMS = None
         return toJSON(gpioService.clickPinByGpioId(gpioId, pressTimeMS))
     except Exception as e:
-        return toJSON({"message": str(e)})
+        return toJSON({"message": str(e)}), 500
 
 @app.route('/getPinByBoardId', methods=['GET'])
 def getPinByBoardId():
@@ -161,7 +161,7 @@ def getPinByBoardId():
         boardId = int(request.args.get('boardId'))
         return toJSON(gpioService.getPinByBoardId(boardId))
     except Exception as e:
-        return toJSON({"message": str(e)})
+        return toJSON({"message": str(e)}), 500
 
 @app.route('/getPinByGpioId', methods=['GET'])
 def getPinByGpioId():
@@ -169,6 +169,6 @@ def getPinByGpioId():
         gpioId = int(request.args.get('gpioId'))
         return toJSON(gpioService.getPinByGpioId(gpioId))
     except Exception as e:
-        return toJSON({"message": str(e)})
+        return toJSON({"message": str(e)}), 500
 
 
