@@ -61,6 +61,141 @@ public class PinsRestEndpoint {
 		piInterface.getDataService().getPinsRepository().bulkDelete(ids);
 	}
 
+	@GetMapping(value = "/pageAllByPiInstanceId")
+	public List<Pin> pageAllByPiInstanceId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceId(piInstanceId, PageRequest.of(pageNumber, pageSize));
+	}
+
+	@GetMapping(value = "/findAllByPiInstanceId")
+	public List<Pin> findAllByPiInstanceId(@RequestParam(name = "piInstanceId") Long piInstanceId) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceId(piInstanceId);
+	}
+	
+	@GetMapping(value = "/pageAllByPiInstanceIdIn")
+	public List<Pin> pageAllByPiInstanceIdIn(@RequestBody() List<Long> piInstanceIds, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdIn(piInstanceIds, PageRequest.of(pageNumber, pageSize));
+	}
+
+	@GetMapping(value = "/findAllByPiInstanceIdIn")
+	public List<Pin> findAllByPiInstanceIdIn(@RequestBody() List<Long> piInstanceIds) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdIn(piInstanceIds);
+	}
+
+	
+	@GetMapping(value = "/findAllByPiInstanceIdAndName")
+	public List<Pin> findAllByPiInstanceIdAndName(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "name") String name) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndName(piInstanceId, name);
+	}
+	
+	@GetMapping(value = "/findFirstByPiInstanceIdAndName")
+	public Pin findFirstByPiInstanceIdAndName(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "name") String name) {
+		return piInterface.getDataService().getPinsRepository().findFirstByPiInstanceIdAndName(piInstanceId, name);
+	}
+
+	
+	@GetMapping(value = "/findAllByPiInstanceIdAndBoardId")
+	public List<Pin> findAllByPiInstanceIdAndBoardId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "boardId") Long boardId) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndBoardId(piInstanceId, boardId);
+	}
+	
+	@GetMapping(value = "/findFirstByPiInstanceIdAndBoardId")
+	public Pin findFirstByPiInstanceIdAndBoardId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "boardId") Long boardId) {
+		return piInterface.getDataService().getPinsRepository().findFirstByPiInstanceIdAndBoardId(piInstanceId, boardId);
+	}
+
+	
+	@GetMapping(value = "/findAllByPiInstanceIdAndGpioId")
+	public List<Pin> findAllByPiInstanceIdAndGpioId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "gpioId") Long gpioId) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndGpioId(piInstanceId, gpioId);
+	}
+	
+	@GetMapping(value = "/findFirstByPiInstanceIdAndGpioId")
+	public Pin findFirstByPiInstanceIdAndGpioId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "gpioId") Long gpioId) {
+		return piInterface.getDataService().getPinsRepository().findFirstByPiInstanceIdAndGpioId(piInstanceId, gpioId);
+	}
+
+	@GetMapping(value = "/pageAllByPiInstanceIdAndOperatingModeId")
+	public List<Pin> pageAllByPiInstanceIdAndOperatingModeId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndOperatingModeId(piInstanceId, operatingModeId, PageRequest.of(pageNumber, pageSize));
+	}
+	
+	@GetMapping(value = "/findAllByPiInstanceIdAndOperatingModeId")
+	public List<Pin> findAllByPiInstanceIdAndOperatingModeId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "operatingModeId") Long operatingModeId) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndOperatingModeId(piInstanceId, operatingModeId);
+	}
+	
+	@GetMapping(value = "/findFirstByPiInstanceIdAndOperatingModeId")
+	public Pin findFirstByPiInstanceIdAndOperatingModeId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "operatingModeId") Long operatingModeId) {
+		return piInterface.getDataService().getPinsRepository().findFirstByPiInstanceIdAndOperatingModeId(piInstanceId, operatingModeId);
+	}
+
+	@GetMapping(value = "/findAllByPiInstanceIdAndOperatingModeIdAndName")
+	List<Pin> findAllByPiInstanceIdAndOperatingModeIdAndName(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "name") String name) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndOperatingModeIdAndName(piInstanceId, operatingModeId, name);
+	}
+
+	@GetMapping(value = "/findAllByPiInstanceIdAndOperatingModeIdAndBoardId")
+	List<Pin> findAllByPiInstanceIdAndOperatingModeIdAndBoardId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "boardId") Long boardId) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndOperatingModeIdAndBoardId(piInstanceId, operatingModeId, boardId);
+	}
+
+	@GetMapping(value = "/findAllByPiInstanceIdAndOperatingModeIdAndGpioId")
+	List<Pin> findAllByPiInstanceIdAndOperatingModeIdAndGpioId(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "gpioId") Long gpioId) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndOperatingModeIdAndGpioId(piInstanceId, operatingModeId, gpioId);
+	}
+
+	@GetMapping(value = "/findAllByPiInstanceIdAndOperatingModeIdAndDelayMs")
+	List<Pin> findAllByPiInstanceIdAndOperatingModeIdAndDelayMs(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "delayMs") Integer delayMs) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndOperatingModeIdAndDelayMs(piInstanceId, operatingModeId, delayMs);
+	}
+
+	@GetMapping(value = "/findAllByPiInstanceIdAndOperatingModeIdAndIsAvailable")
+	List<Pin> findAllByPiInstanceIdAndOperatingModeIdAndIsAvailable(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "isAvailable") Boolean isAvailable) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndOperatingModeIdAndIsAvailable(piInstanceId, operatingModeId, isAvailable);
+	}
+
+	
+	@GetMapping(value = "/findAllByPiInstanceIdAndDelayMs")
+	public List<Pin> findAllByPiInstanceIdAndDelayMs(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "delayMs") Integer delayMs) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndDelayMs(piInstanceId, delayMs);
+	}
+	
+	@GetMapping(value = "/findFirstByPiInstanceIdAndDelayMs")
+	public Pin findFirstByPiInstanceIdAndDelayMs(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "delayMs") Integer delayMs) {
+		return piInterface.getDataService().getPinsRepository().findFirstByPiInstanceIdAndDelayMs(piInstanceId, delayMs);
+	}
+
+	
+	@GetMapping(value = "/findAllByPiInstanceIdAndIsAvailable")
+	public List<Pin> findAllByPiInstanceIdAndIsAvailable(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "isAvailable") Boolean isAvailable) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceIdAndIsAvailable(piInstanceId, isAvailable);
+	}
+	
+	@GetMapping(value = "/findFirstByPiInstanceIdAndIsAvailable")
+	public Pin findFirstByPiInstanceIdAndIsAvailable(@RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "isAvailable") Boolean isAvailable) {
+		return piInterface.getDataService().getPinsRepository().findFirstByPiInstanceIdAndIsAvailable(piInstanceId, isAvailable);
+	}
+
+	@GetMapping(value = "/findAllByPiInstanceName")
+	public List<Pin> findAllByPiInstanceName(@RequestParam(name="piInstanceName") String name) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceName(name);
+	}
+	
+	@GetMapping(value = "/pageAllByPiInstanceName")
+	public List<Pin> pageAllByPiInstanceName(@RequestParam(name="piInstanceName") String name, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceName(name, PageRequest.of(pageNumber, pageSize));
+	}
+
+	@GetMapping(value = "/findAllByPiInstanceLastRegisteredAddress")
+	public List<Pin> findAllByPiInstanceLastRegisteredAddress(@RequestParam(name="piInstanceLastRegisteredAddress") String lastRegisteredAddress) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceLastRegisteredAddress(lastRegisteredAddress);
+	}
+	
+	@GetMapping(value = "/pageAllByPiInstanceLastRegisteredAddress")
+	public List<Pin> pageAllByPiInstanceLastRegisteredAddress(@RequestParam(name="piInstanceLastRegisteredAddress") String lastRegisteredAddress, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+		return piInterface.getDataService().getPinsRepository().findAllByPiInstanceLastRegisteredAddress(lastRegisteredAddress, PageRequest.of(pageNumber, pageSize));
+	}
+
 	@GetMapping(value = "/findOneByName")
 	public Pin findOneByName(@RequestParam(name = "name") String name) {
 		return piInterface.getDataService().getPinsRepository().findOneByName(name).orElseThrow(
@@ -117,6 +252,46 @@ public class PinsRestEndpoint {
 		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeIdIn(operatingModeIds);
 	}
 
+	@GetMapping(value = "/pageAllByOperatingModeIdAndPiInstanceId")
+	public List<Pin> pageAllByOperatingModeIdAndPiInstanceId(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeIdAndPiInstanceId(operatingModeId, piInstanceId, PageRequest.of(pageNumber, pageSize));
+	}
+	
+	@GetMapping(value = "/findAllByOperatingModeIdAndPiInstanceId")
+	public List<Pin> findAllByOperatingModeIdAndPiInstanceId(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "piInstanceId") Long piInstanceId) {
+		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeIdAndPiInstanceId(operatingModeId, piInstanceId);
+	}
+	
+	@GetMapping(value = "/findFirstByOperatingModeIdAndPiInstanceId")
+	public Pin findFirstByOperatingModeIdAndPiInstanceId(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "piInstanceId") Long piInstanceId) {
+		return piInterface.getDataService().getPinsRepository().findFirstByOperatingModeIdAndPiInstanceId(operatingModeId, piInstanceId);
+	}
+
+	@GetMapping(value = "/findAllByOperatingModeIdAndPiInstanceIdAndName")
+	List<Pin> findAllByOperatingModeIdAndPiInstanceIdAndName(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "name") String name) {
+		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeIdAndPiInstanceIdAndName(operatingModeId, piInstanceId, name);
+	}
+
+	@GetMapping(value = "/findAllByOperatingModeIdAndPiInstanceIdAndBoardId")
+	List<Pin> findAllByOperatingModeIdAndPiInstanceIdAndBoardId(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "boardId") Long boardId) {
+		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeIdAndPiInstanceIdAndBoardId(operatingModeId, piInstanceId, boardId);
+	}
+
+	@GetMapping(value = "/findAllByOperatingModeIdAndPiInstanceIdAndGpioId")
+	List<Pin> findAllByOperatingModeIdAndPiInstanceIdAndGpioId(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "gpioId") Long gpioId) {
+		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeIdAndPiInstanceIdAndGpioId(operatingModeId, piInstanceId, gpioId);
+	}
+
+	@GetMapping(value = "/findAllByOperatingModeIdAndPiInstanceIdAndDelayMs")
+	List<Pin> findAllByOperatingModeIdAndPiInstanceIdAndDelayMs(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "delayMs") Integer delayMs) {
+		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeIdAndPiInstanceIdAndDelayMs(operatingModeId, piInstanceId, delayMs);
+	}
+
+	@GetMapping(value = "/findAllByOperatingModeIdAndPiInstanceIdAndIsAvailable")
+	List<Pin> findAllByOperatingModeIdAndPiInstanceIdAndIsAvailable(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "piInstanceId") Long piInstanceId, @RequestParam(name = "isAvailable") Boolean isAvailable) {
+		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeIdAndPiInstanceIdAndIsAvailable(operatingModeId, piInstanceId, isAvailable);
+	}
+
 	
 	@GetMapping(value = "/findAllByOperatingModeIdAndName")
 	public List<Pin> findAllByOperatingModeIdAndName(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "name") String name) {
@@ -161,6 +336,17 @@ public class PinsRestEndpoint {
 		return piInterface.getDataService().getPinsRepository().findFirstByOperatingModeIdAndDelayMs(operatingModeId, delayMs);
 	}
 
+	
+	@GetMapping(value = "/findAllByOperatingModeIdAndIsAvailable")
+	public List<Pin> findAllByOperatingModeIdAndIsAvailable(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "isAvailable") Boolean isAvailable) {
+		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeIdAndIsAvailable(operatingModeId, isAvailable);
+	}
+	
+	@GetMapping(value = "/findFirstByOperatingModeIdAndIsAvailable")
+	public Pin findFirstByOperatingModeIdAndIsAvailable(@RequestParam(name = "operatingModeId") Long operatingModeId, @RequestParam(name = "isAvailable") Boolean isAvailable) {
+		return piInterface.getDataService().getPinsRepository().findFirstByOperatingModeIdAndIsAvailable(operatingModeId, isAvailable);
+	}
+
 	@GetMapping(value = "/findAllByOperatingModeName")
 	public List<Pin> findAllByOperatingModeName(@RequestParam(name="operatingModeName") String name) {
 		return piInterface.getDataService().getPinsRepository().findAllByOperatingModeName(name);
@@ -179,6 +365,16 @@ public class PinsRestEndpoint {
 	@GetMapping(value = "/findAllByDelayMs")
 	public List<Pin> findAllByDelayMs(@RequestParam(name = "delayMs") Integer delayMs) {
 		return piInterface.getDataService().getPinsRepository().findAllByDelayMs(delayMs);
+	}
+
+	@GetMapping(value = "/pageAllByIsAvailable")
+	public List<Pin> pageAllByIsAvailable(@RequestParam(name = "isAvailable") Boolean isAvailable, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+		return piInterface.getDataService().getPinsRepository().findAllByIsAvailable(isAvailable, PageRequest.of(pageNumber, pageSize));
+	}
+
+	@GetMapping(value = "/findAllByIsAvailable")
+	public List<Pin> findAllByIsAvailable(@RequestParam(name = "isAvailable") Boolean isAvailable) {
+		return piInterface.getDataService().getPinsRepository().findAllByIsAvailable(isAvailable);
 	}
 
 }

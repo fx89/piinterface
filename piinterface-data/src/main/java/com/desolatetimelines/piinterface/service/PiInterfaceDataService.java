@@ -3,6 +3,7 @@ package com.desolatetimelines.piinterface.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.desolatetimelines.piinterface.dao.PiInstancesRepository;
 import com.desolatetimelines.piinterface.dao.PinGroupPinsRepository;
 import com.desolatetimelines.piinterface.dao.PinGroupTypesRepository;
 import com.desolatetimelines.piinterface.dao.PinGroupsRepository;
@@ -28,5 +29,8 @@ public class PiInterfaceDataService {
 
 	@Autowired
 	private PinsRepository pinsRepository;
+
+	@Autowired
+	private PiInstancesRepository piInstancesRepository;
 
 }

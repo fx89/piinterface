@@ -245,6 +245,16 @@ public class PinGroupPinsRestEndpoint {
 		return piInterface.getDataService().getPinGroupPinsRepository().findAllByPinDelayMs(delayMs, PageRequest.of(pageNumber, pageSize));
 	}
 
+	@GetMapping(value = "/findAllByPinIsAvailable")
+	public List<PinGroupPin> findAllByPinIsAvailable(@RequestParam(name="pinIsAvailable") Boolean isAvailable) {
+		return piInterface.getDataService().getPinGroupPinsRepository().findAllByPinIsAvailable(isAvailable);
+	}
+	
+	@GetMapping(value = "/pageAllByPinIsAvailable")
+	public List<PinGroupPin> pageAllByPinIsAvailable(@RequestParam(name="pinIsAvailable") Boolean isAvailable, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
+		return piInterface.getDataService().getPinGroupPinsRepository().findAllByPinIsAvailable(isAvailable, PageRequest.of(pageNumber, pageSize));
+	}
+
 	@GetMapping(value = "/pageAllByOrder")
 	public List<PinGroupPin> pageAllByOrder(@RequestParam(name = "order") Integer order, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
 		return piInterface.getDataService().getPinGroupPinsRepository().findAllByOrder(order, PageRequest.of(pageNumber, pageSize));
