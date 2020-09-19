@@ -29,5 +29,16 @@
 			stripComments="true"
 		/>
 	</changeSet>
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="002">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="002-ui-buttons.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
 
 </databaseChangeLog>
