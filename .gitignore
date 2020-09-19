@@ -30,3 +30,8 @@ target/
 .settings
 .project
 .classpath
+
+# Pyton and Flask
+__pycache__
+*.pyc
+
