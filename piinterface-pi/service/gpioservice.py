@@ -80,14 +80,14 @@ class GPIOService:
             if pin.boardId == boardId:
                 pin.currentStatus = self.getPinState(pin.boardId)
                 return pin
-        raise Exception("Pin [" + boardId + "] is not available for use by this application")
+        raise Exception("Pin [" + str(boardId) + "] is not available for use by this application")
 
     def getPinByGpioId(self, gpioId):
         for pin in self.config.availablePins:
             if pin.gpioId == gpioId:
                 pin.currentStatus = self.getPinState(pin.boardId)
                 return pin
-        raise Exception("GPIO Pin [" + gpioId + "] is not available for use by this application")
+        raise Exception("GPIO Pin [" + str(gpioId) + "] is not available for use by this application")
 
     def setPinOn(self, boardId):
         GPIO.output(boardId, GPIO.HIGH)
