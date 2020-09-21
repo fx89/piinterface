@@ -1,0 +1,43 @@
+body.light {
+    background-color: #EEE;
+    color: #111;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.app-container {
+    width: 600px;
+    margin-left: calc((100% - 600px) / 2);
+    text-align: center;
+}
+
+.icon-border {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #AAA;
+    border-radius: 15px;
+    padding: 20px;
+    width: 100px;
+    height: 100px;
+    background: rgb(134,134,134);
+    background: linear-gradient(197deg, rgba(134,134,134,1) 7%, rgba(255,255,255,1) 86%);
+    -webkit-box-shadow: 0px 0px 31px -7px #000000; 
+    box-shadow: 0px 0px 21px -7px #000000;
+    margin: 15px;
+    display: inline-block;
+}
+
+.icon-picture {
+    width: 100px;
+    height: 80px;
+}
+
+.icon-text {
+    font-size: 12px;
+    text-align: center;
+}
+
+.icon-text-href {
+    color: #000;
+}
