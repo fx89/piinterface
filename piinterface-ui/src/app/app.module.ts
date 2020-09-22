@@ -9,6 +9,7 @@ import { PiInstancesComponent } from './pages/pi-instances/pi-instances.componen
 import { PinsComponent } from './pages/pins/pins.component';
 import { PinGroupsComponent } from './pages/pin-groups/pin-groups.component';
 import { ButtonsComponent } from './pages/buttons/buttons.component';
+import { PageTitleComponent } from './components/page-title/page-title.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ButtonsComponent } from './pages/buttons/buttons.component';
     PiInstancesComponent,
     PinsComponent,
     PinGroupsComponent,
-    ButtonsComponent
+    ButtonsComponent,
+    PageTitleComponent
   ],
   imports: [
     BrowserModule,

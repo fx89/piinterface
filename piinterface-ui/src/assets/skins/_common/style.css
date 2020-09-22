@@ -16,14 +16,20 @@ body {
 .app-top-bar {
     width:100%;
     height: 30px;
+    position: fixed;
+    top: 0px;
 }
 
 .app-top-bar-spacer {
-    height: 25px;
+    height: 35px;
 }
 
 .app-container {
     
+}
+
+.app-bottom-bar-spacer {
+    height: 45px;
 }
 
 .app-bottom-bar {
