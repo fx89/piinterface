@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getSkinName } from '../../utils/skin-utils'
+import { getSkinName } from '../../utils/skin-utils';
 
 @Component({
   selector: 'app-main-menu',

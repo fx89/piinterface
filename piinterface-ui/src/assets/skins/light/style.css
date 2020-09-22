@@ -7,9 +7,7 @@ body.light {
 }
 
 .app-container {
-    width: 600px;
-    margin-left: calc((100% - 600px) / 2);
-    text-align: center;
+    text-align: center;    
 }
 
 .icon-border {
@@ -31,6 +29,7 @@ body.light {
 .icon-picture {
     width: 100px;
     height: 80px;
+    padding-bottom: 5px;
 }
 
 .icon-text {
@@ -40,4 +39,22 @@ body.light {
 
 .icon-text-href {
     color: #000;
+}
+
+.app-top-bar {
+    background-color: #222;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #999;
+    -webkit-box-shadow: 0px 3px 12px -5px #000000; 
+    box-shadow: 0px 3px 12px -5px #000000;
+}
+
+.app-bottom-bar {
+    background-color: #222;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: #999;
+    -webkit-box-shadow: 0px -3px 12px -5px #000000; 
+    box-shadow: 0px -3px 12px -5px #000000;
 }
