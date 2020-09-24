@@ -3,7 +3,7 @@
 # use pip install flask
 # then:
 #   export FLASK_APP=gpio-flask.py
-#   flask run -p 4001
+#   flask run -p 4001 --host='ip.of.the.pi' --- ONLY FOR TESTING !!!
 #
 # Available calls ===================================================================
 
@@ -71,7 +71,7 @@
 # ===================================================================================
 
 # FLASK dependencies
-from flask import Flask, request
+from flask import Flask, request, Response
 
 import json
 
@@ -94,41 +94,44 @@ def toJSON(obj):
 
 @app.route('/info', methods=['GET'])
 def info():
-    return toJSON(gpioService.info())
+    try:
+        return Response(toJSON(gpioService.info()), 200, mimetype="application/json")
+    except Exception as e:
+        return Response(toJSON({"message": str(e)}), 500, mimetype="application/json")
 
 @app.route('/switchPinByBoardId', methods=['GET'])
 def switchPinByBoardId():
     try:
         boardId = int(request.args.get('boardId'))
         state = int(request.args.get('state'))
-        return toJSON(gpioService.switchPinByBoardId(boardId, state))
+        return Response(toJSON(gpioService.switchPinByBoardId(boardId, state)), 200, mimetype="application/json")
     except Exception as e:
-        return toJSON({"message": str(e)}), 500
+        return Response(toJSON({"message": str(e)}), 500, mimetype="application/json")
 
 @app.route('/switchPinByGpioId', methods=['GET'])
 def switchPinByGpioId():
     try:
         gpioId = int(request.args.get('gpioId'))
         state = int(request.args.get('state'))
-        return toJSON(gpioService.switchPinByGpioId(gpioId, state))
+        return Response(toJSON(gpioService.switchPinByGpioId(gpioId, state)), 200, mimetype="application/json")
     except Exception as e:
-        return toJSON({"message": str(e)}), 500
+        return Response(toJSON({"message": str(e)}), 500, mimetype="application/json")
 
 @app.route('/togglePinByBoardId', methods=['GET'])
 def togglePinByBoardId():
     try:
         boardId = int(request.args.get('boardId'))
-        return toJSON(gpioService.togglePinByBoardId(boardId))
+        return Response(toJSON(gpioService.togglePinByBoardId(boardId)), 200, mimetype="application/json")
     except Exception as e:
-        return toJSON({"message": str(e)}), 500
+        return Response(toJSON({"message": str(e)}), 500, mimetype="application/json")
 
 @app.route('/togglePinByGpioId', methods=['GET'])
 def togglePinByGpioId():
     try:
         gpioId = int(request.args.get('gpioId'))
-        return toJSON(gpioService.togglePinByGpioId(gpioId))
+        return Response(toJSON(gpioService.togglePinByGpioId(gpioId)), 200, mimetype="application/json")
     except Exception as e:
-        return toJSON({"message": str(e)}), 500
+        return Response(toJSON({"message": str(e)}), 500, mimetype="application/json")
 
 @app.route('/clickPinByBoardId', methods=['GET'])
 def clickPinByBoardId():
@@ -138,9 +141,9 @@ def clickPinByBoardId():
             pressTimeMS = int(request.args.get('pressTimeMS'))
         except:
             pressTimeMS = None
-        return toJSON(gpioService.clickPinByBoardId(boardId, pressTimeMS))
+        return Response(toJSON(gpioService.clickPinByBoardId(boardId, pressTimeMS)), 200, mimetype="application/json")
     except Exception as e:
-        return toJSON({"message": str(e)}), 500
+        return Response(toJSON({"message": str(e)}), 500, mimetype="application/json")
 
 @app.route('/clickPinByGpioId', methods=['GET'])
 def clickPinByGpioId():
@@ -150,24 +153,24 @@ def clickPinByGpioId():
             pressTimeMS = int(request.args.get('pressTimeMS'))
         except:
             pressTimeMS = None
-        return toJSON(gpioService.clickPinByGpioId(gpioId, pressTimeMS))
+        return Response(toJSON(gpioService.clickPinByGpioId(gpioId, pressTimeMS)), 200, mimetype="application/json")
     except Exception as e:
-        return toJSON({"message": str(e)}), 500
+        return Response(toJSON({"message": str(e)}), 500, mimetype="application/json")
 
 @app.route('/getPinByBoardId', methods=['GET'])
 def getPinByBoardId():
     try:
         boardId = int(request.args.get('boardId'))
-        return toJSON(gpioService.getPinByBoardId(boardId))
+        return Response(toJSON(gpioService.getPinByBoardId(boardId)), 200, mimetype="application/json")
     except Exception as e:
-        return toJSON({"message": str(e)}), 500
+        return Response(toJSON({"message": str(e)}), 500, mimetype="application/json")
 
 @app.route('/getPinByGpioId', methods=['GET'])
 def getPinByGpioId():
     try:
         gpioId = int(request.args.get('gpioId'))
-        return toJSON(gpioService.getPinByGpioId(gpioId))
+        return Response(toJSON(gpioService.getPinByGpioId(gpioId)), 200, mimetype="application/json")
     except Exception as e:
-        return toJSON({"message": str(e)}), 500
+        return Response(toJSON({"message": str(e)}), 500, mimetype="application/json")
 
 
