@@ -1,0 +1,40 @@
+body {
+    font-family: "Lucida Console", Monaco, monospace;
+    font-weight: bolder;
+    font-size: 14px;
+    margin: 0px;
+}
+
+.icon-text-href {
+    text-decoration: none;
+}
+
+.icon-picture {
+    border-style: none;
+}
+
+.app-top-bar {
+    width:100%;
+    height: 30px;
+    position: fixed;
+    top: 0px;
+}
+
+.app-top-bar-spacer {
+    height: 35px;
+}
+
+.app-container {
+    
+}
+
+.app-bottom-bar-spacer {
+    height: 45px;
+}
+
+.app-bottom-bar {
+    width:100%;
+    height: 30px;
+    position: fixed;
+    top: calc(100vh - 30px);
+}

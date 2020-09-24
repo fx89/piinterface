@@ -19,11 +19,17 @@
 
     <packaging>pom</packaging>
 
+	<properties>
+		<nodeVersion>v14.11.0</nodeVersion>
+		<npmVersion>6.14.8</npmVersion>
+	</properties>
+
     <modules>
         <module>piinterface-rest</module>
         <module>piinterface-service</module>
         <module>piinterface-data</module>
         <module>piinterface-common</module>
+        <module>piinterface-ui</module>
     </modules>
 
     <dependencyManagement>

@@ -35,3 +35,6 @@ target/
 __pycache__
 *.pyc
 
+# Angular
+dist/
+node_modules/

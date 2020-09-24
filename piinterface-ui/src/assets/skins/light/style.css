@@ -1,0 +1,104 @@
+body.light {
+    background-color: #EEE;
+    color: #111;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.app-container {
+    text-align: center;    
+}
+
+.icon-border {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #AAA;
+    border-radius: 15px;
+    padding: 20px;
+    width: 100px;
+    height: 100px;
+    background: rgb(134,134,134);
+    background: linear-gradient(197deg, rgba(134,134,134,1) 7%, rgba(255,255,255,1) 86%);
+    -webkit-box-shadow: 0px 0px 31px -7px #000000; 
+    box-shadow: 0px 0px 21px -7px #000000;
+    margin: 15px;
+    display: inline-block;
+}
+
+.icon-picture {
+    width: 100px;
+    height: 80px;
+    padding-bottom: 5px;
+}
+
+.icon-text {
+    font-size: 12px;
+    text-align: center;
+}
+
+.icon-text-href {
+    color: #000;
+}
+
+.app-top-bar {
+    background-color: #222;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: #999;
+    -webkit-box-shadow: 0px 3px 12px -5px #000000; 
+    box-shadow: 0px 3px 12px -5px #000000;
+}
+
+.app-bottom-bar {
+    background-color: #222;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: #999;
+    -webkit-box-shadow: 0px -3px 12px -5px #000000; 
+    box-shadow: 0px -3px 12px -5px #000000;
+}
+
+.title-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: RGBA(179, 179, 179, 0.5);
+    background-color: #FFF;
+    position: fixed;
+    left: 5px;
+    top: 5px;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.75); 
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.75);
+}
+
+.title-icon img {
+    margin-top: 8px;
+    width: 50px;
+    height: 40px;
+}
+
+.title-background {
+    position: fixed;
+    left: 50px;
+    top: 15px;
+    width: 135px;
+    height: 30px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #CCC;
+    padding-left: 40px;
+    padding-top: 10px;
+    background-color: #FFF;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 10px;
+    text-align: left;
+    -webkit-box-shadow: 11px 14px 15px -3px rgba(0,0,0,0.4); 
+    box-shadow: 11px 14px 15px -3px rgba(0,0,0,0.4);
+}
+
+.title-spacer {
+    height: 35px;
+}
