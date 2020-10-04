@@ -1,0 +1,24 @@
+<table [id]="getTableId()" class="data-table" [class.data-grid]="isDataGrid">
+    <!-- table header -->
+    <tr *ngIf="showHeader" class="data-table-header-row" [class.data-grid]="isDataGrid">
+        <th *ngIf="isDataGrid && showDataGridRowNumbers" class="data-table-header-row-number-col">
+        </th>
+        <th *ngFor="let columnTitle of columnTitles; index as i" class="data-table-header-col" [class.data-grid]="isDataGrid">
+            {{ columnTitle }}
+        </th>
+    </tr>
+
+    <!-- table body -->
+    <tr *ngFor="let item of data; index as rowIndex" class="data-table-body-row" [class.data-grid]="isDataGrid">
+        <td *ngIf="isDataGrid && showDataGridRowNumbers" class="data-table-body-row-number-col">
+            {{ dataGridRowNumberFunction(item, rowIndex, colIndex) }}
+        </td>
+        <td *ngFor="let columnTitle of columnTitles; index as colIndex" class="data-table-body-col"
+            [class.data-grid]="isDataGrid"
+            [class.selected]="item == selectedItem"
+            (click)="onTableRecordClicked(item, rowIndex, colIndex)"
+        >
+            {{ getDataItemValue(item, rowIndex, colIndex) }}
+        </td>
+    </tr>
+</table>

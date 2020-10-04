@@ -1,0 +1,9 @@
+<div class="pushbutton"
+    [style.width.px]="widthPX"
+    [style.height.px]="heightPX"
+    (click)="buttonClicked($event)"
+    [class.enabled]="enabled"
+    [class.disabled]="!enabled"
+>
+    <img *ngIf="icon" [src]="icon"> {{ text }}
+</div>

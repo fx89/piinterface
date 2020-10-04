@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { share } from 'rxjs/operators';
+import { share, filter, catchError } from 'rxjs/operators';
 
 
 
@@ -117,5 +116,34 @@ export class HttpClientWrapperService {
                             catchError(err => of(err.error))
                          )
                         ;
+    }
+
+    public requestWithErrorHandling<R>(
+        requestType: RequestType,
+        url: string,
+        body: any,
+        errorEventEmitter: EventEmitter<any>,
+        params?: Map<string, string>,
+        headers?: Map<string, string>,
+        responseType?: ResponseType
+    ) : Observable<any>
+    {    
+        // Make the request
+        let obs : Observable<any> = this.request<R>(requestType, url, body, params, headers, responseType);
+    
+        // Prepare to treat errors (HTTP status 500) in case they are encountered
+        obs.subscribe(ret => {
+          if (ret) {
+            let resp : any = ret;
+            if (resp.status != null && resp.status != undefined) {
+              if (resp.status != 200) {
+                errorEventEmitter.emit(ret); // Emit the error to any other subscriber
+              }
+            }
+          }
+        });
+    
+        // Make sure errors (i.e. HTTP status 500) don't go through the regular flow
+        return obs.pipe(filter(resp => resp == null || (resp != null && !(resp.status != null && resp.status != 200 && (<string>(resp.status)).length < 4))));
     }
 }

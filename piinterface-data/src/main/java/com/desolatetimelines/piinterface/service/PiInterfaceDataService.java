@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.desolatetimelines.piinterface.dao.IconsRepository;
+import com.desolatetimelines.piinterface.dao.IpAddressRangesRepository;
 import com.desolatetimelines.piinterface.dao.PiInstancesRepository;
 import com.desolatetimelines.piinterface.dao.PinGroupPinsRepository;
 import com.desolatetimelines.piinterface.dao.PinGroupTypesRepository;
@@ -44,4 +45,7 @@ public class PiInterfaceDataService {
 
 	@Autowired
 	private IconsRepository iconsRepository;
+
+	@Autowired
+	private IpAddressRangesRepository ipAddressRangesRepository;
 }

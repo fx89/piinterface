@@ -1,0 +1,43 @@
+<div [id]="getDialogModalCoverId()" class="modal-cover" style="visibility:hidden"></div>
+
+<div
+    [id]="getDialogFrameId()"
+    class="dialog-frame"
+    style="visibility:hidden"
+    [style.width.px]="widthPX"
+    [style.height.px]="heightPX"
+>
+    <!-- Title bar -->
+    <div style="width:100%;" class="dialog-title">{{ title }}</div>
+
+
+    <!-- User-defined content -->
+    <div style="width: 100%;" class="dialog-content" [id]="getDialogContentId()" [class.with-validation-messages]="showValidationMessages">
+        <ng-content></ng-content>
+    </div>
+
+    <!-- Validation messages -->
+    <div style="width: 100%;" class="dialog-validation-messages" *ngIf="showValidationMessages">
+        {{ firstValidationMessage }}
+    </div>
+
+
+    <!-- Buttons -->
+    <table class="dialog-buttons-table" style="width:100%;"><tr>
+        <!-- User-defined buttons column -->
+        <td class="custom-buttons-td">
+            <table><tr>
+                <td *ngFor="let button of buttons">
+                    <pushbutton [text]="button.text" (onClick)="button.onClick()"></pushbutton>
+                </td>
+            </tr></table>
+        </td>
+
+        <!-- Standard buttons -->
+        <td class="standard-buttons-td">
+            <pushbutton [text]="cancelButtonText" (onClick)="cancelButtonClicked()" *ngIf="showCancelButton"></pushbutton>
+            <pushbutton [text]="okButtonText" (onClick)="okButtonClicked()" *ngIf="showOkButton"></pushbutton>
+        </td>
+    </tr></table>
+
+</div>

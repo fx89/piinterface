@@ -38,4 +38,6 @@ public class PiInstance implements Serializable {
 	@Column(name = "LAST_REGISTERED_ADDRESS")
 	private String lastRegisteredAddress;
 
+	@Column(name = "IS_OFFLINE")
+	private Boolean isOffline;
 }

@@ -1,0 +1,13 @@
+<div [id]="getModalCoverId()" class="modal-cover" style="visibility: hidden"></div>
+
+<div [id]="getCenterFormId()" class="loading-modal-center-form" style="visibility: hidden">
+    <table style="border-style:none; padding:0px; margin:0px;"><tr>
+        <td style="border-style:none; padding:0px; margin:0px;">
+            <loading-wheel></loading-wheel>
+        </td>
+        <td style="border-style:none; padding:0px; margin:0px; padding-left: 10px;">
+            <div class="loading-modal-center-form-title">{{ svc.title }}</div>
+            <div class="loading-modal-center-form-subtitle">{{ svc.subtitle }}</div>
+        </td>
+    </tr></table>
+</div>

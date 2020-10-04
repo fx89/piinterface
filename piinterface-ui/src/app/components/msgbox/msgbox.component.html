@@ -1,0 +1,17 @@
+<app-dialog
+    [title]="title"
+    [okButtonText]="okButtonText"
+    [cancelButtonText]="cancelButtonText"
+    [isModal]="true"
+    [widthPX]="widthPX"
+    [heightPX]="heightPX"
+    [showEvent]="showEvent"
+    [okCallback]="okCallback"
+    [cancelCallback]="cancelCallback"
+    [triggerOkIfInvalid]="true"
+    [triggerCancelIfInvalid]="false"
+    [showValidationMessages]="false"
+    [showCancelButton]="hasTwoButtons"
+>
+{{ message }}
+</app-dialog>

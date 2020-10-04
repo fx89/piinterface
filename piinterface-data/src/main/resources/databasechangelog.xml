@@ -40,5 +40,27 @@
 			stripComments="true"
 		/>
 	</changeSet>
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="003">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="003-ip-address-ranges.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="004">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="004--pi-instance-is-offline.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
 
 </databaseChangeLog>

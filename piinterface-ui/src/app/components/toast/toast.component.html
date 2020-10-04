@@ -1,0 +1,15 @@
+<div [id]="getToastFrameId()" class="toast-frame" (click)="toastClicked()"
+    [class.toast-info]="additionalClassName == 'info'"
+    [class.toast-warning]="additionalClassName == 'warning'"
+    [class.toast-error]="additionalClassName == 'error'"
+>
+    <table style="border-style:none; border-width:0px; padding:0px; margin:0px;"><tr>
+        <td style="border-style:none; border-width:0px; padding:0px; margin:0px;">
+            <img style="border-style:none; border-width:0px; padding:0px; margin:0px;" [src]="iconPathName">
+        </td>
+        <td style="border-style:none; border-width:0px; padding:0px; margin:0px; align:left; vertical-align:top;">
+            <div class="toast-title"> {{ title }} </div>
+            <div class="toast-description"> {{ description }} </div>
+        </td>
+    </tr></table>
+</div>

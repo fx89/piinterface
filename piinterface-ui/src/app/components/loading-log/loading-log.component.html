@@ -1,0 +1,42 @@
+<div [id]="getLoadingLogModalId()" class="loading-log-modal modal-cover fade-out" style="visibility: hidden"></div>
+
+<div [id]="getLoadingLogFrameId()" class="loading-log-frame loading-log-frame-hidden">
+    <table style="border-style:none; border-width:0px; margin:0px; padding:0px; width:100%; height:100%"><tr>
+        <td style="border-style:none; border-width:0px; margin:0px; padding:0px; vertical-align:top;" class="loading-log-wheel-container">
+            <loading-wheel></loading-wheel>
+            <loading-wheel></loading-wheel>
+            <loading-wheel></loading-wheel>
+        </td>
+        <td style="border-style:none; border-width:0px; margin:0px; padding:0px; vertical-align:top; text-align:left;">
+            <div [id]="getLoadingLogListboxId()" class="loading-log-listbox" style="width:100%; height:100%;">
+                <table style="border-style:none; border-width:0px; margin:0px; padding:0px; width:100%;" class="loading-log-table">
+                    <tr *ngFor="let msg of messages">
+                        <td [class.loading-log-info]="msgClassFunction(msg) == 'info'"
+                            [class.loading-log-warning]="msgClassFunction(msg) == 'warning'"
+                            [class.loading-log-error]="msgClassFunction(msg) == 'error'"
+                            class="loading-log-icon-container"
+                        >
+                            <img [src]="msgIconFunction(msg)" style="border-style:none; border-width:0px; margin:0px; padding:0px;" class="loading-log-icon">
+                        </td>
+                        <td [class.loading-log-info]="msgClassFunction(msg) == 'info'"
+                            [class.loading-log-warning]="msgClassFunction(msg) == 'warning'"
+                            [class.loading-log-error]="msgClassFunction(msg) == 'error'"
+                            style="text-align:left;"
+                            class="loading-log-title-container"
+                        >
+                            {{ msgTitleFunction(msg) }}
+                        </td>
+                        <td [class.loading-log-info]="msgClassFunction(msg) == 'info'"
+                            [class.loading-log-warning]="msgClassFunction(msg) == 'warning'"
+                            [class.loading-log-error]="msgClassFunction(msg) == 'error'"
+                            style="text-align:left;"
+                            class="loading-log-description-container"
+                        >
+                            {{ msgDescriptionFunction(msg) }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr></table>
+</div>

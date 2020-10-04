@@ -3,4 +3,140 @@
     titleText="PI instances"
 ></page-title>
 
-<p>pi-instances works!</p>
+<!-- The IP address ranges form -->
+<div style="margin:auto; width:80%;">
+    <div class="panel" style="height:195px">
+        IP address ranges
+        <div class="spacer"></div>
+        <list
+            [items]="ipAddressRanges"
+            [(selectedItem)]="selectedIpAddressRange"
+            [titleFunction]="ipRangeTitleFunction"
+            [descriptionFunction]="ipRangeDescriptionFunction"
+            [iconFunction]="ipRangeIconFunction"
+            [widthPCT]="100"
+            [heightPX]="130"
+            rowType="card"
+            noDataMessage="There are no IP address ranges defined"
+        ></list>
+        <div class="spacer"></div>
+        <table style="width:100%"><tr>
+            <td style="width: 50px;">
+                <pushbutton text="Add" [widthPX]="50" (onClick)="rangeAddButtonClicked()"></pushbutton>
+            </td>
+            <td style="width: 50px;">
+                <pushbutton text="Remove" (onClick)="rangeRemoveBUttonClicked()" [enabled]="selectedIpAddressRange" [widthPX]="50"></pushbutton>
+            </td>
+            <td style="width: 50px;">
+                <pushbutton text="Scan" (click)="onScanButtonClicked()" [widthPX]="50" [enabled]="ipAddressRanges && ipAddressRanges.length > 0"></pushbutton>
+            </td>
+            <td style="padding-left: calc(100% - 235px)">
+                <pushbutton text="Deselect" (onClick)="deselectIpAddressRanges()"></pushbutton>
+            </td>
+        </tr></table>
+    </div>
+</div>
+
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<!-- The PI instances form -->
+<div style="margin:auto; width:80%;">
+    <div class="panel" style="height:195px">
+        Accessible PI instances
+        <div class="spacer"></div>
+        <list
+            [items]="accessiblePiInstances"
+            [(selectedItem)]="selectedPiInstance"
+            [titleFunction]="piInstanceTitleFunction"
+            [descriptionFunction]="piInstanceDescriptionFunction"
+            [iconFunction]="piInstanceIconFunction"
+            [widthPCT]="100"
+            [heightPX]="130"
+            rowType="card"
+            noDataMessage="There are no PI instances maanged by this application"
+        ></list>
+        <div class="spacer"></div>
+        <table style="width:100%"><tr>
+            <td style="width: 60px;">
+                <pushbutton text="Resync" (click)="onResyncPiInstanceClicked()" [enabled]="selectedPiInstance"></pushbutton>
+            </td>
+            <td style="width: 60px;">
+                <pushbutton text="Show pins" [enabled]="selectedPiInstance" [widthPX]="80" (click)="showPinsButtonClicked()"></pushbutton>
+            </td>
+            <td style="padding-left: calc(100% - 225px)">
+                <pushbutton text="Deselect" (onClick)="deselectPiInstances()"></pushbutton>
+            </td>
+        </tr></table>
+    </div>
+</div>
+
+
+<!-- IP address range edit dialog -->
+<app-dialog
+    title="Add IP address range"
+    okButtonText="Save"
+    [showEvent]="rangeEditDialogShowEvent"
+    [okCallback]="onIpAddressRangeEditDialogSave"
+    [cancelCallback]="onIpAddressRangeEditDialogCancel"
+>
+    <table style="width:100%; text-align:left;" *ngIf="selectedIpAddressRange">
+        <tr><td>Name</td><td>
+            <text-field
+                placeholder="User friendly name, min 3 characters"
+                [widthPCT]="100"
+                [validationFunction]="ipRangeNameValidationFunction"
+                [(value)]="selectedIpAddressRange.name"
+            ></text-field>
+        </td></tr>
+
+        <tr><td>Prefix</td><td>
+            <text-field
+                placeholder="IPv4 prefix (xxx.xxx.xxx.) or IPv6 prefix"
+                [widthPCT]="100"
+                [validationFunction]="ipRangePrefixValidationFunction"
+                [(value)]="selectedIpAddressRange.prefix"
+            ></text-field>
+        </td></tr>
+
+        <tr><td>Start</td><td>
+            <text-field
+                placeholder="Number (0 to 255) or hex (00 to FF)"
+                [widthPCT]="100"
+                [validationFunction]="ipRangeDigitValidationFunction"
+                [(value)]="selectedIpAddressRange.rangeStart"
+            ></text-field>
+        </td></tr>
+
+        <tr><td>End</td><td>
+            <text-field
+                placeholder="Number (0 to 255) or hex (00 to FF)"
+                [widthPCT]="100"
+                [validationFunction]="ipRangeDigitValidationFunction"
+                [(value)]="selectedIpAddressRange.rangeEnd"
+            ></text-field>
+        </td></tr>
+    </table>
+</app-dialog>
+
+
+
+<!-- PI instance pins dialog -->
+<app-dialog
+    [title]="'Pins available on [' + (selectedPiInstance ? selectedPiInstance.name : 'N/A') + ']'"
+    [showEvent]="piInstancePinsDialogShowEvent"
+    [showOkButton]="false"
+    cancelButtonText="Close"
+    [widthPX]="400"
+    [heightPX]="350"
+    [showValidationMessages]="false"
+>
+    <data-table *ngIf="selectedPiInstance"
+        [data]="selectedPiInstancePins"
+        [columnTitles]="pinsTableHeaderColumnTitles"
+        [displayFunctions]="pinsTableDisplayFunctions"
+        [isDataGrid]="true"
+        [showDataGridRowNumbers]="true"
+    ></data-table>
+</app-dialog>
