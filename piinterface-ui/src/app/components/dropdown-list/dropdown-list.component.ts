@@ -49,7 +49,7 @@ export class DropdownListComponent implements OnInit, AfterViewInit {
   showListIcons : boolean = true;
 
   @Input()
-  validationFunction : Function = () => true;
+  validationFunction : Function = () => "";
 
   isValid : boolean = true;
 

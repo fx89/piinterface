@@ -31,7 +31,7 @@ export class TextFieldComponent implements OnInit {
   heightPX: number = 17;
 
   @Input()
-  validationFunction : Function = () => true;
+  validationFunction : Function = () => "";
 
   isValid : boolean = true;
 
