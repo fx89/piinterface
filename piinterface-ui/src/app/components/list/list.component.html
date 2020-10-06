@@ -11,7 +11,7 @@
         cellspacing="0" cellpadding="0"
         class="list-card"
     ><tr>
-        <td class="list-card-icon" [class.selected]="item == selectedItem">
+        <td class="list-card-icon" [class.selected]="item == selectedItem" *ngIf="showIcons">
             <img style="border-style:none" [src]="iconFunction(item)" (click)="itemClicked(item)">
         </td>
         <td class="list-card-content" (click)="itemClicked(item)" [class.selected]="item == selectedItem">
@@ -33,7 +33,7 @@
     [style.height.px]="heightPX"
 >
     <table *ngFor="let item of items" style="width:100%" class="list-compact"><tr>
-        <td class="list-compact-icon" [class.selected]="item == selectedItem">
+        <td class="list-compact-icon" [class.selected]="item == selectedItem" *ngIf="showIcons">
             <img style="border-style:none" [src]="iconFunction(item)" (click)="itemClicked(item)">
         </td>
         <td class="list-compact-content" (click)="itemClicked(item)" [class.selected]="item == selectedItem">

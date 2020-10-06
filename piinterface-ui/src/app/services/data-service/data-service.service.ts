@@ -13,6 +13,7 @@ export class DataService {
   public ipAddressRangesRepository : HttpRepository;
   public notificationsRepository : HttpRepository;
   public piInstancePinsRepository : HttpRepository;
+  public pinOperatingModesRepository : HttpRepository;
 
   constructor(
     private client : HttpClientWrapperService
@@ -22,6 +23,7 @@ export class DataService {
     this.ipAddressRangesRepository = new HttpRepository(client, backendURL, "ipAddressRanges");
     this.notificationsRepository = new HttpRepository(client, backendURL, "notifications");
     this.piInstancePinsRepository = new HttpRepository(client, backendURL, "pins");
+    this.pinOperatingModesRepository = new HttpRepository(client, backendURL, "pinOperatingModes");
   }
 }
 

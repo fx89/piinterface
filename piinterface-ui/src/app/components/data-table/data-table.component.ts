@@ -38,6 +38,9 @@ export class DataTableComponent implements OnInit {
   @Input()
   showDataGridRowNumbers : boolean = false;
 
+  @Output()
+  onSelectionChanged : EventEmitter<any> = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit() {
@@ -59,5 +62,7 @@ export class DataTableComponent implements OnInit {
 
   onTableRecordClicked(item:any, rowIndex:number, colIndex:number) {
     this.selectedItem = item;
+    this.selectedItemChange.emit(this.selectedItem);
+    this.onSelectionChanged.emit(this.selectedItem);
   }
 }

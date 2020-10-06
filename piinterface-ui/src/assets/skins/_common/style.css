@@ -377,3 +377,25 @@ body {
         visibility: visible;
     }
 }
+
+.dropdown-list-container.visible {
+    animation-name: fade-in;
+    animation-timing-function: ease-in;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-duration: 0.2s;
+    top: 50px;
+}
+
+.dropdown-list-container.hidden {
+    animation-name: fade-out;
+    animation-timing-function: ease-in;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-duration: 0.3s;
+    top: 50px;
+}
+
+.crud-table-data-table-container {
+    overflow-y: scroll;
+}

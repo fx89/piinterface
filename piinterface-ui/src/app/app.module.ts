@@ -27,6 +27,7 @@ import { LoadingLogComponent } from './components/loading-log/loading-log.compon
 import { ServiceableLoadingLogComponent } from './components/serviceable-loading-log/serviceable-loading-log.component';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { CrudTableComponent } from './components/crud-table/crud-table.component';
+import { DropdownListComponent } from './components/dropdown-list/dropdown-list.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { CrudTableComponent } from './components/crud-table/crud-table.component
     LoadingLogComponent,
     ServiceableLoadingLogComponent,
     DataTableComponent,
-    CrudTableComponent
+    CrudTableComponent,
+    DropdownListComponent
   ],
   imports: [
     BrowserModule,

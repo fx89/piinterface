@@ -1,0 +1,36 @@
+<table
+    [id]="getContainerId()"
+    class="dropdown-list-controls-table"
+    [style.width.px] = "widthPX ? widthPX : 'auto'"
+    [style.width.%] = "widthPCT ? widthPCT : 'auto'"
+><tr>
+    <td>
+        <div [id]="getTextboxId()" class="dropdown-list-textbox" style="width:100%"
+            (click)="onTextboxClicked()"
+            [class.valid]="isValid"
+            [class.invalid]="!isValid"
+        >
+            {{ selctedItemDisplayFunction(selectedItem) }}
+        </div>
+    </td>
+    <td class="dropdown-lost-button-container">
+        <div [id]="getButtonId()" class="dropdown-list-button"
+            (click)="onButtonClicked()"
+        ></div>
+    </td>
+</tr></table>
+
+
+<div [id]="getListContainerId()" class="dropdown-list-container" style="visibility:hidden;">
+    <list
+        [items]="items"
+        [(selectedItem)]="selectedItem"
+        (onSelectionChanged)="onSelectionChanged($event)"
+        [iconFunction]="iconFunction"
+        [titleFunction]="titleFunction"
+        [descriptionFunction]="descriptionFunction"
+        [rowType]="listRowType"
+        [showIcons]="showListIcons"
+        [heightPX]="listHeightPX"
+    ></list>
+</div>

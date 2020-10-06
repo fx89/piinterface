@@ -1,1 +1,66 @@
-<p>pins works!</p>
+<page-title
+    iconFileRef="main-menu/pins"
+    titleText="Pins"
+></page-title>
+
+<!-- PI instance choice panel -->
+<div style="margin:auto; width:80%;">
+    <div class="panel" style="height:55px; text-align:left;">
+        Choose a PI instance
+        <dropdown-list
+            [items]="piInstances"
+            [(selectedItem)]="selectedPiInstnace"
+            [selctedItemDisplayFunction]="piInstanceDropdownListTextboxDisplayFunction"
+            [titleFunction]="piInstanceTitleFunction"
+            [descriptionFunction]="piInstanceDescriptionFunction"
+            [iconFunction]="piInstanceIconFunction"
+            (onSelectionChanged)="onSelectedPiInstanceChanged($event)"
+        ></dropdown-list>
+    </div>
+</div>
+
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<!-- Pins management panel -->
+<div style="margin:auto; width:80%;">
+    <div class="panel" style="height:250px; text-align:left;">
+        Detected pins
+        <div class="spacer"></div>
+        <crud-table *ngIf="selectedPiInstancePins"
+            [data]="selectedPiInstancePins"
+            [columnTitles]="pinsTableColumnTitles"
+            [displayFunctions]="pinsTableDisplayFunctions"
+            [dataGridRowNumberFunction]="pinsTableDataGridRowNumberFunction"
+            [(selectedItem)]="selectedPin"
+            [showAddButton]="false"
+            [showEditButton]="true"
+            [showDelButton]="false"
+            [dataTableHeightPX]="190"
+            [saveItemFunction]="savePiInstancePin"
+            [editDialogHeightPX]="160"
+        >
+            <table style="width:100%" *ngIf="selectedPin" style="font-size:10px;">
+                <tr><td>Operating mode</td><td>
+                    <dropdown-list
+                        listRowType="compact"
+                        [items]="pinOperatingModes"
+                        [(selectedItem)]="selectedPin.operatingMode"
+                        [showListIcons]="false"
+                        [selctedItemDisplayFunction]="pinOperatingModeDisplayFunction"
+                        [titleFunction]="pinOperatingModeTitleFunction"
+                        [validationFunction]="pinOperatingModeValidationFunction"
+                    ></dropdown-list>
+                </td></tr>
+                <tr><td>Delay (ms)</td><td>
+                    <text-field
+                        [(value)]="selectedPin.delayMs"
+                        [widthPCT]="100"
+                        [validationFunction]="pinDelayMsValidationFunction"
+                    ></text-field>
+                </td></tr>
+            </table>
+        </crud-table>
+    </div>
+</div>

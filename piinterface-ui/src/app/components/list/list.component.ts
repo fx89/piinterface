@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'list',
@@ -6,6 +7,9 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
+
+  @Input()
+  id : string = "_" + uuid();
 
   @Input()
   widthPX : number = null;
@@ -43,8 +47,14 @@ export class ListComponent implements OnInit {
   @Input()
   descriptionFunction: Function = () => "";
 
+  @Input()
+  showIcons : boolean = true;
+
   @Output()
   onClick : EventEmitter<any> = new EventEmitter<any>();
+
+  @Output()
+  onSelectionChanged : EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
@@ -55,6 +65,7 @@ export class ListComponent implements OnInit {
     if (this.selectable) {
       this.selectedItem = item;
       this.selectedItemChange.emit(this.selectedItem);
+      this.onSelectionChanged.emit(this.selectedItem);
     }
 
     this.onClick.emit(item);

@@ -10,6 +10,7 @@ import { ToastService } from 'src/app/components/services/toast/toast.service';
 import { BackendNotification } from 'src/app/model/BackendNotification';
 import { LoadingLogService } from 'src/app/components/services/loading-log/loading-log.service';
 import { PiInstancePin } from 'src/app/model/PiInstancePin';
+import { ipRangeTitleFunction, ipRangeDescriptionFunction, piInstanceDescriptionFunction, piInstanceIconFunction, piInstanceTitleFunction, ipRangeIconFunction } from 'src/app/common/display-functions';
 
 @Component({
   selector: 'app-pi-instances',
@@ -20,15 +21,15 @@ export class PiInstancesComponent implements AfterViewInit {
 
   accessiblePiInstances : PiInstance[] = [];
   selectedPiInstance : any;
-  piInstanceTitleFunction : Function = (item : PiInstance) => item.name;
-  piInstanceDescriptionFunction : Function = (item : PiInstance) => "[" + item.id + "] " + item.lastRegisteredAddress + (item.isOffline ? " (OFFLINE)" : "");
-  piInstanceIconFunction : Function = () => "assets/skins/" + getSkinName() + "/icons/main-menu/pi-instances.png";
+  piInstanceTitleFunction : Function = piInstanceTitleFunction;
+  piInstanceDescriptionFunction : Function = piInstanceDescriptionFunction;
+  piInstanceIconFunction : Function = piInstanceIconFunction;
 
   ipAddressRanges : IpAddressRange[] = [];
   selectedIpAddressRange : IpAddressRange;
-  ipRangeTitleFunction : Function = (item : IpAddressRange) => item.name;
-  ipRangeDescriptionFunction : Function = (item : IpAddressRange) => "[" + item.id + "] " + item.prefix + "(" + item.rangeStart + "/" + item.rangeEnd + ")";
-  ipRangeIconFunction : Function = () => "assets/skins/" + getSkinName() + "/icons/list-element-squashed.png";
+  ipRangeTitleFunction : Function = ipRangeTitleFunction;
+  ipRangeDescriptionFunction : Function = ipRangeDescriptionFunction;
+  ipRangeIconFunction : Function = ipRangeIconFunction;
   ipRangeNameValidationFunction : Function = (value : string) => value && value.length >= 3 ? null : "Name must have at least 3 characters";
   ipRangePrefixValidationFunction : Function = (value : string) => value && value.length >= 6 ? null : "Prefix must have at least 6 characters";
   ipRangeDigitValidationFunction : Function = (value : string) => value && value.length > 0 ? null : "IP range element must have at least one caracter";
