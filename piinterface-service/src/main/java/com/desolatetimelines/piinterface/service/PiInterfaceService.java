@@ -21,9 +21,11 @@ import org.springframework.stereotype.Component;
 import com.desolatetimelines.piinterface.model.IpAddressRange;
 import com.desolatetimelines.piinterface.model.PiInstance;
 import com.desolatetimelines.piinterface.model.Pin;
+import com.desolatetimelines.piinterface.model.PinOperatingMode;
 import com.desolatetimelines.piinterface.piclient.PiClientService;
 import com.desolatetimelines.piinterface.piclient.model.PIInstance;
 import com.desolatetimelines.piinterface.piclient.model.PIInstancePin;
+import com.desolatetimelines.piinterface.service.exception.CorruptedRegistryException;
 import com.desolatetimelines.piinterface.service.exception.PiInterfaceServiceException;
 import com.desolatetimelines.piinterface.service.model.Notification;
 import com.desolatetimelines.piinterface.service.utils.IpAddressRangesUtil.IpAddressType;
@@ -298,6 +300,12 @@ public class PiInterfaceService {
 		if (instanceInfo == null) {
 			throw new IllegalArgumentException("No detected instance was provided");
 		}
+
+		// Get the pushbutton operating mode
+		PinOperatingMode pushbutonOperatingMode
+			= dataService.getPinOperatingModesRepository()
+				.findOneByName("PUSHBUTTON")
+				.orElseThrow(() -> new CorruptedRegistryException("The registry is missing the PUSHBUTTON operating mode"));
 		
 		// Get the list of saved pins
 		List<Pin> savedPins = dataService.getPinsRepository().findAllByPiInstanceId(instance.getId());
@@ -345,6 +353,7 @@ public class PiInterfaceService {
 				newPin.setGpioId(availablePin.getGpioId());
 				newPin.setIsAvailable(true);
 				newPin.setName(availablePin.getName());
+				newPin.setOperatingMode(pushbutonOperatingMode);
 				pinsToBeSaved.add(newPin);
 			}
 		});
