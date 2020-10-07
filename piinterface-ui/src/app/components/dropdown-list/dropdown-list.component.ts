@@ -68,6 +68,7 @@ export class DropdownListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.ensureElementsAreCollected();
+    this.validate();
 
     window.addEventListener("resize", () => {
       this.updateListCoords();
@@ -128,13 +129,15 @@ export class DropdownListComponent implements OnInit, AfterViewInit {
   coordsAreWithinBoundingRect(x:number, y:number) {
     this.ensureElementsAreCollected();
 
-    let boxX1 : number = this.textboxElement.getBoundingClientRect().left;
-    let boxY1 : number = this.textboxElement.getBoundingClientRect().top;
-    let boxX2 : number = this.buttonElement.getBoundingClientRect().right;
-    let boxY2 : number = this.listContainerElement.getBoundingClientRect().bottom;
+    if (this.textboxElement && this.listContainerElement) {
+      let boxX1 : number = this.textboxElement.getBoundingClientRect().left;
+      let boxY1 : number = this.textboxElement.getBoundingClientRect().top;
+      let boxX2 : number = this.buttonElement.getBoundingClientRect().right;
+      let boxY2 : number = this.listContainerElement.getBoundingClientRect().bottom;
 
-    if (boxX1 <= x && x < boxX2 && boxY1 <= y && y <= boxY2) {
-      return true;
+      if (boxX1 <= x && x < boxX2 && boxY1 <= y && y <= boxY2) {
+        return true;
+      }
     }
 
     return false;
