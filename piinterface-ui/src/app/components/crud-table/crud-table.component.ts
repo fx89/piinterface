@@ -39,7 +39,7 @@ export class CrudTableComponent implements OnInit {
   onSelectionChanged : EventEmitter<any> = new EventEmitter<any>();
 
   @Input()
-  newItemFunction : Function = () => { name:"New generic object" };
+  newItemFunction : Function = () => { return { name:"New generic object" }; }
 
   @Input()
   saveItemFunction : Function = (item:any) => { throw "not implemented"; }
@@ -76,6 +76,18 @@ export class CrudTableComponent implements OnInit {
 
   @Input()
   delConfirmationMsgboxMessage : string = "Are you sure you want to delete the selected item?";
+
+  @Input()
+  contentType : string = "table"; // Possible values: table, list
+
+  @Input()
+  listTitleFunction : Function = (item:any) => item ? item.toString() : "";
+
+  @Input()
+  listDescriptionFunction : Function = (item:any) => "";
+
+  @Input()
+  listIconFunction : Function = (item:any) => "";
 
   editDialogShowEvent : EventEmitter<any> = new EventEmitter<any>();
 
@@ -119,10 +131,16 @@ export class CrudTableComponent implements OnInit {
 
   onAddButtonClicked() {
     this.selectedItem = this.newItemFunction();
+    this.selectedItemChange.emit(this.selectedItem);
     this.editDialogShowEvent.emit();
   }
 
   onDialogOkButtonClicked : Function = () => {
     this.saveItemFunction(this.selectedItem);
+    this.selectedItem = undefined;
+  }
+
+  onDialogCancelButtonClicked : Function = () => {
+    this.selectedItem = undefined;
   }
 }

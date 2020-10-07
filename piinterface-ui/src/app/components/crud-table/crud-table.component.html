@@ -1,6 +1,6 @@
 <div [id]="getContainerId()" class="crud-table-container">
 
-    <div class="crud-table-data-table-container" [style.height.px]="dataTableHeightPX">
+    <div class="crud-table-data-table-container" [style.height.px]="dataTableHeightPX" *ngIf="contentType=='table'">
         <data-table
             [id]="getDataTableId()"
             [data]="data"
@@ -14,6 +14,16 @@
             [showDataGridRowNumbers]="showDataGridRowNumbers"
         ></data-table>
     </div>
+    <list *ngIf="contentType=='list'"
+        [widthPCT]="100"
+        [heightPX]="dataTableHeightPX"
+        [items]="data"
+        [(selectedItem)]="selectedItem"
+        (onSelectionChanged)="onTableSelectionChanged($event)"
+        [iconFunction]="listIconFunction"
+        [titleFunction]="listTitleFunction"
+        [descriptionFunction]="listDescriptionFunction"
+    ></list>
 
     <div class="spacer"></div>
 
@@ -32,6 +42,7 @@
     [heightPX]="editDialogHeightPX"
     [showEvent]="editDialogShowEvent"
     [okCallback]="onDialogOkButtonClicked"
+    [cancelCallback]="onDialogCancelButtonClicked"
     [showValidationMessages]="showEditDialogValidationMessages"
 >
     <div style="width:100%; height:100%; border-width:0px; border-style:none; margin:0px; padding:0px;"
