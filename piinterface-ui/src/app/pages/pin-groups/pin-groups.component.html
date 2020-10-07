@@ -1,1 +1,99 @@
-<p>pin-groups works!</p>
+<page-title
+    iconFileRef="main-menu/pin-groups"
+    titleText="Pin groups"
+></page-title>
+
+
+<div style="margin:auto; width:80%;">
+    <div class="panel" style="height:170px; text-align:left;">
+        Registered pin groups
+        <div class="spacer"></div>
+        <crud-table
+            [data]="pinGroups"
+            contentType="list"
+            [(selectedItem)]="selectedPinGroup"
+            [showAddButton]="true"
+            [showEditButton]="true"
+            [showDelButton]="true"
+            [dataTableHeightPX]="100"
+            [newItemFunction]="newPinGroupFunction"
+            [saveItemFunction]="savePinGroup"
+            [deleteItemFunction]="deleteSelectedPinGroup"
+            [editDialogHeightPX]="160"
+            [listTitleFunction]="pinGroupTitleFunction"
+            [listDescriptionFunction]="pinGroupDescriptionFunction"
+            [listIconFunction]="pinGroupIconFunction"
+            (onSelectionChanged)="onSelectedPinGroupChanged()"
+        >
+            <table style="font-size:10px; width:100% !important; margin-left:5px;" *ngIf="selectedPinGroup">
+                <tr><td>Type</td><td>
+                    <dropdown-list
+                        listRowType="compact"
+                        [items]="pinGroupTypes"
+                        [(selectedItem)]="selectedPinGroup.type"
+                        [showListIcons]="false"
+                        [selctedItemDisplayFunction]="pinGroupTypesDisplayFunction"
+                        [titleFunction]="pinGroupTypesTitleFunction"
+                        [validationFunction]="pinGroupTypesValidationFunction"
+                    ></dropdown-list>
+                </td></tr>
+                <tr><td>Name</td><td>
+                    <text-field
+                        [(value)]="selectedPinGroup.name"
+                        [widthPCT]="100"
+                        [validationFunction]="pinGroupNameValidationFunction"
+                    ></text-field>
+                </td></tr>
+            </table>
+        </crud-table>
+    </div>
+</div>
+
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<div style="margin:auto; width:80%;">
+    <div class="panel" style="height:200px; text-align:left;">
+        Pins in the selected group
+        <div class="spacer"></div>
+        <crud-table *ngIf="selectedPinGroup && selectedGroupPins"
+            [data]="selectedGroupPins"
+            contentType="list"
+            [(selectedItem)]="selectedPin"
+            [showAddButton]="true"
+            [showEditButton]="false"
+            [showDelButton]="true"
+            [dataTableHeightPX]="130"
+            [editDialogWidthPX]="400"
+            [editDialogHeightPX]="360"
+            editDialogTitle="Choose a pin to add to the group"
+            [listTitleFunction]="pinGroupPinTitleFunction"
+            [listDescriptionFunction]="pinGroupPinDescriptionFunction"
+            [listIconFunction]="pinIconFunction"
+            [deleteItemFunction]="onPinGroupPinDelete"
+            [saveItemFunction]="onPinSelectionDialogSave"
+            [dialogSaveButtonEnabled]="canSavePinGroupPin"
+        >
+            <!-- PI instance selection -->
+            <dropdown-list
+                [items]="piInstances"
+                [(selectedItem)]="selectedPiInstance"
+                (onSelectionChanged)="onSelectedPiInstanceChanged()"
+                [selctedItemDisplayFunction]="piInstanceDisplayFunction"
+                [iconFunction]="piInstanceIconFunction"
+                [titleFunction]="piInstanceTitleFunction"
+                [descriptionFunction]="piInstanceDescriptionFunction"
+            ></dropdown-list>
+
+            <!-- Pin selection -->
+            <list
+                [items]="selectedPiInstancePins"
+                [(selectedItem)]="pinChosenToBeAddedToGroup"
+                [iconFunction]="pinIconFunction"
+                [titleFunction]="pinTitleFunction"
+                [descriptionFunction]="pinDescriptionFunction"
+            ></list>
+        </crud-table>
+    </div>
+</div>

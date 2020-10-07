@@ -1,8 +1,10 @@
+import { PiInstance } from './PiInstance';
 import { PinOperatingMode } from './PinOperatingMode';
 
 export class PiInstancePin {
     constructor(
         public id : number,
+        public piInstance : PiInstance,
         public name : string,
         public boardId : number,
         public gpioId : number,

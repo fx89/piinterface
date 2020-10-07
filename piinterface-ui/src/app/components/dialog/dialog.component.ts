@@ -68,6 +68,9 @@ export class DialogComponent implements AfterViewInit {
   @Input()
   showCancelButton : boolean = true;
 
+  @Input()
+  okButtonEnabled : Function = () => true;
+
   private containedElementIds : string[] = [];
 
   private firstValidationMessage : string;
@@ -168,23 +171,25 @@ export class DialogComponent implements AfterViewInit {
   }
 
   okButtonClicked() {
-    if (this.triggerOkIfInvalid || this.checkValidation()) {
-      this.firstValidationMessage = null;
+    if (this.okButtonEnabled()) {
+      if (this.triggerOkIfInvalid || this.checkValidation()) {
+        this.firstValidationMessage = null;
 
-      this.okEvent.emit();
-      this.okCallback();
+        this.okEvent.emit();
+        this.okCallback();
 
-      if (this.hideAllowedFunction()) {
-        this.hideDialog();
+        if (this.hideAllowedFunction()) {
+          this.hideDialog();
+        }
+      } else {
+        this.firstValidationMessage = this.validationService.getFirstValidationMessage(this.containedElementIds);
+
+        if (this.validationTimer) {
+          clearTimeout(this.validationTimer);
+        }
+
+        this.validationTimer = setTimeout(() => { this.firstValidationMessage = null; }, this.validationMessageLifeSecs * 1000);
       }
-    } else {
-      this.firstValidationMessage = this.validationService.getFirstValidationMessage(this.containedElementIds);
-
-      if (this.validationTimer) {
-        clearTimeout(this.validationTimer);
-      }
-
-      this.validationTimer = setTimeout(() => { this.firstValidationMessage = null; }, this.validationMessageLifeSecs * 1000);
     }
   }
 

@@ -89,6 +89,9 @@ export class CrudTableComponent implements OnInit {
   @Input()
   listIconFunction : Function = (item:any) => "";
 
+  @Input()
+  dialogSaveButtonEnabled : Function = () => true;
+
   editDialogShowEvent : EventEmitter<any> = new EventEmitter<any>();
 
   delConfirmationMsgboxShowEvent : EventEmitter<any> = new EventEmitter<any>();

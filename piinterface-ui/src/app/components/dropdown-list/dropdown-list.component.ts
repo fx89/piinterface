@@ -51,6 +51,9 @@ export class DropdownListComponent implements OnInit, AfterViewInit {
   @Input()
   validationFunction : Function = () => "";
 
+  @Output()
+  onSelectionChanged : EventEmitter<any> = new EventEmitter<any>();
+
   isValid : boolean = true;
 
   private listContainerElement : HTMLElement;
@@ -156,9 +159,10 @@ export class DropdownListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onSelectionChanged(selectedItem:any) {
+  onItemSelectionChanged(selectedItem:any) {
     this.selectedItem = selectedItem;
     this.selectedItemChange.emit(selectedItem);
+    this.onSelectionChanged.emit(selectedItem);
     this.setListVisibility(false);
     this.validate();
   }

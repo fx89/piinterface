@@ -36,7 +36,7 @@
         <!-- Standard buttons -->
         <td class="standard-buttons-td">
             <pushbutton [text]="cancelButtonText" (onClick)="cancelButtonClicked()" *ngIf="showCancelButton"></pushbutton>
-            <pushbutton [text]="okButtonText" (onClick)="okButtonClicked()" *ngIf="showOkButton"></pushbutton>
+            <pushbutton [text]="okButtonText" (onClick)="okButtonClicked()" *ngIf="showOkButton" [enabled]="okButtonEnabled()"></pushbutton>
         </td>
     </tr></table>
 

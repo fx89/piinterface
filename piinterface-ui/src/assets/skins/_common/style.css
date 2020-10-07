@@ -48,7 +48,7 @@ body {
 }
 
 .pushbutton.disabled {
-    cursor: default;
+    cursor: default !important;
 }
 
 .modal-cover {
