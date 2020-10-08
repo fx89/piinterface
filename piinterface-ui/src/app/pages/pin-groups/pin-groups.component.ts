@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { piInstanceDescriptionFunction, piInstanceIconFunction, piInstanceTitleFunction, pinDescriptionDisplayFunction, pinGroupDescriptionFunction, pinGroupIconFunction, pinGroupPinDescriptionFunction, pinGroupPinTitleFunction, pinGroupTitleFunction, pinIconFunction, pinTitleDisplayFunction } from 'src/app/common/display-functions';
+import { CustomButtonSpecification } from 'src/app/components/crud-table/crud-table.component';
 import { LoadingModalService } from 'src/app/components/services/loading-modal/loading-modal.service';
 import { ToastService } from 'src/app/components/services/toast/toast.service';
 import { PiInstance } from 'src/app/model/PiInstance';
@@ -55,6 +56,24 @@ export class PinGroupsComponent implements OnInit, AfterViewInit {
   selectedPiInstancePins : PiInstancePin[] = [];
   pinChosenToBeAddedToGroup : PiInstancePin;
 
+  // Custom buttons for the GROUP / PIN map
+  pinGroupPinsCustomButtons : CustomButtonSpecification[] = [
+    // Move UP
+    new CustomButtonSpecification("Move up", (item:PinGroupPin) => {
+      this.dataService.pinGroupPinsRepository.getCustomOperationWithLoadingModal(
+        "moveUp", new Map([["pinGroupPinId", item.id.toString()]]),
+        () => { this.loadSelectedGroupPins(); }
+      );
+    }, 60),
+    // Move DOWN
+    new CustomButtonSpecification("Move down", (item:PinGroupPin) => {
+      this.dataService.pinGroupPinsRepository.getCustomOperationWithLoadingModal(
+        "moveDown", new Map([["pinGroupPinId", item.id.toString()]]),
+        () => { this.loadSelectedGroupPins(); }
+      );
+    }, 70),
+  ]
+
   constructor(
     private dataService : DataService,
     private loadingModalService : LoadingModalService,
@@ -99,6 +118,7 @@ export class PinGroupsComponent implements OnInit, AfterViewInit {
       (ret) => {
         this.selectedGroupPins = nvl(ret, []); 
         this.selectedGroupPins = this.selectedGroupPins.sort((p1,p2) => p1.order > p2.order ? 1 : -1);
+        this.selectedPin = undefined;
       }
     );
   }
