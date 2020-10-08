@@ -92,6 +92,9 @@ export class CrudTableComponent implements OnInit {
   @Input()
   dialogSaveButtonEnabled : Function = () => true;
 
+  @Input()
+  customButtons : CustomButtonSpecification[] = [];
+
   editDialogShowEvent : EventEmitter<any> = new EventEmitter<any>();
 
   delConfirmationMsgboxShowEvent : EventEmitter<any> = new EventEmitter<any>();
@@ -146,4 +149,12 @@ export class CrudTableComponent implements OnInit {
   onDialogCancelButtonClicked : Function = () => {
     this.selectedItem = undefined;
   }
+}
+
+export class CustomButtonSpecification {
+  constructor(
+    public text : string = "Click me",
+    public callback : Function = (item:any) => {  },
+    public widthPX : number = 40
+  ){}
 }

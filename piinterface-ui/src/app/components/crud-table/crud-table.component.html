@@ -28,6 +28,10 @@
     <div class="spacer"></div>
 
     <div class="crud-table-buttons-container">
+        <!-- Custom buttons -->
+        <pushbutton *ngFor="let btn of customButtons" [widthPX]="btn.widthPX" [text]="btn.text" (onClick)="btn.callback(selectedItem)" style="float:left; padding-right:3px;" [enabled]="selectedItem"></pushbutton>
+
+        <!-- Standard buttons -->
         <pushbutton [widthPX]="40" text="Del" (onClick)="onDelButtonClicked()" *ngIf="showDelButton" style="float:right; padding-left:3px;" [enabled]="selectedItem"></pushbutton>
         <pushbutton [widthPX]="40" text="Edit" (onClick)="onEditButtonClicked()" *ngIf="showEditButton" style="float:right; padding-left:3px;" [enabled]="selectedItem"></pushbutton>
         <pushbutton [widthPX]="40" text="Add" (onClick)="onAddButtonClicked()" *ngIf="showAddButton" style="float:right; padding-left:3px;"></pushbutton>
