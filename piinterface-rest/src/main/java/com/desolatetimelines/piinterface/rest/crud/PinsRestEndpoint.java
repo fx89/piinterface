@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,11 +43,6 @@ public class PinsRestEndpoint {
 	@GetMapping(value = "/pageAll")
 	public Iterable<Pin> pageAll(@RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
 		return piInterface.getDataService().getPinsRepository().findAll(PageRequest.of(pageNumber, pageSize)).getContent();
-	}
-
-	@PostMapping(value = "/save")
-	public Pin save(@RequestBody Pin item) {
-		return piInterface.getDataService().getPinsRepository().save(item);
 	}
 
 	@Transactional

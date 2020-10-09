@@ -58,8 +58,6 @@ public class PiClientService {
 		        .queryParam("boardId", boardId)
 		        .queryParam("state", toState);
 			
-			System.out.println(builder.buildAndExpand().toUri()); // TODO: remove
-			
 			PIInstancePin ret = restTemplate.getForObject(builder.buildAndExpand().toUri(), PIInstancePin.class);
 			return ret;
 		} catch (ResourceAccessException raEx) {
@@ -92,8 +90,6 @@ public class PiClientService {
 			UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
 		        .queryParam("boardId", boardId)
 		        .queryParam("pressTimeMS", pressTimeMS);
-			
-			System.out.println(builder.buildAndExpand().toUri()); // TODO: remove
 			
 			PIInstancePin ret = restTemplate.getForObject(builder.buildAndExpand().toUri(), PIInstancePin.class);
 			return ret;

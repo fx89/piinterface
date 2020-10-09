@@ -696,4 +696,36 @@ public class PiInterfaceService {
 
 		return group;
 	}
+
+	@Transactional
+	public UiButtonWithState saveUiButton(UiButton newButton) {
+		UiButton savedButton = dataService.getUiButtonsRepository().save(newButton);
+		UiButtonWithState registeredButton = new UiButtonWithState(savedButton, 0);
+		uiButtonsRepository.put(savedButton.getId(), registeredButton);
+		return registeredButton;
+	}
+
+	@Transactional
+	public void deleteUiButton(Long uiButtonId) {
+		dataService.getUiButtonsRepository().deleteById(uiButtonId);
+		uiButtonsRepository.remove(uiButtonId);
+	}
+
+	@Transactional
+	public Pin savePin(Pin pin) {
+		// Save the pin
+		Pin savedPin = dataService.getPinsRepository().save(pin);
+
+		// Update any buttons referencing the pin directly
+		for (UiButtonWithState btn : uiButtonsRepository.values()) {
+			if (btn.getLinkedToPin() != null) {
+				if (btn.getLinkedToPin().getId().equals(savedPin.getId())) {
+					btn.setLinkedToPin(savedPin);
+				}
+			}
+		}
+		
+		// Return the saved pin
+		return savedPin;
+	}
 }
