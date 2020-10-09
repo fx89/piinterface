@@ -630,8 +630,12 @@ public class PiInterfaceService {
 			} else {
 				result = switchPin(pin, buttonState);
 			}
-			
-			return result == null ? 0 : result.getCurrentStatus();
+
+			if (result == null) {
+				throw new PiInterfaceServiceException("The PI instance [" + pin.getPiInstance().getName() + "] is unreachable");
+			}
+
+			return result.getCurrentStatus();
 		} else {
 			throw new PiInterfaceServiceException(
 				"The pin [" + pin.getPiInstance().getName() + "/" + pin.getName() + "] registers as no longer available. Please re-sync the PI instance."
