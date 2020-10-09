@@ -1,5 +1,7 @@
 package com.desolatetimelines.piinterface.rest.crud;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -375,6 +377,15 @@ public class PinsRestEndpoint {
 	@GetMapping(value = "/findAllByIsAvailable")
 	public List<Pin> findAllByIsAvailable(@RequestParam(name = "isAvailable") Boolean isAvailable) {
 		return piInterface.getDataService().getPinsRepository().findAllByIsAvailable(isAvailable);
+	}
+
+	@GetMapping(value = "/findAllByPinGroupId")
+	public List<Pin> findAllByIsAvailable(@RequestParam() Long pinGroupId) {
+		return piInterface.getDataService().getPinGroupPinsRepository()
+				.findAllByPinGroupId(pinGroupId)
+				.stream()
+				.map(item -> item.getPin())
+				.collect(toList());
 	}
 
 }

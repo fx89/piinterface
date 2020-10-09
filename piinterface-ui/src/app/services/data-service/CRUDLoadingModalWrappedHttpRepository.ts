@@ -14,7 +14,8 @@ export class CRUDLoadingModalWrappedHttpRepository extends LoadingModalWrappedHt
         private entityNameSingular : string,
         private entityNamePlural : string,
         private findByParentOperationName : string,
-        private findByParentIdParamName : string
+        private findByParentIdParamName : string,
+        private findAllOperationName : string = "findAll"
     ) {
         super(loadingModalService, toastService, client, baseURL, entityEndpointName);
     }
@@ -24,7 +25,7 @@ export class CRUDLoadingModalWrappedHttpRepository extends LoadingModalWrappedHt
         loadingModalSubtitle?   : string
     ) : EventEmitter<any> {
         return this.getCustomOperationWithLoadingModal(
-            "findAll", null,
+            this.findAllOperationName, null,
             resultHandler,
             "LOADING", loadingModalSubtitle ? loadingModalSubtitle : ("Fetching " + this.entityNamePlural + " from registry")
         );

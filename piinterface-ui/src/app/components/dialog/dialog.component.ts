@@ -15,7 +15,7 @@ export class DialogComponent implements AfterViewInit {
   title : string;
 
   @Input()
-  buttons : DialogButtonSpec[] = [];
+  customButtons : DialogButtonSpec[] = [];
 
   @Input()
   okButtonText : string = "Ok";

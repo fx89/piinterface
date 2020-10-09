@@ -4,6 +4,7 @@ import { PiInstancePin } from '../model/PiInstancePin';
 import { PinGroup } from '../model/PinGroup';
 import { PinGroupPin } from '../model/PinGroupPin';
 import { PinOperatingMode } from '../model/PinOperatingMode';
+import { UiButtonType } from '../model/UiButtonType';
 import { getSkinName } from "../utils/skin-utils";
 
 // PI instance display functions
@@ -20,6 +21,7 @@ export function ipRangeIconFunction() { return "assets/skins/" + getSkinName() +
 export function pinTitleDisplayFunction(item : PiInstancePin) { return item ? item.name : ""; }
 export function pinDescriptionDisplayFunction(item : PiInstancePin) { return item ? ("[" + item.id + "] " + item.name + " (" + item.boardId + "/" + item.gpioId + ")" + (item.isAvailable ? "" : " - Not available")) : ""; }
 export function pinIconFunction() { return "assets/skins/" + getSkinName() + "/icons/main-menu/pins.png"; }
+export function pinDisplayFunction(item : PiInstancePin) { return item ? ((item.piInstance ? item.piInstance.name : "Unidentified instance") + " / " + item.name) : ""; }
 
 // Pin operating modes display functions
 export function pinOperatingModeDisplayFunction(item : PinOperatingMode) { return item ? item.name : "not set"; }
@@ -32,3 +34,6 @@ export function pinGroupIconFunction() { return "assets/skins/" + getSkinName() 
 // Pin group pins display functions
 export function pinGroupPinTitleFunction(item:PinGroupPin) { return item ? (item.pin.piInstance.name + " / " + item.pin.name) : ""; }
 export function pinGroupPinDescriptionFunction(item:PinGroupPin) { return item ? ("[" + item.order.toString() + "] (" + item.pin.boardId + "/" + item.pin.gpioId + ")" + (item.pin.isAvailable ? "" : "not available")) : ""; }
+
+// Button types display functions
+export function buttonTypeDisplayFunction(item:UiButtonType) { return item ? item.name : ""; }

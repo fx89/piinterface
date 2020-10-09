@@ -1,6 +1,6 @@
-<div class="icon-border">
-    <div class="icon-picture">
-        <a [href]="href" style="border:none">
+<div class="icon-border" [class.noframe]="!hasFrame" [class.selected]="selected" [class.hoverable]="hoverable">
+    <div class="icon-picture" [class.noframe]="!hasFrame">
+        <a [href]="href" style="border:none" *ngIf="href">
             <img
                 [id]="getImgId()"
                 [src]="picture"
@@ -8,8 +8,16 @@
                 (error)="imgLoadError($event)"
             >
         </a>
+        <img *ngIf="href == null || href == undefined"
+            [id]="getImgId()"
+            [src]="picture"
+            style="width:100%; height:100%; border-style:none;"
+            (error)="imgLoadError($event)"
+            (click)="onImgClicked()"
+        >
     </div>
-    <div class="icon-text">
-        <a class="icon-text-href" [href]="href">{{text}}</a>
+    <div class="icon-label" [class.noframe]="!hasFrame">
+        <a class="icon-label-href" [href]="href" *ngIf="href">{{text}}</a>
+        <span *ngIf="href == null || href == undefined"> {{text}} </span>
     </div>
 </div>

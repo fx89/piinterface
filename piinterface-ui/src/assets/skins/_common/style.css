@@ -5,7 +5,7 @@ body {
     margin: 0px;
 }
 
-.icon-text-href {
+.icon-label-href {
     text-decoration: none;
 }
 
@@ -72,8 +72,10 @@ body {
     margin-right: 5px;
 }
 
-
-
+.custom-buttons-td {
+    float: left;
+    margin-left: 5px;
+}
 
 .loading-wheel-linear-animation {
     animation-timing-function: linear;

@@ -62,5 +62,38 @@
 			stripComments="true"
 		/>
 	</changeSet>
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="005">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="005-rename-pin-order-field.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="006">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="006-button-icon-states.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="007">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="007-add-ui-button-types.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
 
 </databaseChangeLog>

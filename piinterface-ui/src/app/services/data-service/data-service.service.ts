@@ -17,13 +17,16 @@ export class DataService {
   public pinGroupsRepository         : CRUDLoadingModalWrappedHttpRepository;
   public pinGroupTypesRepository     : CRUDLoadingModalWrappedHttpRepository;
   public pinGroupPinsRepository      : CRUDLoadingModalWrappedHttpRepository;
+  public uiButtonsRepository         : CRUDLoadingModalWrappedHttpRepository;
+  public uiButtonTypesRepository     : CRUDLoadingModalWrappedHttpRepository;
+  public iconsRepository             : CRUDLoadingModalWrappedHttpRepository;
 
   constructor(
     private client : HttpClientWrapperService,
     private loadingModalService : LoadingModalService,
     private toastService: ToastService
   ) { 
-    const backendURL = environment.backendAddress;                                                                    //  Endpoint             Singular              Plural                 Get by parent operation  Praent param
+    const backendURL = environment.backendAddress;                                                                                  //  Endpoint             Singular              Plural                 Get by parent operation  Praent param    findAll operation (defauly = "findAll")
     this.piInstancesRepository       = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "piInstances"      , "PI instance"       , "PI instances"       , ""                     , ""            );
     this.ipAddressRangesRepository   = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "ipAddressRanges"  , "IP address range"  , "IP address ranges"  , ""                     , ""            );
     this.notificationsRepository     = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "notifications"    , "Notification"      , "Notifications"      , ""                     , ""            );
@@ -32,6 +35,9 @@ export class DataService {
     this.pinGroupsRepository         = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "pinGroups"        , "Pin group"         , "Pin groups"         , ""                     , ""            );
     this.pinGroupTypesRepository     = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "pinGroupTypes"    , "Pin group type"    , "Pin group types"    , ""                     , ""            );
     this.pinGroupPinsRepository      = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "pinGroupPins"     , "Pin group pin"     , "Pin group pins"     , "findAllByPinGroupId"  , "pinGroupId"  );
+    this.uiButtonsRepository         = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "uiButtons"        , "UI button"         , "UI buttons"         , ""                     , ""            , "findAllIncudingState");
+    this.uiButtonTypesRepository     = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "uiButtonTypes"    , "UI button type"    , "UI button types"    , ""                     , ""            );
+    this.iconsRepository             = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "icons"            , "Icons"             , "Icon"               , ""                     , ""            );
   }
 }
 

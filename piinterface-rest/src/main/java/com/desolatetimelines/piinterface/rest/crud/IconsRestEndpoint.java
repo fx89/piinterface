@@ -77,14 +77,4 @@ public class IconsRestEndpoint {
 		return piInterface.getDataService().getIconsRepository().findFirstByNameStartingWith(name);
 	}
 
-	@GetMapping(value = "/pageAllByContent")
-	public List<Icon> pageAllByContent(@RequestParam(name = "content") String content, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
-		return piInterface.getDataService().getIconsRepository().findAllByContent(content, PageRequest.of(pageNumber, pageSize));
-	}
-
-	@GetMapping(value = "/findAllByContent")
-	public List<Icon> findAllByContent(@RequestParam(name = "content") String content) {
-		return piInterface.getDataService().getIconsRepository().findAllByContent(content);
-	}
-
 }

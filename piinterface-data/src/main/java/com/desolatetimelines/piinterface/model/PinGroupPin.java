@@ -43,7 +43,7 @@ public class PinGroupPin implements Serializable {
 	@JoinColumn(name = "PIN_ID")
 	private Pin pin;
 
-	@Column(name = "ORDER")
+	@Column(name = "PIN_ORDER")
 	private Integer order;
 
 	@Column(name = "STATES_COUNT")

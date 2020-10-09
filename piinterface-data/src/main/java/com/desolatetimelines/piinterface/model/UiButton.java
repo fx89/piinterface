@@ -38,9 +38,8 @@ public class UiButton implements Serializable {
 	@Column(name = "TITLE")
 	private String title;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ICON_ID")
-	private Icon icon;
+	@Column(name = "ICON_ID")
+	private Long iconId;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TYPE_ID")

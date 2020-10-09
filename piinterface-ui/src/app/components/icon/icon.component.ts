@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { getSkinName } from '../../utils/skin-utils';
 import { v4 as uuid } from 'uuid';
 
@@ -18,10 +18,22 @@ export class IconComponent implements OnInit {
   text : string = "icon text"
 
   @Input()
-  href : string = "www.altavista.com"
+  href : string = undefined
 
   @Input()
   altPictureSrc : string = "assets/skins/" + getSkinName() + "/icons/x.png";
+
+  @Input()
+  hasFrame : boolean = true;
+
+  @Input()
+  selected : boolean = false;
+
+  @Input()
+  hoverable : boolean = false;
+  
+  @Output()
+  onClick : EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
@@ -34,5 +46,9 @@ export class IconComponent implements OnInit {
 
   imgLoadError($event) {
     (<any>document.getElementById(this.getImgId())).src = this.altPictureSrc;
+  }
+
+  onImgClicked() {
+    this.onClick.emit();
   }
 }

@@ -274,5 +274,4 @@ public class PinGroupPinsRestEndpoint {
 	public List<PinGroupPin> findAllByStatesCount(@RequestParam(name = "statesCount") Integer statesCount) {
 		return piInterface.getDataService().getPinGroupPinsRepository().findAllByStatesCount(statesCount);
 	}
-
 }

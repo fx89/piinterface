@@ -26,11 +26,7 @@
     <table class="dialog-buttons-table" style="width:100%;"><tr>
         <!-- User-defined buttons column -->
         <td class="custom-buttons-td">
-            <table><tr>
-                <td *ngFor="let button of buttons">
-                    <pushbutton [text]="button.text" (onClick)="button.onClick()"></pushbutton>
-                </td>
-            </tr></table>
+            <pushbutton *ngFor="let button of customButtons" [text]="button.text" (onClick)="button.onClick()" style="float:left; padding-right:5px;"></pushbutton>
         </td>
 
         <!-- Standard buttons -->

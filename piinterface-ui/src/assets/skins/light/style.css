@@ -26,19 +26,44 @@ body.light {
     display: inline-block;
 }
 
+.icon-border.noframe {
+    border-style: none !important;
+    background: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.icon-border.hoverable:hover {
+    background: #DDD;
+}
+
+.icon-border.selected {
+    background: #CCF;
+}
+
 .icon-picture {
     width: 100px;
     height: 80px;
     padding-bottom: 5px;
+    cursor: pointer;
 }
 
-.icon-text {
+.icon-label {
     font-size: 12px;
     text-align: center;
 }
 
-.icon-text-href {
+.icon-label-href {
     color: #000;
+}
+
+.icon-label.noframe {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #CCC;
+    background-color: #EEE;
 }
 
 .app-top-bar {
@@ -127,7 +152,7 @@ body.light {
     border-style: solid;
     border-width: 1px;
     border-color: #ACC;
-    overflow-y:scroll;
+    overflow-y: scroll;
     scrollbar-width: thin;
     padding: 3px;
     border-top-left-radius: 20px;
@@ -706,3 +731,4 @@ body.light {
     border-color: #888;
     border-width: 1px;
 }
+

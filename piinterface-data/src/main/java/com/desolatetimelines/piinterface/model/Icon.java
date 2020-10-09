@@ -37,8 +37,11 @@ public class Icon implements Serializable {
 	@Column(name = "NAME")
 	private String name;
 
-	@Column(name = "CONTENT")
+	@Column(name = "STATE_ON")
 	@Type(type="text")
-	private String content;
+	private String stateOn;
 
+	@Column(name = "STATE_OFF")
+	@Type(type="text")
+	private String stateOff;
 }

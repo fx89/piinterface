@@ -162,26 +162,6 @@ public class UiButtonsRestEndpoint {
 		return piInterface.getDataService().getUiButtonsRepository().findAllByIconIdAndLinkedToPinGroupIdAndTitle(iconId, linkedToPinGroupId, title);
 	}
 
-	@GetMapping(value = "/findAllByIconName")
-	public List<UiButton> findAllByIconName(@RequestParam(name="iconName") String name) {
-		return piInterface.getDataService().getUiButtonsRepository().findAllByIconName(name);
-	}
-	
-	@GetMapping(value = "/pageAllByIconName")
-	public List<UiButton> pageAllByIconName(@RequestParam(name="iconName") String name, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
-		return piInterface.getDataService().getUiButtonsRepository().findAllByIconName(name, PageRequest.of(pageNumber, pageSize));
-	}
-
-	@GetMapping(value = "/findAllByIconContent")
-	public List<UiButton> findAllByIconContent(@RequestParam(name="iconContent") String content) {
-		return piInterface.getDataService().getUiButtonsRepository().findAllByIconContent(content);
-	}
-	
-	@GetMapping(value = "/pageAllByIconContent")
-	public List<UiButton> pageAllByIconContent(@RequestParam(name="iconContent") String content, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
-		return piInterface.getDataService().getUiButtonsRepository().findAllByIconContent(content, PageRequest.of(pageNumber, pageSize));
-	}
-
 	@GetMapping(value = "/pageAllByTypeId")
 	public List<UiButton> pageAllByTypeId(@RequestParam(name = "typeId") Long typeId, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
 		return piInterface.getDataService().getUiButtonsRepository().findAllByTypeId(typeId, PageRequest.of(pageNumber, pageSize));

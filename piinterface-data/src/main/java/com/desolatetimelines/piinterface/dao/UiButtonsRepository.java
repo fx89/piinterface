@@ -95,18 +95,6 @@ public interface UiButtonsRepository extends PagingAndSortingRepository<UiButton
 	UiButton findFirstByIconIdAndLinkedToPinGroupIdAndTitle(Long iconId, Long linkedToPinGroupId, String title);
 
 	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByIconName(String name);
-	
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByIconName(String name, Pageable pageable);
-
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByIconContent(String content);
-	
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByIconContent(String content, Pageable pageable);
-
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
 	List<UiButton> findAllByTypeId(Long typeId, Pageable pageable);
 
 	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
@@ -264,19 +252,7 @@ public interface UiButtonsRepository extends PagingAndSortingRepository<UiButton
 
 	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
 	List<UiButton> findAllByLinkedToPinPiInstanceIdAndIconIdIn(Long piInstanceId, List<Long> iconIds);
-
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinPiInstanceIdAndIconNotNull(Long piInstanceId);
 	
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinPiInstanceIdInAndIconNotNull(List<Long> piInstanceId);
-	
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinPiInstanceIdInAndIconName(List<Long> piInstanceIds, String name);
-
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinPiInstanceIdInAndIconContent(List<Long> piInstanceIds, String content);
-
 	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
 	List<UiButton> findAllByLinkedToPinPiInstanceIdInAndTypeId(List<Long> piInstanceIds, Long typeId);
 
@@ -345,19 +321,7 @@ public interface UiButtonsRepository extends PagingAndSortingRepository<UiButton
 
 	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
 	List<UiButton> findAllByLinkedToPinOperatingModeIdAndIconIdIn(Long operatingModeId, List<Long> iconIds);
-
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinOperatingModeIdAndIconNotNull(Long operatingModeId);
 	
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinOperatingModeIdInAndIconNotNull(List<Long> operatingModeId);
-	
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinOperatingModeIdInAndIconName(List<Long> operatingModeIds, String name);
-
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinOperatingModeIdInAndIconContent(List<Long> operatingModeIds, String content);
-
 	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
 	List<UiButton> findAllByLinkedToPinOperatingModeIdInAndTypeId(List<Long> operatingModeIds, Long typeId);
 
@@ -492,18 +456,6 @@ public interface UiButtonsRepository extends PagingAndSortingRepository<UiButton
 
 	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
 	List<UiButton> findAllByLinkedToPinGroupTypeIdAndIconIdIn(Long typeId, List<Long> iconIds);
-
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinGroupTypeIdAndIconNotNull(Long typeId);
-	
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinGroupTypeIdInAndIconNotNull(List<Long> typeId);
-	
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinGroupTypeIdInAndIconName(List<Long> typeIds, String name);
-
-	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
-	List<UiButton> findAllByLinkedToPinGroupTypeIdInAndIconContent(List<Long> typeIds, String content);
 
 	@EntityGraph(attributePaths = { "icon", "type", "linkedToPin", "linkedToPin.piInstance", "linkedToPin.operatingMode", "linkedToPinGroup", "linkedToPinGroup.type"})
 	List<UiButton> findAllByLinkedToPinGroupTypeIdInAndTypeId(List<Long> typeIds, Long typeId);
