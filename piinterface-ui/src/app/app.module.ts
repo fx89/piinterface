@@ -28,6 +28,7 @@ import { ServiceableLoadingLogComponent } from './components/serviceable-loading
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { CrudTableComponent } from './components/crud-table/crud-table.component';
 import { DropdownListComponent } from './components/dropdown-list/dropdown-list.component';
+import { SwitchComponent } from './components/switch/switch.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { DropdownListComponent } from './components/dropdown-list/dropdown-list.
     ServiceableLoadingLogComponent,
     DataTableComponent,
     CrudTableComponent,
-    DropdownListComponent
+    DropdownListComponent,
+    SwitchComponent
   ],
   imports: [
     BrowserModule,

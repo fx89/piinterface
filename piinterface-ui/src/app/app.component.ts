@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoadingLogService } from './components/services/loading-log/loading-log.service';
 import { BackendNotification } from './model/BackendNotification';
 import { DataService } from './services/data-service/data-service.service';
+import { getCookie, setCookie } from './utils/cookies';
 import { getSkinName } from './utils/skin-utils';
 
 @Component({
@@ -13,11 +14,17 @@ import { getSkinName } from './utils/skin-utils';
 export class AppComponent {
   title = 'piinterface-ui';
 
+  themeState : boolean = false;
+  themeName : string = "light";
+
   constructor(
     dataService : DataService,
     loadingLogService : LoadingLogService,
     public router : Router
   ) {
+    this.getThemeFromCookie();
+    this.applyTheme();
+
     loadingLogService.setProperties(
       // Acquire function
       () => dataService.notificationsRepository.getCustomOperation("findAll"),
@@ -64,5 +71,27 @@ export class AppComponent {
       // Polling interval
       1000
     );
+  }
+
+  onThemStateChanged() {
+    this.themeName = this.themeState ? "dark" : "light";
+    this.applyTheme();
+  }
+
+  private getThemeFromCookie() {
+    this.themeName = getCookie("themeName");
+
+    if (this.themeName == undefined) {
+      this.themeName = "dark";
+    }
+
+    this.themeState = this.themeName == "light" ? false : true;
+  }
+
+  private applyTheme() {
+    document.body.classList.remove("light");
+    document.body.classList.remove("dark");
+    document.body.classList.add(this.themeName);
+    setCookie("themeName", this.themeName);
   }
 }

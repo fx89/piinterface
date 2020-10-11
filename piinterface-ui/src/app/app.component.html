@@ -12,7 +12,14 @@
 <!-- Bottom -->
 <div class="app-bottom-bar-spacer"></div>
 <div class="app-bottom-bar">
-
+    <table style="margin-left:5px;"><tr><td>Theme: </td><td stye="padding-top:2px;">
+        <switch
+            [(state)]="themeState"
+            (onChange)="onThemStateChanged()"
+            offStateLabel="Bright"
+            onStateLabel="Dark"
+        ></switch>
+    </td></tr></table>
 </div>
 
 <!-- Generic elements -->

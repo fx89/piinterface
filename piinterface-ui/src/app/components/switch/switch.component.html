@@ -1,0 +1,9 @@
+<table class="switch" style="border-style:none; border-width:0px; padding:0px; margin:0px;"><tr>
+    <td>{{ offStateLabel }}</td>
+    <td>
+        <div class="switch-border" (click)="onClick()">
+            <div class="switch-button" [class.on]="state" [class.off]="!state"></div>
+        </div>
+    </td>
+    <td>{{ onStateLabel }}</td>
+</tr></table>

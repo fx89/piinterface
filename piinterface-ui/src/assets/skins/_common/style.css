@@ -401,3 +401,50 @@ body {
 .crud-table-data-table-container {
     overflow-y: scroll;
 }
+
+.switch-border {
+    width: 30px;
+    height: 13px;
+    cursor: pointer;
+}
+
+.switch-button {
+    width: 10px;
+    height: 10px;
+    margin-top: 1px;
+    position: relative;
+}
+
+.switch-button.off {
+    animation-name: go-left;
+    animation-timing-function: ease-in;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-duration: 0.1s;
+}
+
+.switch-button.on {
+    animation-name: go-right;
+    animation-timing-function: ease-in;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-duration: 0.1s;
+}
+
+@keyframes go-left {
+    0% {
+        transform: translateX(16px);
+    }
+    100% {
+        transform: translateX(2px);
+    }
+}
+
+@keyframes go-right {
+    0% {
+        transform: translateX(2px);
+    }
+    100% {
+        transform: translateX(16px);
+    }
+}
