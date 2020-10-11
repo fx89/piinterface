@@ -16,9 +16,9 @@ public class ConcurrentArrayBackedNotificationServiceImpl implements Notificatio
 	private int maxMessagesPerQueue = 20;
 
 	private Notification[] notifications = new Notification[maxMessagesPerQueue];
-	private int nMessages = 0;
+	private volatile int nMessages = 0;
 
-	private boolean working = false;
+	private volatile boolean working = false;
 
 	private void waitForOtherThreads() {
 		while (working) {
@@ -45,7 +45,7 @@ public class ConcurrentArrayBackedNotificationServiceImpl implements Notificatio
 		}
 
 		if (nMessages > 0) {
-			nMessages--;
+			nMessages = nMessages - 1;
 		}
 	}
 
@@ -59,7 +59,7 @@ public class ConcurrentArrayBackedNotificationServiceImpl implements Notificatio
 	 * size, then the head message is popped from the queue.
 	 */
 	@Override
-	public void queueNotification(Notification notification) {
+	public synchronized void queueNotification(Notification notification) {
 		waitForOtherThreads();
 
 		working = true;
@@ -75,7 +75,7 @@ public class ConcurrentArrayBackedNotificationServiceImpl implements Notificatio
 	}
 
 	@Override
-	public Iterable<Notification> peekQueue(int nMessages) {
+	public synchronized Iterable<Notification> peekQueue(int nMessages) {
 		waitForOtherThreads();
 
 		if (nMessages == 0) {
@@ -98,7 +98,7 @@ public class ConcurrentArrayBackedNotificationServiceImpl implements Notificatio
 	}
 
 	@Override
-	public Notification peekQueue() {
+	public synchronized Notification peekQueue() {
 		waitForOtherThreads();
 
 		if (nMessages > 0) {
@@ -109,12 +109,12 @@ public class ConcurrentArrayBackedNotificationServiceImpl implements Notificatio
 	}
 
 	@Override
-	public Iterable<Notification> peekEntireQueue() {
+	public synchronized Iterable<Notification> peekEntireQueue() {
 		return peekQueue(nMessages);
 	}
 
 	@Override
-	public Notification peekLast() {
+	public synchronized Notification peekLast() {
 		waitForOtherThreads();
 
 		if (nMessages > 0) {
@@ -125,7 +125,7 @@ public class ConcurrentArrayBackedNotificationServiceImpl implements Notificatio
 	}
 
 	@Override
-	public Iterable<Notification> peekLast(int nMessages) {
+	public synchronized Iterable<Notification> peekLast(int nMessages) {
 		waitForOtherThreads();
 
 		working = true;
@@ -148,7 +148,7 @@ public class ConcurrentArrayBackedNotificationServiceImpl implements Notificatio
 		return ret;
 	}
 
-	public void clear() {
+	public synchronized void clear() {
 		this.nMessages = 0;
 	}
 
