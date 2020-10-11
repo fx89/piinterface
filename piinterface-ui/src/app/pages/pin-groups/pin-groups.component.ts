@@ -71,7 +71,7 @@ export class PinGroupsComponent implements OnInit, AfterViewInit {
         "moveDown", new Map([["pinGroupPinId", item.id.toString()]]),
         () => { this.loadSelectedGroupPins(); }
       );
-    }, 70),
+    }, 80),
   ]
 
   constructor(
