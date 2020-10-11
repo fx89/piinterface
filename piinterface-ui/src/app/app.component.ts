@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingLogService } from './components/services/loading-log/loading-log.service';
 import { BackendNotification } from './model/BackendNotification';
 import { DataService } from './services/data-service/data-service.service';
@@ -14,7 +15,8 @@ export class AppComponent {
 
   constructor(
     dataService : DataService,
-    loadingLogService : LoadingLogService
+    loadingLogService : LoadingLogService,
+    public router : Router
   ) {
     loadingLogService.setProperties(
       // Acquire function
