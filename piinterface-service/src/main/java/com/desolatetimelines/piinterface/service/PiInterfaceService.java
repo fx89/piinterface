@@ -231,9 +231,19 @@ public class PiInterfaceService {
 				synchronizePiInstancePins(instance);
 			}
 		});
-		
+
+		// Update the UI buttons cache
+		queueInfo("Processing", "Updating UI buttons cache");
+		instances.forEach(instance -> {
+			uiButtonsRepository.forEach((k,v) -> {
+				if (v.getLinkedToPin() != null && v.getLinkedToPin().getPiInstance().getName().equalsIgnoreCase(instance.getName())) {
+					v.getLinkedToPin().setPiInstance(instance);
+				}
+			});
+		});
+
 		// Inform end-user that the process has ended
-		queueInfo("Processing", "Beginning to query the defined address ranges");
+		queueInfo("Processing", "Processing finished");
 	}
 
 	private List<PIInstance> queryIpRange(IpAddressRange ipRange) {
