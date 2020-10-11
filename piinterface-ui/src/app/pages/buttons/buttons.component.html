@@ -122,8 +122,8 @@
     okButtonText="Apply"
     [customButtons]="chooseIconDialogCustomButtons"
 >
-    <div style="width:100%; height:100%" *ngIf="icons">
-        <span *ngFor="let icon of icons">
+    <div style="width:100%; height:100%; overflow-y:scroll; height:190px; scrollbar-width:thin;" *ngIf="icons">
+        <span *ngFor="let icon of icons" style="margin:3px; vertical-align:top;">
             <icon *ngIf="icon"
                 [text]="icon ? icon.name : ''"
                 [picture]="icon ? icon.stateOff : null"
