@@ -79,6 +79,7 @@ body.light {
 
 .app-top-bar a {
     color: #FFF;
+    text-decoration: none;
 }
 
 .app-bottom-bar {
