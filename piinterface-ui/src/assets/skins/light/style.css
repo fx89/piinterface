@@ -73,6 +73,12 @@ body.light {
     border-bottom-color: #999;
     -webkit-box-shadow: 0px 3px 12px -5px #000000; 
     box-shadow: 0px 3px 12px -5px #000000;
+    color: #FFF;
+    padding-top: 13px;
+}
+
+.app-top-bar a {
+    color: #FFF;
 }
 
 .app-bottom-bar {
