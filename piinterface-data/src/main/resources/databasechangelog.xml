@@ -95,5 +95,15 @@
 			stripComments="true"
 		/>
 	</changeSet>
-
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="008">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="008-standard-icons.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
 </databaseChangeLog>
