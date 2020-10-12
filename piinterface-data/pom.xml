@@ -17,11 +17,18 @@
 	</properties>
 
 	<dependencies>
-		<dependency> <!-- TODO: maybe put the MySQL driver JAR outside the project so it doesn't stay a dependency, in case anyone wants to use a different database +++ work on databasechangelog.xml a little bit more -->
+		<!-- TODO: maybe put the MySQL and MariaDB driver JARs outside the project so it doesn't stay a dependency, in case anyone wants to use a different database +++ work on databasechangelog.xml a little bit more -->
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+		    <groupId>org.mariadb.jdbc</groupId>
+		    <artifactId>mariadb-java-client</artifactId>
+		    <scope>runtime</scope>
+		</dependency>
+
 		<dependency>
 	    	<groupId>org.liquibase</groupId>
 	     	<artifactId>liquibase-core</artifactId>
