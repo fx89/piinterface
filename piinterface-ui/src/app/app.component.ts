@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component } from '@angular/core';
 import { LoadingLogService } from './components/services/loading-log/loading-log.service';
 import { BackendNotification } from './model/BackendNotification';
 import { DataService } from './services/data-service/data-service.service';
+import { NavigationService } from './services/navigation-service/navigation.service';
 import { getCookie, setCookie } from './utils/cookies';
 import { getSkinName } from './utils/skin-utils';
 
@@ -11,7 +11,7 @@ import { getSkinName } from './utils/skin-utils';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   title = 'piinterface-ui';
 
   themeState : boolean = false;
@@ -20,7 +20,7 @@ export class AppComponent {
   constructor(
     dataService : DataService,
     loadingLogService : LoadingLogService,
-    public router : Router
+    public navigationService :NavigationService
   ) {
     this.getThemeFromCookie();
     this.applyTheme();
@@ -93,5 +93,13 @@ export class AppComponent {
     document.body.classList.remove("dark");
     document.body.classList.add(this.themeName);
     setCookie("themeName", this.themeName);
+  }
+
+  goToMain() {
+    this.navigationService.currentPage = "main";
+  }
+
+  ngAfterViewInit() {
+    document.getElementById('loadingDiv').classList.add('faded-out');
   }
 }

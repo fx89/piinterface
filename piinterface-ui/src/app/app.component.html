@@ -1,12 +1,20 @@
 <!-- Top -->
 <div class="app-top-bar" style="text-align:right;">
-    <a href="/" *ngIf="router.url !=='/'"><<< Back to Main</a> &nbsp;&nbsp;&nbsp;
+    <span
+        *ngIf="navigationService.currentPage !=='main'"
+        style="cursor:pointer;"
+        (click)="goToMain()"
+    ><<< Back to Main</span> &nbsp;&nbsp;&nbsp;
 </div>
 <div class="app-top-bar-spacer"></div>
 
 <!-- Content -->
 <div class="app-container">
-    <router-outlet></router-outlet>
+    <app-main-menu    *ngIf="navigationService.currentPage == 'main'"        ></app-main-menu>
+    <app-pi-instances *ngIf="navigationService.currentPage == 'pi-instances'"></app-pi-instances>
+    <app-pins         *ngIf="navigationService.currentPage == 'pins'"        ></app-pins>
+    <app-pin-groups   *ngIf="navigationService.currentPage == 'pin-groups'"  ></app-pin-groups>
+    <app-buttons      *ngIf="navigationService.currentPage == 'buttons'"     ></app-buttons>
 </div>
 
 <!-- Bottom -->

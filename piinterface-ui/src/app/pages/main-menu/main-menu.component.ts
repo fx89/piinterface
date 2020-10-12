@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationService } from 'src/app/services/navigation-service/navigation.service';
 import { getSkinName } from '../../utils/skin-utils';
 
 @Component({
@@ -14,7 +15,9 @@ export class MainMenuComponent implements OnInit {
   pinGroupsIconPicPathName : string
   buttonsIconPicPathName : string
 
-  constructor() { 
+  constructor(
+    public navigationService : NavigationService
+  ) { 
     this.skinName = getSkinName();
     this.piInstancesIconPicPathName = this.composeIconPicPathName(this.skinName, "pi-instances");
     this.pinsIconPicPathName = this.composeIconPicPathName(this.skinName, "pins");
@@ -27,5 +30,21 @@ export class MainMenuComponent implements OnInit {
 
   private composeIconPicPathName(skinName:string, iconFileName:string) : string {
     return "assets/skins/" + skinName + "/icons/main-menu/" + iconFileName + ".png";
+  }
+
+  goToPiInstances() {
+    this.navigationService.currentPage = "pi-instances";
+  }
+
+  goToPins() {
+    this.navigationService.currentPage = "pins";
+  }
+
+  goToPinGroups() {
+    this.navigationService.currentPage = "pin-groups";
+  }
+
+  goToButtons() {
+    this.navigationService.currentPage = "buttons";
   }
 }
