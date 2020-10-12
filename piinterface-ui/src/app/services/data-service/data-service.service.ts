@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { LoadingModalService } from 'src/app/components/services/loading-modal/loading-modal.service';
 import { CRUDLoadingModalWrappedHttpRepository } from './CRUDLoadingModalWrappedHttpRepository';
 import { ToastService } from 'src/app/components/services/toast/toast.service';
+import { ConfigurationService } from '../configuration-service/configuration.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,11 @@ export class DataService {
   constructor(
     private client : HttpClientWrapperService,
     private loadingModalService : LoadingModalService,
-    private toastService: ToastService
-  ) { 
-    const backendURL = environment.backendAddress;                                                                                  //  Endpoint             Singular              Plural                 Get by parent operation  Praent param    findAll operation (defauly = "findAll")
+    private toastService : ToastService,
+    private config : ConfigurationService
+  ) {
+    const backendURL = config.getAttributeValue("backendAddress");
+                                                                                                                                    //  Endpoint             Singular              Plural                 Get by parent operation  Praent param    findAll operation (defauly = "findAll")
     this.piInstancesRepository       = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "piInstances"      , "PI instance"       , "PI instances"       , ""                     , ""            );
     this.ipAddressRangesRepository   = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "ipAddressRanges"  , "IP address range"  , "IP address ranges"  , ""                     , ""            );
     this.notificationsRepository     = new CRUDLoadingModalWrappedHttpRepository(loadingModalService, toastService, client, backendURL, "notifications"    , "Notification"      , "Notifications"      , ""                     , ""            );
