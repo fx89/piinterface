@@ -35,6 +35,9 @@ export class IconComponent implements OnInit {
   @Output()
   onClick : EventEmitter<any> = new EventEmitter<any>();
 
+  @Input()
+  paddingPX : number = undefined;
+
   constructor() { }
 
   ngOnInit() {

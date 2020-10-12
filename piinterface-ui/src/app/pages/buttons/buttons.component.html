@@ -5,15 +5,15 @@
 
 <div style="position:relative; left:10%; width:80%">
 
-    <pushbutton text="Del"  style="float:right; padding-right:3px;" (click)="onButtonDelButtonClick()"  [enabled]="selectedButton"></pushbutton>
-    <pushbutton text="Edit" style="float:right; padding-right:3px;" (click)="onButtonEditButtonClick()" [enabled]="selectedButton"></pushbutton>
-    <pushbutton text="Add"  style="float:right; padding-right:3px;" (click)="onButtonAddButtonClick()"  [enabled]="!isLocked"></pushbutton>
+    <pushbutton text="Del"  [widthPX]="35" style="float:right; padding-right:3px;" (click)="onButtonDelButtonClick()"  [enabled]="selectedButton"></pushbutton>
+    <pushbutton text="Edit" [widthPX]="45" style="float:right; padding-right:3px;" (click)="onButtonEditButtonClick()" [enabled]="selectedButton"></pushbutton>
+    <pushbutton text="Add"  [widthPX]="35" style="float:right; padding-right:3px;" (click)="onButtonAddButtonClick()"  [enabled]="!isLocked"></pushbutton>
 
     <pushbutton
         [text]="isLocked ? 'Unlock' : 'Lock'"
         style="float:right; padding-right:3px;"
         (click)="onLockingButtonClick()"
-        [widthPX]="90"
+        [widthPX]="75"
     ></pushbutton>
 
     <div class="spacer"></div>
@@ -44,7 +44,7 @@
 <!-- Add UI button dialog -->
 <app-dialog
     title="UI button properties"
-    [widthPX]="400"
+    [widthPX]="300"
     [heightPX]="300"
     [showEvent]="addButtonDialogShowEvent"
     [okCallback]="onUiButtonEditDialogSave"
@@ -114,7 +114,7 @@
 <!-- Choose icon dialog -->
 <app-dialog
     title="Icons"
-    [widthPX]="400"
+    [widthPX]="300"
     [heightPX]="300"
     [showEvent]="chooseIconDialogShowEvent"
     [okCallback]="onChooseIconDialogApply"
@@ -139,7 +139,7 @@
 <!-- Edit icon dialog -->
 <app-dialog
     title="Icon properties"
-    [widthPX]="400"
+    [widthPX]="350"
     [heightPX]="300"
     [showEvent]="editIconDialogShowEvent"
     [okCallback]="onEditIconIconDialogSave"
@@ -147,12 +147,14 @@
     okButtonText="Save"
 >
     <icon *ngIf="selectedIcon"
+        [paddingPX]="5"
         text="OFF state"
         [picture]="selectedIcon.stateOff"
         (onClick)="onIconOffStateSelectButtonClick()"
         [hoverable]="true"
     ></icon>
     <icon *ngIf="selectedIcon"
+        [paddingPX]="5"
         text="ON state"
         [picture]="selectedIcon.stateOn"
         (onClick)="onIconOnStateSelectButtonClick()"
