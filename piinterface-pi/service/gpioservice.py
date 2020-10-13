@@ -97,26 +97,32 @@ class GPIOService:
 
     def setPinOn(self, boardId, isSignalInverted):
         if isSignalInverted == 1:
-            GPIO.output(boardId, GPIO.LOW)
+            self.turnPinOff(boardId)
         else:
-            GPIO.output(boardId, GPIO.HIGH)
+            self.turnPinOn(boardId)
 
     def setPinOff(self, boardId, isSignalInverted):
         if isSignalInverted == 1:
-            GPIO.output(boardId, GPIO.HIGH)
+            self.turnPinOn(boardId)
         else:
-            GPIO.output(boardId, GPIO.LOW)
+            self.turnPinOff(boardId)
 
     def initGPIO(self):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
-        self.initPinsForOutput()
+        self.initPins()
 
-    def initPinsForOutput(self):
+    def initPins(self):
         for pin in self.config.availablePins:
-            GPIO.setup(pin.boardId, GPIO.OUT)
             self.setPinOff(pin.boardId, pin.isSignalInverted)
             pin.currentStatus = 0
+
+    def turnPinOff(self, boardId):
+        GPIO.setup(boardId, GPIO.IN) # some realys just won't turn off unless turning off power to the pin
+
+    def turnPinOn(self, boardId):
+        GPIO.setup(boardId, GPIO.OUT) # In case power was turned off, turn it back on
+        GPIO.output(boardId, GPIO.HIGH)
 
     def info(self):
         # Config might end up having other attributes that aren't supposed to be sent as status
