@@ -63,7 +63,11 @@ class GPIOService:
 
     def getPinState(self, boardId, isSignalInverted):
         try:
-            state = GPIO.input(boardId)
+            state = 0
+            if GPIO.gpio_function(boardId) == GPIO.OUT:
+                state = GPIO.input(boardId)
+
+            print(state)
             if state: # might be null
                 if isSignalInverted == 1:
                     return 0
@@ -118,6 +122,8 @@ class GPIOService:
             pin.currentStatus = 0
 
     def turnPinOff(self, boardId):
+        if GPIO.gpio_function(boardId) == GPIO.OUT:
+            GPIO.output(boardId, GPIO.LOW)
         GPIO.setup(boardId, GPIO.IN) # some realys just won't turn off unless turning off power to the pin
 
     def turnPinOn(self, boardId):
