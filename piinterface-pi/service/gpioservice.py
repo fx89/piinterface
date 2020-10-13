@@ -67,7 +67,6 @@ class GPIOService:
             if GPIO.gpio_function(boardId) == GPIO.OUT:
                 state = GPIO.input(boardId)
 
-            print(state)
             if state: # might be null
                 if isSignalInverted == 1:
                     return 0
