@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "piinterface-ui"
+    }
+  },
+  "defaultProject": "piinterface-ui",
+  "cli": {
+    "analytics": false
+  }
 }
