@@ -41,6 +41,9 @@ public class UiButton implements Serializable {
 	@Column(name = "ICON_ID")
 	private Long iconId;
 
+	@Column(name = "BUTTON_ORDER")
+	private Long order;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TYPE_ID")
 	private UiButtonType type;

@@ -738,4 +738,16 @@ public class PiInterfaceService {
 		// Return the saved pin
 		return savedPin;
 	}
+
+	public Iterable<UiButtonWithState> bulkSaveUiButtons(Iterable<UiButton> uiButtons) { 
+		Iterable<UiButton> savedUiButtons
+			= dataService.getUiButtonsRepository().saveAll(uiButtons);
+
+		savedUiButtons.forEach(savedButton -> {
+			UiButtonWithState registeredButton = new UiButtonWithState(savedButton, 0);
+			uiButtonsRepository.put(savedButton.getId(), registeredButton);
+		});
+		
+		return uiButtonsRepository.values();
+	}
 }

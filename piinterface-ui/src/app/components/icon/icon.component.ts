@@ -54,4 +54,5 @@ export class IconComponent implements OnInit {
   onImgClicked() {
     this.onClick.emit();
   }
+
 }

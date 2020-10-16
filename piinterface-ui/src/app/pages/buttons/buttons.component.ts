@@ -39,6 +39,10 @@ export class ButtonsComponent implements AfterViewInit {
 
   buttons : UiButton[] = [];
   selectedButton : UiButton;
+  buttonsList : HTMLElement;
+  domNodes : HTMLElement[];
+  dragTarget : HTMLElement;
+  dropTarget : HTMLElement;
 
   buttonTitleValidationFunction : Function = (title : string) => (title && title.length >=3) ? "" : "The button title must be at least 3 characters long";
 
@@ -114,7 +118,9 @@ export class ButtonsComponent implements AfterViewInit {
 
   loadUiButtons() : EventEmitter<any> {
     return this.dataService.uiButtonsRepository.findAll((ret) => {
-      this.buttons = ret;
+      if (ret) {
+        this.buttons = ret.sort((b1, b2) => b1.order - b2.order);
+      }
       this.selectedButton = undefined;
     });
   }
@@ -133,7 +139,8 @@ export class ButtonsComponent implements AfterViewInit {
 
   onButtonAddButtonClick() {
     if (this.isLocked == false) {
-      this.selectedButton = new UiButton(null, "New button", null,this.pushbuttonType, null, null, 0);
+      this.selectedButton = new UiButton(null, "New button", null,this.pushbuttonType, null, null, 0, 0);
+      this.domNodes = undefined;
       this.addButtonDialogShowEvent.emit();
     }
   }
@@ -153,6 +160,7 @@ export class ButtonsComponent implements AfterViewInit {
           this.dataService.uiButtonsRepository.delete(this.selectedButton.id)
           .subscribe(() => {
             this.selectedButton = undefined;
+            this.domNodes = undefined;
             this.loadUiButtons();
           });
         },
@@ -279,4 +287,152 @@ export class ButtonsComponent implements AfterViewInit {
     return null;
   }
 
+  getButtonSpanId(button:UiButton) : string {
+    return '_btn_' + button.id;
+  }
+
+  onDragStart(event:any) {
+    this.resolveDomNodes();
+    this.dragTarget = this.getEventTarget(event);
+  }
+
+  onDragEnd(event:any) {
+    
+  }
+
+  onDrop(event:any) {
+    this.resolveDomNodes();
+    this.resolveDropTarget(event);
+
+    if (this.dropTarget) {
+      if (this.dropTarget["btnId"] != this.dragTarget["btnId"]) {
+        this.rearrangeDomNodes();
+        this.unhighlightAllButtons();
+        this.updateDataAndReorderArray();
+        this.bulkSaveAllButtons();
+      }
+    }
+  }
+
+  onDragOver(event:any) {
+    if (this.isLocked == false) {
+      event.preventDefault();
+      this.resolveDomNodes();
+      this.resolveDropTarget(event);
+
+      if (this.dropTarget["btnId"] != this.dragTarget["btnId"]) {
+        this.highlightDropTarget(this.dropTarget);
+      }
+    }
+  }
+
+  private resolveDropTarget(event:any) {
+    const dTarget = this.getEventTarget(event);
+    if (dTarget != null && dTarget != undefined) {
+      this.dropTarget = dTarget;
+    }
+  }
+
+  private resolveDomNodes() {
+    if (this.domNodes && this.buttonsList) {
+      return; // Already resolved
+    }
+
+    this.buttonsList = document.getElementById("_buttonsList");
+
+    this.domNodes = [];
+
+    if (this.buttons) {
+      for (let btn of this.buttons) {
+        const domNode : HTMLElement = document.getElementById(this.getButtonSpanId(btn));
+
+        if (domNode) {
+          domNode["btnId"] = btn.id;
+          this.domNodes.push(domNode);
+        } else {
+          throw "Unable to identify DOM node for button with ID = [" + btn.id + "]";
+        }
+      }
+    }
+  }
+
+  private getEventTarget(event:any) : HTMLElement  {
+    for (let domNode of this.domNodes) {
+      if (domNode.contains(event.target)) {
+        return domNode;
+      }
+    }
+    return null;
+  }
+
+  private rearrangeDomNodes() {
+    if (this.dragTarget && this.dropTarget && this.buttonsList) {
+      this.dragTarget.remove();
+      this.buttonsList.insertBefore(this.dragTarget, this.dropTarget);
+    }
+  }
+
+  private highlightDropTarget(dropTarget : HTMLElement) {
+    this.unhighlightAllButtons();
+    dropTarget.classList.add("highlighted");
+  }
+
+  private unhighlightAllButtons() {
+    if (this.domNodes) {
+      for (let domNode of this.domNodes) {
+        domNode.classList.remove("highlighted");
+      }
+    }
+  }
+
+  private updateDataAndReorderArray() {
+    // Initialize a new array where to hold the buttons in the new sort order
+    const newButtonsArray : UiButton[] = [];
+
+    // Get the UI button being dragged
+    let draggedUiButton : UiButton;
+    for (let uiButton of this.buttons) {
+      if (uiButton.id == this.dragTarget["btnId"]) {
+        draggedUiButton = uiButton;
+        break;
+      }
+    }
+    if (draggedUiButton == null || draggedUiButton == undefined) {
+      throw "Could not idenitify the UI button being dragged";
+    }
+
+    // Sort the buttons:
+    let foundDropTarget : boolean = false;
+    for (let uiButton of this.buttons) {
+      if (uiButton.id != draggedUiButton.id) {
+        // If the UI button is the drop target, then this must be recorded for future use
+        // The order of the drop target must be allocated to the UI button being dragged
+        // And the UI button being dragged can be added to the new array at this time
+        if (uiButton.id == this.dropTarget["btnId"]) {
+          foundDropTarget = true;
+          draggedUiButton.order = uiButton.order;
+          newButtonsArray.push(draggedUiButton);
+        }
+  
+        // If the UI button is after the drop target, or if it's the drop target itself,
+        // then its order must be incremented
+        if (foundDropTarget) {
+          uiButton.order = uiButton.order + 1;
+        }
+
+        // Each button must be added to the new array
+        newButtonsArray.push(uiButton);
+      }
+    }
+
+    // Finally, the buttons array must be replaced by the new array
+    console.log(this.buttons);
+    this.buttons = newButtonsArray;
+    console.log(this.buttons);
+  }
+
+  private bulkSaveAllButtons() {
+    this.dataService.uiButtonsRepository
+    .saveCustomOperationWithLoadingModal("bulkSave", this.buttons);
+  }
 }

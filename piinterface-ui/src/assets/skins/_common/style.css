@@ -458,3 +458,29 @@ body {
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
+
+.panel-buttons-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.panel-button {
+    height: 150px;
+}
+
+.panel-button.highlighted {
+    animation-name: increase-padding-left;
+    animation-timing-function: ease-in;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-duration: 0.2s;
+}
+
+@keyframes increase-padding-left {
+    0% {
+        padding-left: 0px;
+    }
+    100% {
+        padding-left: 100px;
+    }
+}

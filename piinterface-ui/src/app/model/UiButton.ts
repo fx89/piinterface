@@ -11,6 +11,7 @@ export class UiButton {
         public type : UiButtonType,
         public linkedToPin : PiInstancePin,
         public linkedToPinGroup : PinGroup,
-        public state : number
+        public state : number,
+        public order : number
     ){}
 }

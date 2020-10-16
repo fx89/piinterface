@@ -1,4 +1,10 @@
-<div class="icon-border" [class.noframe]="!hasFrame" [class.selected]="selected" [class.hoverable]="hoverable" [style.padding.px]="this.paddingPX ? this.paddingPX : 'auto'">
+<div
+    class="icon-border"
+    [class.noframe]="!hasFrame"
+    [class.selected]="selected"
+    [class.hoverable]="hoverable"
+    [style.padding.px]="this.paddingPX ? this.paddingPX : 'auto'"
+>
     <div class="icon-picture" [class.noframe]="!hasFrame">
         <a [href]="href" style="border:none" *ngIf="href">
             <img

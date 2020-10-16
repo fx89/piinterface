@@ -19,5 +19,6 @@ public class UiButtonWithState extends UiButton {
 		this.setState(state);
 		this.setTitle(fromUiButton.getTitle());
 		this.setType(fromUiButton.getType());
+		this.setOrder(fromUiButton.getOrder());
 	}
 }
