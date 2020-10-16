@@ -426,9 +426,7 @@ export class ButtonsComponent implements AfterViewInit {
     }
 
     // Finally, the buttons array must be replaced by the new array
-    console.log(this.buttons);
     this.buttons = newButtonsArray;
-    console.log(this.buttons);
   }
 
   private bulkSaveAllButtons() {
