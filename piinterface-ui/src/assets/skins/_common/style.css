@@ -460,8 +460,8 @@ body {
 }
 
 .panel-buttons-list {
-    display: flex;
-    flex-wrap: wrap;
+    overflow-y: scroll;
+    height: 100%;
 }
 
 .panel-button {
