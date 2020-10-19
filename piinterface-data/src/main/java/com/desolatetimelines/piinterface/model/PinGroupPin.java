@@ -46,7 +46,4 @@ public class PinGroupPin implements Serializable {
 	@Column(name = "PIN_ORDER")
 	private Integer order;
 
-	@Column(name = "STATES_COUNT")
-	private Integer statesCount;
-
 }

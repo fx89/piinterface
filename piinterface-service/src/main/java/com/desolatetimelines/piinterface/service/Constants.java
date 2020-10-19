@@ -10,4 +10,7 @@ public class Constants {
 
 	public static final String PIN_OPERATING_MODE_SWITCH = "SWITCH";
 	public static final String PIN_OPERATING_MODE_PUSHBUTTON = "PUSHBUTTON";
+
+	public static final String GROUP_TYPE_SEQUENTIAL = "SEQUENTIAL";
+	public static final String GROUP_TYPE_SIMULTANEOUS = "SIMULTANEOUS";
 }

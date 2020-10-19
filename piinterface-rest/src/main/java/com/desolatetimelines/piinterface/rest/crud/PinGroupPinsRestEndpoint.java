@@ -100,12 +100,6 @@ public class PinGroupPinsRestEndpoint {
 	List<PinGroupPin> findAllByPinGroupIdAndPinIdAndOrder(@RequestParam(name = "pinGroupId") Long pinGroupId, @RequestParam(name = "pinId") Long pinId, @RequestParam(name = "order") Integer order) {
 		return piInterface.getDataService().getPinGroupPinsRepository().findAllByPinGroupIdAndPinIdAndOrder(pinGroupId, pinId, order);
 	}
-
-	@GetMapping(value = "/findAllByPinGroupIdAndPinIdAndStatesCount")
-	List<PinGroupPin> findAllByPinGroupIdAndPinIdAndStatesCount(@RequestParam(name = "pinGroupId") Long pinGroupId, @RequestParam(name = "pinId") Long pinId, @RequestParam(name = "statesCount") Integer statesCount) {
-		return piInterface.getDataService().getPinGroupPinsRepository().findAllByPinGroupIdAndPinIdAndStatesCount(pinGroupId, pinId, statesCount);
-	}
-
 	
 	@GetMapping(value = "/findAllByPinGroupIdAndOrder")
 	public List<PinGroupPin> findAllByPinGroupIdAndOrder(@RequestParam(name = "pinGroupId") Long pinGroupId, @RequestParam(name = "order") Integer order) {
@@ -115,17 +109,6 @@ public class PinGroupPinsRestEndpoint {
 	@GetMapping(value = "/findFirstByPinGroupIdAndOrder")
 	public PinGroupPin findFirstByPinGroupIdAndOrder(@RequestParam(name = "pinGroupId") Long pinGroupId, @RequestParam(name = "order") Integer order) {
 		return piInterface.getDataService().getPinGroupPinsRepository().findFirstByPinGroupIdAndOrder(pinGroupId, order);
-	}
-
-	
-	@GetMapping(value = "/findAllByPinGroupIdAndStatesCount")
-	public List<PinGroupPin> findAllByPinGroupIdAndStatesCount(@RequestParam(name = "pinGroupId") Long pinGroupId, @RequestParam(name = "statesCount") Integer statesCount) {
-		return piInterface.getDataService().getPinGroupPinsRepository().findAllByPinGroupIdAndStatesCount(pinGroupId, statesCount);
-	}
-	
-	@GetMapping(value = "/findFirstByPinGroupIdAndStatesCount")
-	public PinGroupPin findFirstByPinGroupIdAndStatesCount(@RequestParam(name = "pinGroupId") Long pinGroupId, @RequestParam(name = "statesCount") Integer statesCount) {
-		return piInterface.getDataService().getPinGroupPinsRepository().findFirstByPinGroupIdAndStatesCount(pinGroupId, statesCount);
 	}
 
 	@GetMapping(value = "/findAllByPinGroupName")
@@ -177,12 +160,6 @@ public class PinGroupPinsRestEndpoint {
 	List<PinGroupPin> findAllByPinIdAndPinGroupIdAndOrder(@RequestParam(name = "pinId") Long pinId, @RequestParam(name = "pinGroupId") Long pinGroupId, @RequestParam(name = "order") Integer order) {
 		return piInterface.getDataService().getPinGroupPinsRepository().findAllByPinIdAndPinGroupIdAndOrder(pinId, pinGroupId, order);
 	}
-
-	@GetMapping(value = "/findAllByPinIdAndPinGroupIdAndStatesCount")
-	List<PinGroupPin> findAllByPinIdAndPinGroupIdAndStatesCount(@RequestParam(name = "pinId") Long pinId, @RequestParam(name = "pinGroupId") Long pinGroupId, @RequestParam(name = "statesCount") Integer statesCount) {
-		return piInterface.getDataService().getPinGroupPinsRepository().findAllByPinIdAndPinGroupIdAndStatesCount(pinId, pinGroupId, statesCount);
-	}
-
 	
 	@GetMapping(value = "/findAllByPinIdAndOrder")
 	public List<PinGroupPin> findAllByPinIdAndOrder(@RequestParam(name = "pinId") Long pinId, @RequestParam(name = "order") Integer order) {
@@ -192,17 +169,6 @@ public class PinGroupPinsRestEndpoint {
 	@GetMapping(value = "/findFirstByPinIdAndOrder")
 	public PinGroupPin findFirstByPinIdAndOrder(@RequestParam(name = "pinId") Long pinId, @RequestParam(name = "order") Integer order) {
 		return piInterface.getDataService().getPinGroupPinsRepository().findFirstByPinIdAndOrder(pinId, order);
-	}
-
-	
-	@GetMapping(value = "/findAllByPinIdAndStatesCount")
-	public List<PinGroupPin> findAllByPinIdAndStatesCount(@RequestParam(name = "pinId") Long pinId, @RequestParam(name = "statesCount") Integer statesCount) {
-		return piInterface.getDataService().getPinGroupPinsRepository().findAllByPinIdAndStatesCount(pinId, statesCount);
-	}
-	
-	@GetMapping(value = "/findFirstByPinIdAndStatesCount")
-	public PinGroupPin findFirstByPinIdAndStatesCount(@RequestParam(name = "pinId") Long pinId, @RequestParam(name = "statesCount") Integer statesCount) {
-		return piInterface.getDataService().getPinGroupPinsRepository().findFirstByPinIdAndStatesCount(pinId, statesCount);
 	}
 
 	@GetMapping(value = "/findAllByPinName")
@@ -263,15 +229,5 @@ public class PinGroupPinsRestEndpoint {
 	@GetMapping(value = "/findAllByOrder")
 	public List<PinGroupPin> findAllByOrder(@RequestParam(name = "order") Integer order) {
 		return piInterface.getDataService().getPinGroupPinsRepository().findAllByOrder(order);
-	}
-
-	@GetMapping(value = "/pageAllByStatesCount")
-	public List<PinGroupPin> pageAllByStatesCount(@RequestParam(name = "statesCount") Integer statesCount, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
-		return piInterface.getDataService().getPinGroupPinsRepository().findAllByStatesCount(statesCount, PageRequest.of(pageNumber, pageSize));
-	}
-
-	@GetMapping(value = "/findAllByStatesCount")
-	public List<PinGroupPin> findAllByStatesCount(@RequestParam(name = "statesCount") Integer statesCount) {
-		return piInterface.getDataService().getPinGroupPinsRepository().findAllByStatesCount(statesCount);
 	}
 }

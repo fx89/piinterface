@@ -33,7 +33,7 @@ export function pinGroupIconFunction() { return "assets/skins/" + getSkinName() 
 
 // Pin group pins display functions
 export function pinGroupPinTitleFunction(item:PinGroupPin) { return item ? (item.pin.piInstance.name + " / " + item.pin.name) : ""; }
-export function pinGroupPinDescriptionFunction(item:PinGroupPin) { return item ? ("[" + item.order.toString() + "] (" + item.pin.boardId + "/" + item.pin.gpioId + ")" + (item.pin.isAvailable ? "" : "not available")) : ""; }
+export function pinGroupPinDescriptionFunction(item:PinGroupPin) { return item ? ("[" + item.order.toString() + "] (" + item.pin.boardId + "/" + item.pin.gpioId + ")" + (item.pin.isAvailable ? "" : "not available") + " - " + (item.statesCount ? item.statesCount.toString() : "0") + " states") : ""; }
 
 // Button types display functions
 export function buttonTypeDisplayFunction(item:UiButtonType) { return item ? item.name : ""; }

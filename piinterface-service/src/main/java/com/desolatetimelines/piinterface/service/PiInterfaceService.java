@@ -5,6 +5,8 @@ import static com.desolatetimelines.piinterface.service.Constants.NOTIFICATION_T
 import static com.desolatetimelines.piinterface.service.Constants.NOTIFICATION_TYPE_INFO;
 import static com.desolatetimelines.piinterface.service.Constants.NOTIFICATION_TYPE_WARNING;
 import static com.desolatetimelines.piinterface.service.Constants.PIN_OPERATING_MODE_PUSHBUTTON;
+import static com.desolatetimelines.piinterface.service.Constants.GROUP_TYPE_SEQUENTIAL;
+import static com.desolatetimelines.piinterface.service.Constants.GROUP_TYPE_SIMULTANEOUS;
 import static com.desolatetimelines.piinterface.service.utils.IpAddressRangesUtil.getIpAddessRangeType;
 import static com.desolatetimelines.piinterface.service.utils.IpAddressRangesUtil.parseIpAddressDigit;
 import static com.desolatetimelines.piinterface.service.utils.IpAddressRangesUtil.toIpAddressDigit;
@@ -440,12 +442,12 @@ public class PiInterfaceService {
 		// Get the first available order number for the pin in the group
 		Integer order = existingMaps.stream()
 				.map(a -> a.getOrder())
-				.max((a,b) -> {return a == null ? -1 : a.compareTo(b); })
+				.max((a,b) -> { return a == null ? -1 : a.compareTo(b); })
 				.orElse(0)
 			+ 1;
 
 		// Create the new mapping
-		PinGroupPin newMap = new PinGroupPin(null, pinGroup, pin, order, 0);
+		PinGroupPin newMap = new PinGroupPin(null, pinGroup, pin, order);
 
 		// Save and return the new mapping
 		return getDataService().getPinGroupPinsRepository().save(newMap);
@@ -609,6 +611,20 @@ public class PiInterfaceService {
 			throw new PiInterfaceServiceException("The group [" + group.getName() + "] does not contain any pins");
 		}
 
+		if (pinGroup.getType().getName().equalsIgnoreCase(GROUP_TYPE_SEQUENTIAL)) {
+			touchGroupSequential(pinGroup, groupPins);
+			return;
+		}
+
+		if (pinGroup.getType().getName().equalsIgnoreCase(GROUP_TYPE_SIMULTANEOUS)) {
+			touchGroupSimultaneous(pinGroup, groupPins);
+			return;
+		}
+
+		throw new PiInterfaceServiceException("Group type [" + pinGroup.getType().getName() + "] is not implementend");
+	}
+
+	private void touchGroupSequential(PinGroupWithState pinGroup, List<PinGroupPin> groupPins) {
 		PinGroupPin nextPin = groupPins.stream()
 				.filter(pgp -> pgp.getOrder() > pinGroup.getCurrentOrder())
 				.sorted((pgp1, pgp2) -> pgp1.getOrder().compareTo(pgp2.getOrder()))
@@ -629,6 +645,22 @@ public class PiInterfaceService {
 		}
 
 		pinGroup.setCurrentOrder(nextPin.getOrder());
+	}
+
+	private void touchGroupSimultaneous(PinGroupWithState pinGroup, List<PinGroupPin> groupPins) {
+		// Check the availability of all pins
+		groupPins.forEach(groupPin -> {
+			if (groupPin.getPin().getIsAvailable() == false) {
+				throw new PiInterfaceServiceException(
+						"The pin [" + groupPin.getPin().getPiInstance().getName() + "/" + groupPin.getPin().getName() + "] registers as no longer available. Please re-sync the PI instance."
+				);
+			}
+		});
+
+		// Click the pins
+		groupPins.forEach(groupPin -> {
+			clickPin(groupPin.getPin());
+		});
 	}
 
 	private int touchPin(Pin pin, int buttonState) {

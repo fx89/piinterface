@@ -6,7 +6,6 @@ export class PinGroupPin {
         public id : number,
         public pinGroup : PinGroup,
         public pin : PiInstancePin,
-        public order : number,
-        public statesCount : number
+        public order : number
     ){}
 }

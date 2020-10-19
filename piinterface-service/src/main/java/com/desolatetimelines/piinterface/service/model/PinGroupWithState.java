@@ -1,5 +1,8 @@
 package com.desolatetimelines.piinterface.service.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.desolatetimelines.piinterface.model.PinGroup;
 
 import lombok.Getter;
@@ -9,7 +12,11 @@ public class PinGroupWithState extends PinGroup {
 
 	@Getter
 	@Setter
-	int currentOrder;
+	private int currentOrder;
+
+	@Getter
+	@Setter
+	private Map<Long, Long> pinStates = new HashMap<>();
 
 	public PinGroupWithState(PinGroup pinGroup) {
 		this.setId(pinGroup.getId());

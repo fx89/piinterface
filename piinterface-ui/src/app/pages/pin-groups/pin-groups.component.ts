@@ -143,8 +143,8 @@ export class PinGroupsComponent implements OnInit, AfterViewInit {
     return this.dataService.pinGroupPinsRepository.getCustomOperationWithLoadingModal(
         "mapPinOnGroup",
         new Map([
-          ["pinId"  , this.pinChosenToBeAddedToGroup.id.toString()],
-          ["groupId", this.selectedPinGroup.id.toString()]
+          ["pinId"      , this.pinChosenToBeAddedToGroup.id.toString()],
+          ["groupId"    , this.selectedPinGroup.id.toString()]
         ]),
         (ret) => { this.pinChosenToBeAddedToGroup = undefined; }
     )

@@ -44,12 +44,6 @@ public interface PinGroupPinsRepository extends PagingAndSortingRepository<PinGr
 	PinGroupPin findFirstByPinGroupIdAndPinIdAndOrder(Long pinGroupId, Long pinId, Integer order);
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinGroupIdAndPinIdAndStatesCount(Long pinGroupId, Long pinId, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	PinGroupPin findFirstByPinGroupIdAndPinIdAndStatesCount(Long pinGroupId, Long pinId, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	List<PinGroupPin> findAllByPinGroupIdAndOrder(Long pinGroupId, Integer order, Pageable pageable);
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
@@ -57,15 +51,6 @@ public interface PinGroupPinsRepository extends PagingAndSortingRepository<PinGr
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	PinGroupPin findFirstByPinGroupIdAndOrder(Long pinGroupId, Integer order);
-					
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinGroupIdAndStatesCount(Long pinGroupId, Integer statesCount, Pageable pageable);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinGroupIdAndStatesCount(Long pinGroupId, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	PinGroupPin findFirstByPinGroupIdAndStatesCount(Long pinGroupId, Integer statesCount);
 					
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	List<PinGroupPin> findAllByPinGroupName(String name);
@@ -116,12 +101,6 @@ public interface PinGroupPinsRepository extends PagingAndSortingRepository<PinGr
 	List<PinGroupPin> findAllByPinGroupTypeIdInAndOrder(List<Long> typeIds, Integer order);
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinGroupTypeIdAndStatesCount(Long typeId, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinGroupTypeIdInAndStatesCount(List<Long> typeIds, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	List<PinGroupPin> findAllByPinId(Long pinId, Pageable pageable);
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
@@ -149,12 +128,6 @@ public interface PinGroupPinsRepository extends PagingAndSortingRepository<PinGr
 	PinGroupPin findFirstByPinIdAndPinGroupIdAndOrder(Long pinId, Long pinGroupId, Integer order);
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinIdAndPinGroupIdAndStatesCount(Long pinId, Long pinGroupId, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	PinGroupPin findFirstByPinIdAndPinGroupIdAndStatesCount(Long pinId, Long pinGroupId, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	List<PinGroupPin> findAllByPinIdAndOrder(Long pinId, Integer order, Pageable pageable);
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
@@ -162,15 +135,6 @@ public interface PinGroupPinsRepository extends PagingAndSortingRepository<PinGr
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	PinGroupPin findFirstByPinIdAndOrder(Long pinId, Integer order);
-					
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinIdAndStatesCount(Long pinId, Integer statesCount, Pageable pageable);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinIdAndStatesCount(Long pinId, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	PinGroupPin findFirstByPinIdAndStatesCount(Long pinId, Integer statesCount);
 					
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	List<PinGroupPin> findAllByPinPiInstanceIdIn(List<Long> piInstanceIds);
@@ -201,12 +165,6 @@ public interface PinGroupPinsRepository extends PagingAndSortingRepository<PinGr
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	List<PinGroupPin> findAllByPinPiInstanceIdInAndOrder(List<Long> piInstanceIds, Integer order);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinPiInstanceIdAndStatesCount(Long piInstanceId, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinPiInstanceIdInAndStatesCount(List<Long> piInstanceIds, Integer statesCount);
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	List<PinGroupPin> findAllByPinName(String name);
@@ -257,12 +215,6 @@ public interface PinGroupPinsRepository extends PagingAndSortingRepository<PinGr
 	List<PinGroupPin> findAllByPinOperatingModeIdInAndOrder(List<Long> operatingModeIds, Integer order);
 
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinOperatingModeIdAndStatesCount(Long operatingModeId, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByPinOperatingModeIdInAndStatesCount(List<Long> operatingModeIds, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	List<PinGroupPin> findAllByPinDelayMs(Integer delayMs);
 	
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
@@ -285,23 +237,5 @@ public interface PinGroupPinsRepository extends PagingAndSortingRepository<PinGr
 	
 	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
 	PinGroupPin findFirstByOrder(Integer order);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByOrderAndStatesCount(Integer order, Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByStatesCountIn(List<Integer> statesCounts);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByStatesCount(Integer statesCount, Pageable pageable);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByStatesCount(Integer statesCount);
-	
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	PinGroupPin findFirstByStatesCount(Integer statesCount);
-
-	@EntityGraph(attributePaths = { "pinGroup", "pinGroup.type", "pin", "pin.piInstance", "pin.operatingMode"})
-	List<PinGroupPin> findAllByStatesCountAndOrder(Integer statesCount, Integer order);
 
 }
