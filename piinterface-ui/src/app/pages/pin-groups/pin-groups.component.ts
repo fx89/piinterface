@@ -146,7 +146,7 @@ export class PinGroupsComponent implements OnInit, AfterViewInit {
           ["pinId"      , this.pinChosenToBeAddedToGroup.id.toString()],
           ["groupId"    , this.selectedPinGroup.id.toString()]
         ]),
-        (ret) => { this.pinChosenToBeAddedToGroup = undefined; }
+        (ret) => { this.pinChosenToBeAddedToGroup = undefined; } 
     )
   }
 

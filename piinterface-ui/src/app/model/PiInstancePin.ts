@@ -11,6 +11,7 @@ export class PiInstancePin {
         public delayMs : number,
         public isAvailable : boolean,
         public operatingMode : PinOperatingMode,
-        public delayMS : number
+        public delayMS : number,
+        public statesCount : number
     ){}
 }

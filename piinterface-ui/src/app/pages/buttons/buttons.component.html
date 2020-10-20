@@ -95,6 +95,17 @@
                 listRowType="compact"
                 [showListIcons]="false"
                 [validationFunction]="pinSelectionValidationFunction"
+                (onSelectionChanged)="onUiButtonPinChanged($event)"
+            ></dropdown-list>
+        </td></tr>
+        <tr *ngIf="selectedButton.type && selectedButton.type.name=='PIN' && selectedButton.linkedToPin"><td>Target state</td><td>
+            <dropdown-list
+                [listHeightPX]="80"
+                [items]="availablePinStates"
+                [(selectedItem)]="selectedButton.targetPinState"
+                listRowType="compact"
+                [showListIcons]="false"
+                [titleFunction]="pinStateDisplayFunction"
             ></dropdown-list>
         </td></tr>
         <tr *ngIf="selectedButton.type && selectedButton.type.name=='GROUP'"><td>Group</td><td>

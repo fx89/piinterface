@@ -33,6 +33,9 @@ export class ButtonsComponent implements AfterViewInit {
   pinDisplayFunction : Function = pinDisplayFunction;
   pinSelectionValidationFunction : Function = (item) => item ? "" : "You must select a pin";
 
+  availablePinStates : number[] = [];
+  pinStateDisplayFunction : Function = (pinState : number) => pinState == null ? "N/A" : pinState;
+
   groups : PinGroup[] = [];
   groupDisplayFunction : Function = pinGroupTitleFunction;
   groupSelectionValidationFunction : Function = (item) => item ? "" : "You must select a group";
@@ -139,14 +142,16 @@ export class ButtonsComponent implements AfterViewInit {
 
   onButtonAddButtonClick() {
     if (this.isLocked == false) {
-      this.selectedButton = new UiButton(null, "New button", null,this.pushbuttonType, null, null, 0, 0);
+      this.selectedButton = new UiButton(null, "New button", null,this.pushbuttonType, null, null, 0, 0, null);
       this.domNodes = undefined;
+      this.computeAvailablePinStatesArray();
       this.addButtonDialogShowEvent.emit();
     }
   }
 
   onButtonEditButtonClick() {
     if (this.isLocked == false && this.selectedButton) {
+      this.computeAvailablePinStatesArray();
       this.addButtonDialogShowEvent.emit();
     }
   }
@@ -270,6 +275,20 @@ export class ButtonsComponent implements AfterViewInit {
     reader.onerror = (err) => {
       this.toastService.showError("Error loading image", err.toString())
     };
+  }
+
+  onUiButtonPinChanged(pin : PiInstancePin) {
+    this.computeAvailablePinStatesArray();
+  }
+
+  computeAvailablePinStatesArray() {
+    this.availablePinStates = [null];
+
+    if (this.selectedButton?.linkedToPin?.statesCount) {
+      for (let s : number = 0 ; s < this.selectedButton?.linkedToPin.statesCount ; s++) {
+        this.availablePinStates.push(s);
+      }
+    }
   }
 
   selectIcon(icon:Icon) {

@@ -139,4 +139,26 @@
 			stripComments="true"
 		/>
 	</changeSet>
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="012">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="012-pin-states-count.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="013">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="013-ui-button-target-pin-state.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
 </databaseChangeLog>

@@ -39,7 +39,7 @@
             [showDelButton]="false"
             [dataTableHeightPX]="190"
             [saveItemFunction]="savePiInstancePin"
-            [editDialogHeightPX]="160"
+            [editDialogHeightPX]="190"
         >
             <table style="width:100%" *ngIf="selectedPin" style="font-size:10px;">
                 <tr><td>Operating mode</td><td>
@@ -58,6 +58,14 @@
                         [(value)]="selectedPin.delayMs"
                         [widthPCT]="100"
                         [validationFunction]="pinDelayMsValidationFunction"
+                    ></text-field>
+                </td></tr>
+                <tr><td>States count</td><td>
+                    <text-field
+                        [(value)]="selectedPin.statesCount"
+                        [widthPCT]="100"
+                        [validationFunction]="pinStatesCountValidationFunction"
+                        placeholder="NULL or > 1"
                     ></text-field>
                 </td></tr>
             </table>

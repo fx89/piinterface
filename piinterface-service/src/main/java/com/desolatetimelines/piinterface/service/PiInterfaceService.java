@@ -39,6 +39,7 @@ import com.desolatetimelines.piinterface.service.exception.CorruptedRegistryExce
 import com.desolatetimelines.piinterface.service.exception.PiInterfaceServiceException;
 import com.desolatetimelines.piinterface.service.model.Notification;
 import com.desolatetimelines.piinterface.service.model.PinGroupWithState;
+import com.desolatetimelines.piinterface.service.model.PinWithState;
 import com.desolatetimelines.piinterface.service.model.UiButtonWithState;
 import com.desolatetimelines.piinterface.service.utils.IpAddressRangesUtil.IpAddressType;
 
@@ -64,6 +65,9 @@ public class PiInterfaceService {
 
 	@Getter
 	private final Map<Long, PinGroupWithState> pinGroupsRepository = new ConcurrentHashMap<>();
+
+	@Getter
+	private final Map<Long, PinWithState> pinsRepository = new ConcurrentHashMap<>();
 
 	private boolean isWorking = false;
 
@@ -593,16 +597,16 @@ public class PiInterfaceService {
 		UiButtonWithState theButton = resolveButton(buttonId);
 
 		if (theButton.getType().getName().equals(BUTTON_TYPE_PIN_NAME)) {
-			theButton.setState(touchPin(theButton.getLinkedToPin(), theButton.getState()));
+			theButton.setState(touchPin(theButton.getLinkedToPin(), theButton.getState(), theButton.getTargetPinState()));
 		} else {
-			touchGroup(theButton.getLinkedToPinGroup());
+			touchGroup(theButton.getLinkedToPinGroup(), theButton.getTargetPinState());
 			theButton.setState(0);
 		}
 
 		return theButton;
 	}
 
-	private void touchGroup(PinGroup group) {
+	private void touchGroup(PinGroup group, Long targetPinState) {
 		PinGroupWithState pinGroup = resolvePinGroup(group.getId());
 
 		List<PinGroupPin> groupPins = dataService.getPinGroupPinsRepository().findAllByPinGpioId(group.getId());
@@ -612,19 +616,19 @@ public class PiInterfaceService {
 		}
 
 		if (pinGroup.getType().getName().equalsIgnoreCase(GROUP_TYPE_SEQUENTIAL)) {
-			touchGroupSequential(pinGroup, groupPins);
+			touchGroupSequential(pinGroup, groupPins, targetPinState);
 			return;
 		}
 
 		if (pinGroup.getType().getName().equalsIgnoreCase(GROUP_TYPE_SIMULTANEOUS)) {
-			touchGroupSimultaneous(pinGroup, groupPins);
+			touchGroupSimultaneous(pinGroup, groupPins, targetPinState);
 			return;
 		}
 
 		throw new PiInterfaceServiceException("Group type [" + pinGroup.getType().getName() + "] is not implementend");
 	}
 
-	private void touchGroupSequential(PinGroupWithState pinGroup, List<PinGroupPin> groupPins) {
+	private void touchGroupSequential(PinGroupWithState pinGroup, List<PinGroupPin> groupPins, Long targetPinState) {
 		PinGroupPin nextPin = groupPins.stream()
 				.filter(pgp -> pgp.getOrder() > pinGroup.getCurrentOrder())
 				.sorted((pgp1, pgp2) -> pgp1.getOrder().compareTo(pgp2.getOrder()))
@@ -637,7 +641,7 @@ public class PiInterfaceService {
 		}
 
 		if (nextPin.getPin().getIsAvailable()) {
-			clickPin(nextPin.getPin());
+			clickPin(nextPin.getPin(), targetPinState);
 		} else {
 			throw new PiInterfaceServiceException(
 				"The pin [" + nextPin.getPin().getPiInstance().getName() + "/" + nextPin.getPin().getName() + "] registers as no longer available. Please re-sync the PI instance."
@@ -647,7 +651,7 @@ public class PiInterfaceService {
 		pinGroup.setCurrentOrder(nextPin.getOrder());
 	}
 
-	private void touchGroupSimultaneous(PinGroupWithState pinGroup, List<PinGroupPin> groupPins) {
+	private void touchGroupSimultaneous(PinGroupWithState pinGroup, List<PinGroupPin> groupPins, Long targetPinState) {
 		// Check the availability of all pins
 		groupPins.forEach(groupPin -> {
 			if (groupPin.getPin().getIsAvailable() == false) {
@@ -659,16 +663,16 @@ public class PiInterfaceService {
 
 		// Click the pins
 		groupPins.forEach(groupPin -> {
-			clickPin(groupPin.getPin());
+			clickPin(groupPin.getPin(), targetPinState);
 		});
 	}
 
-	private int touchPin(Pin pin, int buttonState) {
+	private int touchPin(Pin pin, int buttonState, Long targetPinState) {
 		if (pin.getIsAvailable()) {
 			PIInstancePin result = null;
 			
 			if (pin.getOperatingMode().getName().equals(PIN_OPERATING_MODE_PUSHBUTTON)) {
-				result = clickPin(pin);
+				result = clickPin(pin, targetPinState);
 			} else {
 				result = switchPin(pin, buttonState);
 			}
@@ -685,12 +689,79 @@ public class PiInterfaceService {
 		}
 	}
 
-	private PIInstancePin clickPin(Pin pin) {
-		return clientService.clickPinByBoardId(
-				pin.getPiInstance().getLastRegisteredAddress(),
-				pin.getBoardId(),
-				pin.getDelayMs() == null ? 300 : pin.getDelayMs()
-			);
+	private PIInstancePin clickPin(Pin pin, Long targetPinState) {
+		// Get the state of the pin or, if it doesn't exist, create a new one
+		PinWithState pinWithState = resolvePinState(pin);
+
+		// If the button attempts to set the target device to a given state
+		if (targetPinState != null) {
+			// Make sure the target state is valid (0 <= target state < pin states count)
+			if (targetPinState < 0 || targetPinState >= pinWithState.getStatesCount()) {
+				throw new PiInterfaceServiceException("Invalid target state. Check consistency with the states count of pin [" + pinWithState.getPiInstance().getName() + " / " + pinWithState.getName() + "].");
+			}
+
+			// Prepare the PI status to be returned
+			PIInstancePin ret = null;
+
+			// Keep clicking the pin until the device has reached the targeted state
+			while (pinWithState.getCurrentState() != targetPinState) {
+				ret = clickPinAndUpdateState(pinWithState);
+
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+	 				throw new PiInterfaceServiceException("Unable to sleep: " + e.getMessage(), e);
+				}
+			}
+
+			// Return the pin state
+			if (ret == null) {
+				// Attempting to switch to the same state as the current one
+				//		=> no clicking and no state request from the PI
+				return
+					StreamSupport.stream(
+						clientService
+							.getInfo(pinWithState.getPiInstance().getLastRegisteredAddress())
+								.getAvailablePins().spliterator(), false
+					)
+					.filter(p -> p.getBoardId().equals(pinWithState.getBoardId()))
+					.findFirst()
+					.orElseThrow(() -> new PiInterfaceServiceException("The pin is no longer available"));
+			} else {
+				// Usual scenario
+				return ret;
+			}
+		}
+		// If the button does not attempt to set a certain target device state
+		else {
+			// Just click the pin in a normal manner
+			return clickPinAndUpdateState(pinWithState);
+		}
+	}
+
+	private PIInstancePin clickPinAndUpdateState(PinWithState pin) {
+		// Tell the PI to click the pin and get the response
+		// If anything is wrong on the network or with the PI itself,
+		// this will throw an exception, preventing the update of the state
+		// in the local registry
+		PIInstancePin ret = clientService.clickPinByBoardId(
+			pin.getPiInstance().getLastRegisteredAddress(),
+			pin.getBoardId(),
+			pin.getDelayMs() == null ? 300 : pin.getDelayMs()
+		);
+
+		// Update the state in the local registry:
+		//    - increment the state
+		//    - if the state has reached the max number of states, then set it back to 0
+		if (pin.getStatesCount() != null && pin.getStatesCount() > 0) {
+			pin.setCurrentState(pin.getCurrentState() + 1);
+			if (pin.getCurrentState() >= pin.getStatesCount()) {
+				pin.setCurrentState(0L);
+			}
+		}
+
+		// Finally, return the response from the PI
+		return ret;
 	}
 
 	private PIInstancePin switchPin(Pin pin, int buttonState) {
@@ -699,6 +770,17 @@ public class PiInterfaceService {
 				pin.getBoardId(),
 				buttonState == 0 ? 1 : 0
 			);
+	}
+
+	private PinWithState resolvePinState(Pin pin) {
+		PinWithState ret = pinsRepository.get(pin.getId());
+
+		if (ret == null) {
+			ret = new PinWithState(pin);
+			pinsRepository.put(pin.getId(), ret);
+		}
+
+		return ret;
 	}
 
 	/**

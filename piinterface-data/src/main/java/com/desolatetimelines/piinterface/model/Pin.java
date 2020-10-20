@@ -57,4 +57,7 @@ public class Pin implements Serializable {
 
 	@Column(name = "IS_AVAILABLE")
 	private Boolean isAvailable;
+
+	@Column(name = "STATES_COUNT")
+	private Long statesCount;
 }

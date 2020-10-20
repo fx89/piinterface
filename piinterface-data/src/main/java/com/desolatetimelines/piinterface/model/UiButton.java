@@ -56,4 +56,6 @@ public class UiButton implements Serializable {
 	@JoinColumn(name = "LINKED_TO_PIN_GROUP_ID")
 	private PinGroup linkedToPinGroup;
 
+	@Column(name = "TARGET_PIN_STATE")
+	private Long targetPinState;
 }

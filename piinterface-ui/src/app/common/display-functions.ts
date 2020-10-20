@@ -19,7 +19,7 @@ export function ipRangeIconFunction() { return "assets/skins/" + getSkinName() +
 
 // Pins display functions
 export function pinTitleDisplayFunction(item : PiInstancePin) { return item ? item.name : ""; }
-export function pinDescriptionDisplayFunction(item : PiInstancePin) { return item ? ("[" + item.id + "] " + item.name + " (" + item.boardId + "/" + item.gpioId + ")" + (item.isAvailable ? "" : " - Not available")) : ""; }
+export function pinDescriptionDisplayFunction(item : PiInstancePin) { return item ? ("[" + item.id + "] " + item.name + " (" + item.boardId + "/" + item.gpioId + ")" + (item.isAvailable ? "" : " - Not available") + " - " + (item.statesCount ? item.statesCount.toString() : "0") + " states") : ""; }
 export function pinIconFunction() { return "assets/skins/" + getSkinName() + "/icons/main-menu/pins.png"; }
 export function pinDisplayFunction(item : PiInstancePin) { return item ? ((item.piInstance ? item.piInstance.name : "Unidentified instance") + " / " + item.name) : ""; }
 
@@ -33,7 +33,7 @@ export function pinGroupIconFunction() { return "assets/skins/" + getSkinName() 
 
 // Pin group pins display functions
 export function pinGroupPinTitleFunction(item:PinGroupPin) { return item ? (item.pin.piInstance.name + " / " + item.pin.name) : ""; }
-export function pinGroupPinDescriptionFunction(item:PinGroupPin) { return item ? ("[" + item.order.toString() + "] (" + item.pin.boardId + "/" + item.pin.gpioId + ")" + (item.pin.isAvailable ? "" : "not available") + " - " + (item.statesCount ? item.statesCount.toString() : "0") + " states") : ""; }
+export function pinGroupPinDescriptionFunction(item:PinGroupPin) { return item ? ("[" + item.order.toString() + "] (" + item.pin.boardId + "/" + item.pin.gpioId + ")" + (item.pin.isAvailable ? "" : "not available")) : ""; }
 
 // Button types display functions
 export function buttonTypeDisplayFunction(item:UiButtonType) { return item ? item.name : ""; }

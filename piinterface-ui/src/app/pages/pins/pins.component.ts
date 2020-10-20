@@ -40,12 +40,26 @@ export class PinsComponent implements AfterViewInit {
       }
   }
 
-  pinsTableColumnTitles = ["(B/G)", "Name", "Op. mode", "Delay(ms)"];
+  pinStatesCountValidationFunction = (statesCount) => {
+    const valMsg : string = "The states count must NULL or a number greater than 1";
+
+    if (statesCount) {
+      if (isNaN(statesCount)) {
+        return valMsg;
+      }
+      if (statesCount <= 1) {
+        return valMsg;
+      }
+    }
+  }
+
+  pinsTableColumnTitles = ["(B/G)", "Name", "Op. mode", "Delay(ms)", "#States"];
   pinsTableDisplayFunctions = [
     (item : PiInstancePin) => item ? item.boardId + "/" + item.gpioId : "",
     (item : PiInstancePin) => item ? item.name : "",
     (item : PiInstancePin) => item && item.operatingMode ? item.operatingMode.name : "",
     (item : PiInstancePin) => item ? item.delayMs : "",
+    (item : PiInstancePin) => item && item.statesCount ? item.statesCount : "N/A",
   ];
   pinsTableDataGridRowNumberFunction : Function = (pin:PiInstancePin, rowIndex:number) => pin ? pin.id : (rowIndex+1);
 

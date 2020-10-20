@@ -20,5 +20,6 @@ public class UiButtonWithState extends UiButton {
 		this.setTitle(fromUiButton.getTitle());
 		this.setType(fromUiButton.getType());
 		this.setOrder(fromUiButton.getOrder());
+		this.setTargetPinState(fromUiButton.getTargetPinState());
 	}
 }
