@@ -267,7 +267,7 @@ body.light {
     border-color: #AAA;
     border-radius: 8px;
     background-color: #DEDEE0;
-    padding: 10px;
+    padding: 5px;
     -webkit-box-shadow: 1px 3px 7px 4px rgba(0,0,0,0.09); 
     box-shadow: 1px 3px 7px 4px rgba(0,0,0,0.09);
     text-align: right;
