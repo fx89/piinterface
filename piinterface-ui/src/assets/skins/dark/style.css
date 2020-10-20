@@ -272,7 +272,7 @@ body.dark {
     border-color: #898989;
     border-radius: 8px;
     background-color: #454545;
-    padding: 5px;
+    padding: 3px;
     -webkit-box-shadow: 1px 3px 7px 4px rgba(0,0,0,0.09); 
     box-shadow: 1px 3px 7px 4px rgba(0,0,0,0.09);
     text-align: right;
