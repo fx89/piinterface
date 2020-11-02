@@ -4,7 +4,7 @@
 ## About
 This is a web UI for managing, grouping and operating GPIO pins on one or more Raspberry Pis. Works on Raspberry Pi 4, using Java 11, MariaDB and HTTPD. Security is missing, but may be added on request.
 
-[https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/bright-skin.png]
+(https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/bright-skin.png)
 
 
 ## Deliverables
