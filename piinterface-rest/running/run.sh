@@ -1,1 +1,1 @@
-java -jar piinterface-rest --spring.config.location=application.properties
+java -jar piinterface-rest.jar --spring.config.location=application.properties

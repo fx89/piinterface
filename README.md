@@ -26,9 +26,9 @@ The built packages can be found at the following locations:
 The Python scripts do not necessarily need to be built. They can be run using Flask, although it is not reccommended unless the network is secured. 
 
 
-##Installation, configuration and running
+## Installation, configuration and running
 
-###The Python scripts
+### The Python scripts
 These scripts should be installed on each PI which has to be operated by this program. The installation is straight forward:
  - Make sure that Flask is installed
  - Put the scripts in a directory of your choosing
