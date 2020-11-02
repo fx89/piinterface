@@ -4,6 +4,8 @@
 ## About
 This is a web UI for managing, grouping and operating GPIO pins on one or more Raspberry Pis. Works on Raspberry Pi 4, using Java 11, MariaDB and HTTPD. Security is missing, but may be added on request.
 
+[https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/bright-skin.png]
+
 
 ## Deliverables
 - *The Python scripts* residing in the piinterface-pi module consist of a Flask web service which has to be running on each PI to provide acess to the functionality specified in the config file for that PI
