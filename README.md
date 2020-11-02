@@ -26,7 +26,7 @@ Since the intended purpose of the app is to operate relays as either pushbuttons
 ## Deliverables
 - *The Python scripts* residing in the piinterface-pi module consist of a Flask web service which has to be running on each PI to provide acess to the functionality specified in the config file for that PI
 - *The JAR file* residing in the piinterface-rest module is the management app, which registers the user-defined buttons and their functionality and calls the Flask web service on each pi when the buttons are pushed
-- *The Angular UI files* residing in the piinterface-ui module privde the actual web interface where users define and push the buttons
+- *The Angular UI files* residing in the piinterface-ui module provide the actual web interface where users define and push the buttons
 
 
 ## Building
@@ -61,28 +61,28 @@ These scripts should be installed on each PI which has to be operated by this pr
 ### The JAR file
 This should be installed on only one device, be it a PI or some other environment running JDK 11. The following steps focus on installing the JAR file on a PI.
  - Install JDK 11, following the instructions provided [here](https://phoenixnap.com/kb/install-java-raspberry-pi)
- - Install MariaDb, following the instructions provided [here](https://raspberrytips.com/install-mariadb-raspberry-pi/#How_to_install_MariaDB_on_Raspbian)
+ - Install MariaDB, following the instructions provided [here](https://raspberrytips.com/install-mariadb-raspberry-pi/#How_to_install_MariaDB_on_Raspbian)
  - Log into MariaDB and create a user named piinterface and a database with the same name for the user:
  ```
  CREATE USER piinterface@localhost IDENTIFIED BY 'piinterface';
  CREATE DATABASE piinterface;
  GRANT ALL PRIVILEGES ON piinterface.* TO piinterface;
  ```
- - The There is a file named "install.sql" under piinterface/piinterface-rest/running. This must be run whiled logged into MariaDB:
+ - There is a script named "install.sql" under piinterface/piinterface-rest/running. This script must be run while logged into MariaDB:
  ```
  source {path-top-piinterface}/piinterface-rest/running/install.sql
  ```
  - Close the MariaDB client
- - Put the JAR file in a directory of your choosing. Rename it to **piinterface-rest.jar**.
- - Copy the 3 files from piinterface/piinterface-rest/running into (application.properties, run.bat and run.sh) the aforementioned directory
+ - Put the JAR file in a directory of your choosing. Rename the JAR file to **piinterface-rest.jar**.
+ - Copy the files application.properties, run.bat and run.sh from piinterface/piinterface-rest/running into the aforementioned directory
  - If on a Unix-based system, grant execution rights on run.sh
  - Run either run.sh or run.bat, depending on the operating system
 
 ### The Angular UI files
-These should go in the document root of a HTTP server / virtual host. While any web server may be used, this will focus on HTTPD under Raspberry PI.
+These should go in the document root of an HTTP server / virtual host. While any web server may be used, this will focus on HTTPD under Raspberry PI.
  - Install HTTPD, following the instructions provided [here](https://www.raspberrypi.org/documentation/remote-access/web-server/apache.md). It is not necessary to install PHP or any other additional extensions.
  - Copy the files from *piinterface/piinterface-ui/dist/piinterface-ui/* into /var/www/html
- - Open index.html and edit backendAddress property of the configuration tag so that it specifies the IP address of the PI where the JAR is running. This page will be interpreted by the web browser on your computer/phone/tablet and these devices will need to know where to find the back-end module (JAR file).
+ - Open index.html and edit the *backendAddress* property of the *configuration* tag so that it specifies the IP address of the PI where the JAR is running. This page will be interpreted by the web browser on your computer/phone/tablet and these devices will need to know where to find the back-end module (JAR file).
 
 ### Verifying the installation
 After installing and configuring the 3 modules:
