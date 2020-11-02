@@ -5,18 +5,21 @@
 This is a web UI for managing, grouping and operating GPIO pins on one or more Raspberry PIs. Works on Raspberry Pi 4, using Java 11, MariaDB and HTTPD. Security is missing, but may be added on request.
 
 This app is meant to allow remote control of various elements within a server rack. These are not all rackable devices and some of them (KVM switches for example) cannot be mounted onto the front of the rack so that they can be easily operated. This is an alternative to building a mounted control panel with buttons and switches. Instead, one might consider having a virtual panel that can be carried over to the next room or anywhere within the range of the wi-fi network.
+
 ![bright-skin.png](https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/bright-skin.png)
 
 The web UI has both a bright and a dark skin, is responsive, within certain limits, and renders well on mobile devices.
+
 ![buttons-on-phone.jpg](https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/buttons-on-phone.jpg)
 ![buttons-on-tablet.jpg](https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/buttons-on-tablet.jpg)
 
 The buttons panel is fully configurable. Users may choose the button appearence, text and order and even upload new button images if the stock ones are not representative for the functionality.
+
 ![choose-icons.png](https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/choose-icons.png)
 
 Since the intended purpose of the app is to operate relays as either pushbuttons or on/off switches, One should not expect more capabilities such as being able to set the intensity of a knob. However, all aspects of the on/off/pushbutton functionality are configurable. Users may set things like the amount of time a pushbutton should stay pressed or how many states the target device has, so that one may define a virtual button that performs the push operation on the physical button as many times as it's required to set the state to the desired one.
+
 ![pins.png](https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/pins.png)
-![choose-icons.png](https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/choose-icons.png)
 ![pi-instances.png](https://raw.githubusercontent.com/fx89/piinterface/master/res/galery/pi-instances.png)
 
 
