@@ -12,6 +12,7 @@ import com.desolatetimelines.piinterface.dao.PinGroupsRepository;
 import com.desolatetimelines.piinterface.dao.PinOperatingModesRepository;
 import com.desolatetimelines.piinterface.dao.PinsRepository;
 import com.desolatetimelines.piinterface.dao.UiButtonTypesRepository;
+import com.desolatetimelines.piinterface.dao.UiButtonsPanelsRepository;
 import com.desolatetimelines.piinterface.dao.UiButtonsRepository;
 
 import lombok.Getter;
@@ -48,4 +49,7 @@ public class PiInterfaceDataService {
 
 	@Autowired
 	private IpAddressRangesRepository ipAddressRangesRepository;
+
+	@Autowired
+	private UiButtonsPanelsRepository uiButtonsPanelsRepository;
 }

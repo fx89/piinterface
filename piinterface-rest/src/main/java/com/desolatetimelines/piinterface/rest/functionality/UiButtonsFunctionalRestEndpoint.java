@@ -25,6 +25,11 @@ public class UiButtonsFunctionalRestEndpoint {
 		return piInterface.getUiButtonsRepository().values();
 	}
 
+	@GetMapping(value = "/findAllByButtonsPanelIdIncludingState")
+	public Iterable<UiButtonWithState> findAllByButtonsPanelIdIncludingState(@RequestParam() Long panelId) {
+		return piInterface.getUiButtonsOnPanel(panelId);
+	}
+
 	@GetMapping(value = "/clickButton")
 	public UiButtonWithState clickButton(@RequestParam() Long buttonId) {
 		return piInterface.clickButton(buttonId);

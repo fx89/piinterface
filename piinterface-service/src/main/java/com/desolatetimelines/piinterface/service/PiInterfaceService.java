@@ -1,18 +1,19 @@
 package com.desolatetimelines.piinterface.service;
 
 import static com.desolatetimelines.piinterface.service.Constants.BUTTON_TYPE_PIN_NAME;
+import static com.desolatetimelines.piinterface.service.Constants.GROUP_TYPE_SEQUENTIAL;
+import static com.desolatetimelines.piinterface.service.Constants.GROUP_TYPE_SIMULTANEOUS;
 import static com.desolatetimelines.piinterface.service.Constants.NOTIFICATION_TYPE_ERROR;
 import static com.desolatetimelines.piinterface.service.Constants.NOTIFICATION_TYPE_INFO;
 import static com.desolatetimelines.piinterface.service.Constants.NOTIFICATION_TYPE_WARNING;
 import static com.desolatetimelines.piinterface.service.Constants.PIN_OPERATING_MODE_PUSHBUTTON;
-import static com.desolatetimelines.piinterface.service.Constants.GROUP_TYPE_SEQUENTIAL;
-import static com.desolatetimelines.piinterface.service.Constants.GROUP_TYPE_SIMULTANEOUS;
 import static com.desolatetimelines.piinterface.service.utils.IpAddressRangesUtil.getIpAddessRangeType;
 import static com.desolatetimelines.piinterface.service.utils.IpAddressRangesUtil.parseIpAddressDigit;
 import static com.desolatetimelines.piinterface.service.utils.IpAddressRangesUtil.toIpAddressDigit;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -863,5 +864,38 @@ public class PiInterfaceService {
 		});
 		
 		return uiButtonsRepository.values();
+	}
+
+	public Iterable<UiButtonWithState> getUiButtonsOnPanel(Long panelId) {
+		Collection<UiButtonWithState> buttons = uiButtonsRepository.values();
+
+		if (buttons == null) {
+			return null;
+		}
+
+		return buttons.stream()
+				.filter(btn -> btn.getButtonsPanel() != null && btn.getButtonsPanel().getId() == panelId)
+				.collect(toList());
+	}
+
+	public void deleteUiButtonsPanel(Long panelId) {
+		// Get the IDs of the buttons belonging to the panel with the given id,
+		// as registered in the state repository
+		List<Long> btnIds = uiButtonsRepository.values().stream()
+				.filter(btn -> btn.getButtonsPanel().getId().equals(panelId))
+				.map(btn -> btn.getId())
+				.collect(toList());
+
+		// Bulk delete the buttons from the database
+		dataService.getUiButtonsRepository().bulkDelete(btnIds);
+
+		// Remove the panel from the database
+		dataService.getUiButtonsPanelsRepository().deleteById(panelId);
+
+		// Remove the buttons from state repository
+		btnIds.forEach(btnId -> {
+			uiButtonsRepository.remove(btnId);			
+		});
+		
 	}
 }

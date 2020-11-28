@@ -4,6 +4,7 @@ import { PiInstancePin } from '../model/PiInstancePin';
 import { PinGroup } from '../model/PinGroup';
 import { PinGroupPin } from '../model/PinGroupPin';
 import { PinOperatingMode } from '../model/PinOperatingMode';
+import { UiButtonsPanel } from '../model/UiButtonsPanel';
 import { UiButtonType } from '../model/UiButtonType';
 import { getSkinName } from "../utils/skin-utils";
 
@@ -37,3 +38,6 @@ export function pinGroupPinDescriptionFunction(item:PinGroupPin) { return item ?
 
 // Button types display functions
 export function buttonTypeDisplayFunction(item:UiButtonType) { return item ? item.name : ""; }
+
+// Button panels display finctions
+export function buttonPanelDisplayFunction(item:UiButtonsPanel) { return item ? item.name : ""; }

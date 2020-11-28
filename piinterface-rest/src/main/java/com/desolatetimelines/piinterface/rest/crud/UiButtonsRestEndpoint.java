@@ -492,4 +492,9 @@ public class UiButtonsRestEndpoint {
 	public List<UiButton> pageAllByLinkedToPinGroupName(@RequestParam(name="linkedToPinGroupName") String name, @RequestParam(name = "pageNumber") int pageNumber, @RequestParam(name = "pageSize") int pageSize) {
 		return piInterface.getDataService().getUiButtonsRepository().findAllByLinkedToPinGroupName(name, PageRequest.of(pageNumber, pageSize));
 	}
+
+	@GetMapping(value = "/findAllByButtonsPanelId")
+	public List<UiButton> findAllByButtonsPanelId(@RequestParam() Long buttonsPanelId) {
+		return piInterface.getDataService().getUiButtonsRepository().findAllByButtonsPanelId(buttonsPanelId);
+	}
 }

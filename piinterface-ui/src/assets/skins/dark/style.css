@@ -1,6 +1,6 @@
 body.dark {
     background-color: #333;
-    color: #111;
+    color: #EEE;
     font-family: "Lucida Console", Monaco, monospace;
     font-weight: bolder;
     font-size: 14px;
@@ -51,6 +51,7 @@ body.dark {
 }
 
 .dark .icon-label {
+    color: #111;
     font-size: 12px;
     text-align: center;
 }

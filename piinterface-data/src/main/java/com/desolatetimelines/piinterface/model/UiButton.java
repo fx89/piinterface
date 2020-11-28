@@ -58,4 +58,8 @@ public class UiButton implements Serializable {
 
 	@Column(name = "TARGET_PIN_STATE")
 	private Long targetPinState;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "BUTTONS_PANEL_ID")
+	private UiButtonsPanel buttonsPanel;
 }

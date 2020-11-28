@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter } from '@angular/core';
-import { buttonTypeDisplayFunction, pinDisplayFunction, pinGroupTitleFunction } from 'src/app/common/display-functions';
+import { buttonPanelDisplayFunction, buttonTypeDisplayFunction, pinDisplayFunction, pinGroupTitleFunction } from 'src/app/common/display-functions';
 import { DialogButtonSpec } from 'src/app/components/dialog/dialog.component';
 import { MsgboxService } from 'src/app/components/services/msgbox/msgbox.service';
 import { ToastService } from 'src/app/components/services/toast/toast.service';
@@ -7,6 +7,7 @@ import { Icon } from 'src/app/model/Icon';
 import { PiInstancePin } from 'src/app/model/PiInstancePin';
 import { PinGroup } from 'src/app/model/PinGroup';
 import { UiButton } from 'src/app/model/UiButton';
+import { UiButtonsPanel } from 'src/app/model/UiButtonsPanel';
 import { UiButtonType } from 'src/app/model/UiButtonType';
 import { DataService } from 'src/app/services/data-service/data-service.service';
 
@@ -40,6 +41,12 @@ export class ButtonsComponent implements AfterViewInit {
   groupDisplayFunction : Function = pinGroupTitleFunction;
   groupSelectionValidationFunction : Function = (item) => item ? "" : "You must select a group";
 
+  panels : UiButtonsPanel[] = [];
+  selectedPanel : UiButtonsPanel;
+  prevSelectedPanel : UiButtonsPanel;
+  panelDisplayFunction : Function = buttonPanelDisplayFunction;
+  panelSelectionValidationFunction : Function = (item) => item ? "" : "You must select a group";
+
   buttons : UiButton[] = [];
   selectedButton : UiButton;
   buttonsList : HTMLElement;
@@ -52,6 +59,7 @@ export class ButtonsComponent implements AfterViewInit {
   addButtonDialogShowEvent : EventEmitter<any> = new EventEmitter<any>();
   chooseIconDialogShowEvent : EventEmitter<any> = new EventEmitter<any>();
   editIconDialogShowEvent : EventEmitter<any> = new EventEmitter<any>();
+  editPanelDialogShowEvent : EventEmitter<any> = new EventEmitter<any>();
 
   chooseIconDialogCustomButtons : DialogButtonSpec[] = [
     new DialogButtonSpec("Add new", () => {
@@ -68,13 +76,22 @@ export class ButtonsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.loadUiButtonTypes().subscribe(() => {
-      this.loadUiButtons().subscribe(() => {
-        this.loadPins().subscribe(() => {
-          this.loadPinGroups().subscribe(() => {
-            this.loadIcons();
+      this.loadPins().subscribe(() => {
+        this.loadPinGroups().subscribe(() => {
+          this.loadIcons().subscribe(() => {
+            this.loadButtonPanels().subscribe(() => {
+              this.loadUiButtons();
+            });
           });
         });
       });
+    });
+  }
+
+  loadButtonPanels() : EventEmitter<any> {
+    return this.dataService.buttonPanelsRepository.findAll((ret) => {
+      this.panels = ret;
+      this.selectedPanel = ret ? ret[0] : null;
     });
   }
 
@@ -120,12 +137,14 @@ export class ButtonsComponent implements AfterViewInit {
   }
 
   loadUiButtons() : EventEmitter<any> {
-    return this.dataService.uiButtonsRepository.findAll((ret) => {
-      if (ret) {
-        this.buttons = ret.sort((b1, b2) => b1.order - b2.order);
-      }
-      this.selectedButton = undefined;
-    });
+    return this.dataService.uiButtonsRepository.findAllByParentId(
+      this.selectedPanel ? this.selectedPanel.id : null,
+      (ret) => {
+        if (ret) {
+          this.buttons = ret.sort((b1, b2) => b1.order - b2.order);
+        }
+        this.selectedButton = undefined;
+      });
   }
 
   collectPushbuttonType() {
@@ -142,7 +161,7 @@ export class ButtonsComponent implements AfterViewInit {
 
   onButtonAddButtonClick() {
     if (this.isLocked == false) {
-      this.selectedButton = new UiButton(null, "New button", null,this.pushbuttonType, null, null, 0, 0, null);
+      this.selectedButton = new UiButton(null, "New button", null,this.pushbuttonType, null, null, 0, 0, null, this.selectedPanel);
       this.domNodes = undefined;
       this.computeAvailablePinStatesArray();
       this.addButtonDialogShowEvent.emit();
@@ -451,5 +470,48 @@ export class ButtonsComponent implements AfterViewInit {
   private bulkSaveAllButtons() {
     this.dataService.uiButtonsRepository
     .saveCustomOperationWithLoadingModal("bulkSave", this.buttons);
+  }
+
+  onButtonsPanelSelectionChanged($event) {
+    this.loadUiButtons();
+  }
+
+  onPanelDelButtonClick() {
+    this.msgboxService.showSimpleMsgBox(
+      "Confirm deletion",
+      "All buttons on this panel wil lbe lost !",
+      () => {
+        this.dataService.buttonPanelsRepository.delete(this.selectedPanel.id)
+        .subscribe(() => {
+          this.ngAfterViewInit();
+        });
+      },
+      "Confirm", "Cancel"
+    );
+  }
+
+  onPanelEditButtonClick() {
+    this.prevSelectedPanel = this.selectedPanel;
+    this.editPanelDialogShowEvent.emit();
+  }
+
+  onPanelAddButtonClick() {
+    this.prevSelectedPanel = this.selectedPanel;
+    this.selectedPanel = new UiButtonsPanel(null, "New panel");
+    this.editPanelDialogShowEvent.emit();
+  }
+
+  onEditPanelIconDialogSave = () => {
+    this.dataService.buttonPanelsRepository.save(this.selectedPanel, (ret) => {
+      if (this.selectedPanel.id != this.prevSelectedPanel.id) {
+        this.panels.push(ret);
+      }
+      this.selectedPanel = ret;      
+      this.loadUiButtons();
+    });
+  }
+
+  onEditPanelDialogCancel = () => {
+    this.selectedPanel = this.prevSelectedPanel;
   }
 }

@@ -1,5 +1,6 @@
 import { PiInstancePin } from './PiInstancePin';
 import { PinGroup } from './PinGroup';
+import { UiButtonsPanel } from './UiButtonsPanel';
 import { UiButtonType } from './UiButtonType';
 
 export class UiButton {
@@ -12,6 +13,7 @@ export class UiButton {
         public linkedToPinGroup : PinGroup,
         public state : number,
         public order : number,
-        public targetPinState : number
+        public targetPinState : number,
+        public buttonsPanel : UiButtonsPanel
     ){}
 }

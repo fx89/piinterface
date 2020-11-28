@@ -161,4 +161,15 @@
 			stripComments="true"
 		/>
 	</changeSet>
+	<changeSet author="catalin.ioan.georgescu@gmail.com" id="014">
+		<sqlFile
+			dbms="mysql"
+			encoding="UTF-8"
+			endDelimiter=";"
+			path="014-button-panels.sql"
+			relativeToChangelogFile="true"
+			splitStatements="true"
+			stripComments="true"
+		/>
+	</changeSet>
 </databaseChangeLog>

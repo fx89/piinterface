@@ -1,3 +1,5 @@
+<!-- SEE ALSO: https://www.thirdrocktechkno.com/blog/building-interactive-lists-with-the-new-angular-7-drag-and-drop-tool/ -->
+
 <page-title
     iconFileRef="main-menu/buttons"
     titleText="Buttons"
@@ -5,21 +7,24 @@
 
 <div style="position:relative; left:2%; width:96%">
 
-    <pushbutton text="Del"  [widthPX]="35" style="float:right; padding-right:3px;" (click)="onButtonDelButtonClick()"  [enabled]="selectedButton"></pushbutton>
-    <pushbutton text="Edit" [widthPX]="45" style="float:right; padding-right:3px;" (click)="onButtonEditButtonClick()" [enabled]="selectedButton"></pushbutton>
-    <pushbutton text="Add"  [widthPX]="35" style="float:right; padding-right:3px;" (click)="onButtonAddButtonClick()"  [enabled]="!isLocked"></pushbutton>
-
-    <pushbutton
-        [text]="isLocked ? 'Unlock' : 'Lock'"
-        style="float:right; padding-right:3px;"
-        (click)="onLockingButtonClick()"
-        [widthPX]="75"
-    ></pushbutton>
-
-    <div class="spacer"></div>
-    <div class="spacer"></div>
-    <div class="spacer"></div>
-    <div class="spacer"></div>
+    <!-- Panel selection box -->
+    <table style="width:100%"><tr><td style="text-align:right; width:40px;">Panel</td><td>
+        <dropdown-list
+            [listHeightPX]="80"
+            [items]="panels"
+            [(selectedItem)]="selectedPanel"
+            [selctedItemDisplayFunction]="panelDisplayFunction"
+            [titleFunction]="panelDisplayFunction"
+            listRowType="compact"
+            [showListIcons]="false"
+            (onSelectionChanged)="onButtonsPanelSelectionChanged($event)"
+        ></dropdown-list>
+    </td><td style="width:135px;">
+        <pushbutton text="Del"  [widthPX]="35" style="float:right; padding-right:3px;" (click)="onPanelDelButtonClick()"></pushbutton>
+        <pushbutton text="Edit" [widthPX]="45" style="float:right; padding-right:3px;" (click)="onPanelEditButtonClick()"></pushbutton>
+        <pushbutton text="Add"  [widthPX]="35" style="float:right; padding-right:3px;" (click)="onPanelAddButtonClick()"></pushbutton>
+    </td></tr></table>
+    <!-- End of panel selection box -->
 
     <!-- UI buttons panel -->
     <div class="panel" style="height:calc(100vh - 200px); text-align:left;">
@@ -50,6 +55,21 @@
             </span>
         </div>
     </div>
+
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+
+    <!-- Panel configuration buttons -->
+    <pushbutton text="Del"  [widthPX]="35" style="float:right; padding-right:3px;" (click)="onButtonDelButtonClick()"  [enabled]="selectedButton"></pushbutton>
+    <pushbutton text="Edit" [widthPX]="45" style="float:right; padding-right:3px;" (click)="onButtonEditButtonClick()" [enabled]="selectedButton"></pushbutton>
+    <pushbutton text="Add"  [widthPX]="35" style="float:right; padding-right:3px;" (click)="onButtonAddButtonClick()"  [enabled]="!isLocked"></pushbutton>
+    <pushbutton
+        [text]="isLocked ? 'Unlock' : 'Lock'"
+        style="float:right; padding-right:3px;"
+        (click)="onLockingButtonClick()"
+        [widthPX]="75"
+    ></pushbutton>
+    <!-- End of panel configuration buttons -->
 
 </div>
 
@@ -201,5 +221,23 @@
     />
 </app-dialog>
 
-<!-- https://www.thirdrocktechkno.com/blog/building-interactive-lists-with-the-new-angular-7-drag-and-drop-tool/ -->
 
+
+<!-- Edit panel -->
+<app-dialog
+    title="Panel properties"
+    [widthPX]="350"
+    [heightPX]="120"
+    [showEvent]="editPanelDialogShowEvent"
+    [okCallback]="onEditPanelIconDialogSave"
+    [cancelCallback]="onEditPanelDialogCancel"
+    okButtonText="Save"
+>
+    Panel name
+    <text-field *ngIf="selectedPanel"
+        [(value)]="selectedPanel.name"
+        [widthPCT]="100"
+        [validationFunction]="buttonTitleValidationFunction"
+        placeholder="At least 3 characters long"
+    ></text-field>
+</app-dialog>
