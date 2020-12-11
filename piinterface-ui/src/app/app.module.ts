@@ -29,6 +29,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 import { CrudTableComponent } from './components/crud-table/crud-table.component';
 import { DropdownListComponent } from './components/dropdown-list/dropdown-list.component';
 import { SwitchComponent } from './components/switch/switch.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { SwitchComponent } from './components/switch/switch.component';
     DataTableComponent,
     CrudTableComponent,
     DropdownListComponent,
-    SwitchComponent
+    SwitchComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

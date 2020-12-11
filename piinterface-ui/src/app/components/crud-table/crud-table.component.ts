@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { v4 as uuid } from 'uuid';
+import { ValidationService } from '../services/validation/validation.service';
 
 @Component({
   selector: 'crud-table',
   templateUrl: './crud-table.component.html',
   styleUrls: ['./crud-table.component.css']
 })
-export class CrudTableComponent implements OnInit {
+export class CrudTableComponent implements OnInit, AfterViewInit {
 
   @Input()
   id : string = "_" + uuid();
@@ -99,9 +100,15 @@ export class CrudTableComponent implements OnInit {
 
   delConfirmationMsgboxShowEvent : EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() { }
+  containedComponentIds : string[] = [];
+
+  constructor(private validation : ValidationService) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.containedComponentIds = this.validation.collectContainedElementIds(this.id);
   }
 
   getDataTableId() : string {
@@ -109,13 +116,14 @@ export class CrudTableComponent implements OnInit {
   }
 
   getContainerId() : string {
-    return this.id + "_containser";
+    return this.id + "_container";
   }
 
   onTableSelectionChanged(selectedItem : any) {
     this.selectedItem = selectedItem;
     this.selectedItemChange.emit(selectedItem);
     this.onSelectionChanged.emit(selectedItem);
+    this.validation.clearValidationMessages(this.containedComponentIds);
   }
 
   onDelButtonClicked() {
@@ -132,12 +140,15 @@ export class CrudTableComponent implements OnInit {
   }
 
   onEditButtonClicked() {
+    this.selectedItemChange.emit(this.selectedItem);
+    this.onSelectionChanged.emit(this.selectedItem);
     this.editDialogShowEvent.emit();
   }
 
   onAddButtonClicked() {
     this.selectedItem = this.newItemFunction();
     this.selectedItemChange.emit(this.selectedItem);
+    this.onSelectionChanged.emit(this.selectedItem);
     this.editDialogShowEvent.emit();
   }
 

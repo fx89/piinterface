@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 import { v4 as uuid } from 'uuid';
 import { ValidationService } from '../services/validation/validation.service';
 
@@ -7,7 +7,7 @@ import { ValidationService } from '../services/validation/validation.service';
   templateUrl: './dropdown-list.component.html',
   styleUrls: ['./dropdown-list.component.css']
 })
-export class DropdownListComponent implements OnInit, AfterViewInit {
+export class DropdownListComponent implements OnInit, AfterViewInit, AfterContentInit {
 
   @Input()
   id : string = "_" + uuid();
@@ -66,6 +66,7 @@ export class DropdownListComponent implements OnInit, AfterViewInit {
   constructor(private validationService : ValidationService) { }
 
   ngOnInit() {
+    this.ensureElementsAreCollected();
     this.validate();
   }
 
@@ -78,12 +79,19 @@ export class DropdownListComponent implements OnInit, AfterViewInit {
     });
 
     window.addEventListener("click", (event) => {
+      this.validate();
+
       if (this.coordsAreWithinBoundingRect(event.clientX, event.clientY) == false) {
         if (this.visibility) {
           this.setListVisibility(false);
         }
       }
     });
+  }
+
+  ngAfterContentInit() {
+    this.ensureElementsAreCollected();
+    this.validate();
   }
 
   getTextboxId() : string {

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.desolatetimelines.piinterface.dao.IconsRepository;
 import com.desolatetimelines.piinterface.dao.IpAddressRangesRepository;
 import com.desolatetimelines.piinterface.dao.PiInstancesRepository;
+import com.desolatetimelines.piinterface.dao.PinCalendarActionsRepository;
+import com.desolatetimelines.piinterface.dao.PinCalendarEntriesRepository;
 import com.desolatetimelines.piinterface.dao.PinGroupPinsRepository;
 import com.desolatetimelines.piinterface.dao.PinGroupTypesRepository;
 import com.desolatetimelines.piinterface.dao.PinGroupsRepository;
@@ -52,4 +54,10 @@ public class PiInterfaceDataService {
 
 	@Autowired
 	private UiButtonsPanelsRepository uiButtonsPanelsRepository;
+
+	@Autowired
+	private PinCalendarActionsRepository pinCalendarActionsRepository;
+
+	@Autowired
+	private PinCalendarEntriesRepository pinCalendarEntriesRepository;
 }

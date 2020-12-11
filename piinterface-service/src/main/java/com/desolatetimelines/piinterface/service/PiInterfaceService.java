@@ -692,7 +692,7 @@ public class PiInterfaceService {
 
 	private PIInstancePin clickPin(Pin pin, Long targetPinState) {
 		// Get the state of the pin or, if it doesn't exist, create a new one
-		PinWithState pinWithState = resolvePinState(pin);
+		PinWithState pinWithState = resolvePinWithState(pin);
 
 		// If the button attempts to set the target device to a given state
 		if (targetPinState != null) {
@@ -754,15 +754,43 @@ public class PiInterfaceService {
 		// Update the state in the local registry:
 		//    - increment the state
 		//    - if the state has reached the max number of states, then set it back to 0
-		if (pin.getStatesCount() != null && pin.getStatesCount() > 0) {
-			pin.setCurrentState(pin.getCurrentState() + 1);
-			if (pin.getCurrentState() >= pin.getStatesCount()) {
-				pin.setCurrentState(0L);
-			}
+		if (pinHasStates(pin)) {
+			nextPinState(pin);
 		}
 
 		// Finally, return the response from the PI
 		return ret;
+	}
+
+	private static boolean pinHasStates(PinWithState pin) {
+		return pin.getStatesCount() != null && pin.getStatesCount() > 0;
+	}
+
+	private static void nextPinState(PinWithState pin) {
+		pin.setCurrentState(pin.getCurrentState() + 1);
+		if (pin.getCurrentState() >= pin.getStatesCount()) {
+			pin.setCurrentState(0L);
+		}
+	}
+
+	public void setPinButtonState(Pin pin, int buttonState) {
+		if (pin == null) {
+			return;
+		}
+
+		PinWithState pinWithState = resolvePinWithState(pin);
+
+		clientService.switchPinByBoardId(
+				pin.getPiInstance().getLastRegisteredAddress(),
+				pin.getBoardId(),
+				buttonState
+			);
+
+		if (buttonState == 0) {
+			if (pinHasStates(pinWithState)) {
+				nextPinState(pinWithState);
+			}
+		}
 	}
 
 	private PIInstancePin switchPin(Pin pin, int buttonState) {
@@ -773,7 +801,7 @@ public class PiInterfaceService {
 			);
 	}
 
-	private PinWithState resolvePinState(Pin pin) {
+	private PinWithState resolvePinWithState(Pin pin) {
 		PinWithState ret = pinsRepository.get(pin.getId());
 
 		if (ret == null) {

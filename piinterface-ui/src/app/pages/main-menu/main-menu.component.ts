@@ -14,6 +14,7 @@ export class MainMenuComponent implements OnInit {
   pinsIconPicPathName : string
   pinGroupsIconPicPathName : string
   buttonsIconPicPathName : string
+  calendarIconPicPathName : string
 
   constructor(
     public navigationService : NavigationService
@@ -23,6 +24,7 @@ export class MainMenuComponent implements OnInit {
     this.pinsIconPicPathName = this.composeIconPicPathName(this.skinName, "pins");
     this.pinGroupsIconPicPathName = this.composeIconPicPathName(this.skinName, "pin-groups");
     this.buttonsIconPicPathName = this.composeIconPicPathName(this.skinName, "buttons");
+    this.calendarIconPicPathName = this.composeIconPicPathName(this.skinName, "calendar");
   }
 
   ngOnInit() {
@@ -46,5 +48,9 @@ export class MainMenuComponent implements OnInit {
 
   goToButtons() {
     this.navigationService.currentPage = "buttons";
+  }
+
+  goToCalendar() {
+    this.navigationService.currentPage = "calendar";
   }
 }

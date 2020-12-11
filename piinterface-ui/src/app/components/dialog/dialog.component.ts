@@ -100,17 +100,8 @@ export class DialogComponent implements AfterViewInit {
   }
 
   private collectContainedElementIds() {
-    let dialogContentElement = document.getElementById(this.getDialogContentId());
-    if (dialogContentElement) {
-      this.containedElementIds = [];
-      let childNodes : HTMLCollection = dialogContentElement.getElementsByTagName('*');
-      for (let i = 0; i < childNodes.length; i++) {
-        let childNodeId = childNodes[i].id;
-        if (childNodeId) {
-          this.containedElementIds.push(childNodeId);
-        }
-      }
-    }
+    this.containedElementIds
+      = this.validationService.collectContainedElementIds(this.getDialogContentId());
   }
 
   getDialogFrameId() : string {
@@ -163,6 +154,7 @@ export class DialogComponent implements AfterViewInit {
   }
 
   showDialog() {
+    this.checkValidation();
     this.setDialogVisibility("visible");
   }
 

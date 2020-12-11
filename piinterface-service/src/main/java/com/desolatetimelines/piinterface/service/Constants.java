@@ -13,4 +13,10 @@ public class Constants {
 
 	public static final String GROUP_TYPE_SEQUENTIAL = "SEQUENTIAL";
 	public static final String GROUP_TYPE_SIMULTANEOUS = "SIMULTANEOUS";
+
+	public static final String PIN_CALENDAR_ACTION_ON = "ON";
+	public static final String PIN_CALENDAR_ACTION_OFF = "OFF";
+	public static final String PIN_CALENDAR_ACTION_SWITCH = "SWITCH";
+	public static final String PIN_CALENDAR_ACTION_ON_OFF = "ON_OFF";
+	public static final String PIN_CALENDAR_ACTION_OFF_ON = "OFF_ON";
 }

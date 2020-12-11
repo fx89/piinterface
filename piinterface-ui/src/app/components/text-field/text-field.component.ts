@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { v4 as uuid } from 'uuid';
 import { ValidationService } from '../services/validation/validation.service';
 
@@ -7,7 +7,7 @@ import { ValidationService } from '../services/validation/validation.service';
   templateUrl: './text-field.component.html',
   styleUrls: ['./text-field.component.css']
 })
-export class TextFieldComponent implements OnInit {
+export class TextFieldComponent implements OnInit, AfterViewInit {
 
   @Input()
   id : string = "_" + uuid();
@@ -40,6 +40,14 @@ export class TextFieldComponent implements OnInit {
   ngOnInit() {
     this.validate();
   }
+
+  ngAfterViewInit() {
+    window.addEventListener("click", (event) => {
+      this.validate();
+    });
+  }
+  
+
 
   onChange($event) {
     this.validate();

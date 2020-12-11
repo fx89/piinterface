@@ -1,0 +1,109 @@
+<page-title
+    iconFileRef="main-menu/calendar"
+    titleText="Calendar "
+></page-title>
+
+<div style="margin:auto; width:80%;">
+
+    <crud-table *ngIf="entries"
+        [data]="entries"
+        [columnTitles]="columnTitles"
+        [displayFunctions]="displayFunctions"
+        [dataGridRowNumberFunction]="rowNumberFunction"
+        [(selectedItem)]="selectedEntry"
+        (onSelectionChanged)="onCalendarSelectionChanged($event)"
+        [showAddButton]="true"
+        [showEditButton]="true"
+        [showDelButton]="true"
+        [dataTableHeightPX]="340"
+        [newItemFunction]="newCalendarEntry"
+        [saveItemFunction]="saveCalendarEntry"
+        [deleteItemFunction]="deleteCalendarEntry"
+        [editDialogHeightPX]="350"
+        [editDialogWidthPX]="230"
+    >
+        <table style="width:100%" *ngIf="selectedEntry" style="font-size:10px;">
+            <tr><td>Title</td><td>
+                <text-field
+                    [(value)]="selectedEntry.title"
+                    [widthPCT]="100"
+                    [validationFunction]="titleValidationFunction"
+                    placeholder="min. 3 characters"
+                ></text-field>
+            </td></tr>
+            <tr><td>Pin</td><td>
+                <dropdown-list
+                    listRowType="compact"
+                    [items]="pins"
+                    [(selectedItem)]="selectedEntry.pin"
+                    [showListIcons]="false"
+                    [selctedItemDisplayFunction]="pinDisplayFunction"
+                    [titleFunction]="pinDisplayFunction"
+                    [validationFunction]="pinValidationFunction"
+                ></dropdown-list>
+            </td></tr>
+            <tr><td>Year</td><td>
+                <dropdown-list
+                    listRowType="compact"
+                    [items]="years"
+                    [(selectedItem)]="selectedEntry.year"
+                    [showListIcons]="false"
+                    [selctedItemDisplayFunction]="timeUnitDisplayFunction"
+                    [titleFunction]="timeUnitDisplayFunction"
+                ></dropdown-list>
+            </td></tr>
+            <tr><td>Month</td><td>
+                <dropdown-list
+                    listRowType="compact"
+                    [items]="months"
+                    [(selectedItem)]="selectedEntry.month"
+                    [showListIcons]="false"
+                    [selctedItemDisplayFunction]="timeUnitDisplayFunction"
+                    [titleFunction]="timeUnitDisplayFunction"
+                ></dropdown-list>
+            </td></tr>
+            <tr><td>Day</td><td>
+                <dropdown-list
+                    listRowType="compact"
+                    [items]="days"
+                    [(selectedItem)]="selectedEntry.day"
+                    [showListIcons]="false"
+                    [selctedItemDisplayFunction]="timeUnitDisplayFunction"
+                    [titleFunction]="timeUnitDisplayFunction"
+                ></dropdown-list>
+            </td></tr>
+            <tr><td>Hour</td><td>
+                <dropdown-list
+                    listRowType="compact"
+                    [items]="hours"
+                    [(selectedItem)]="selectedEntry.hour"
+                    [showListIcons]="false"
+                    [selctedItemDisplayFunction]="timeUnitDisplayFunction"
+                    [titleFunction]="timeUnitDisplayFunction"
+                ></dropdown-list>
+            </td></tr>
+            <tr><td>Minute</td><td>
+                <dropdown-list
+                    listRowType="compact"
+                    [items]="minutes"
+                    [(selectedItem)]="selectedEntry.minute"
+                    [showListIcons]="false"
+                    [selctedItemDisplayFunction]="timeUnitDisplayFunction"
+                    [titleFunction]="timeUnitDisplayFunction"
+                ></dropdown-list>
+            </td></tr>
+            <tr><td>Action</td><td>
+                <dropdown-list
+                    listRowType="compact"
+                    [items]="actions"
+                    [(selectedItem)]="selectedEntry.action"
+                    [showListIcons]="false"
+                    [selctedItemDisplayFunction]="actionDisplayFunction"
+                    [titleFunction]="actionDisplayFunction"
+                    [validationFunction]="actionValidationFunction"
+                ></dropdown-list>
+            </td></tr>
+        </table>
+    </crud-table>
+
+</div>

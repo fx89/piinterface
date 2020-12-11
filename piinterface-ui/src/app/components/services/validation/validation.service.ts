@@ -21,6 +21,12 @@ export class ValidationService {
     this.validationMessages[componentId] = undefined;
   }
 
+  public clearValidationMessages(componentIds:string[]) {
+    for (let cid of componentIds) {
+      this.clearValidationMessage(cid);
+    }
+  }
+
   public isComponentValid(componentId:string) : boolean {
     return this.validationMessages[componentId] ? false : true;
   }
@@ -49,5 +55,20 @@ export class ValidationService {
     }
 
     return null;
+  }
+
+  public collectContainedElementIds(parentId : string) : string[] {
+    const containedElementIds : string[] = [];
+    let dialogContentElement = document.getElementById(parentId);
+    if (dialogContentElement) {
+      let childNodes : HTMLCollection = dialogContentElement.getElementsByTagName('*');
+      for (let i = 0; i < childNodes.length; i++) {
+        let childNodeId = childNodes[i].id;
+        if (childNodeId) {
+          containedElementIds.push(childNodeId);
+        }
+      }
+    }
+    return containedElementIds;
   }
 }
