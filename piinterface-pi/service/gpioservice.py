@@ -8,9 +8,6 @@ class GPIOService:
         self.config = config;
         self.initGPIO()
 
-    def getFreePins(self):
-        return self.config.freePins;
-
     def switchPinByBoardId(self, boardId, state):
         pin = self.getPinByBoardId(boardId); # Make sure the pin is configured
         self.switchPin(pin.boardId, pin.isSignalInverted, state)
