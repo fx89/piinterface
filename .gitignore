@@ -38,3 +38,6 @@ __pycache__
 # Angular
 dist/
 node_modules/
+
+# DEV stuff
+piinterface-pi/run.sh
