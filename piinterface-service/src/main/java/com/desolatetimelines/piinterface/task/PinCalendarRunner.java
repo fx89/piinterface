@@ -2,12 +2,10 @@ package com.desolatetimelines.piinterface.task;
 
 import static com.desolatetimelines.piinterface.service.Constants.PIN_CALENDAR_ACTION_ON;
 import static com.desolatetimelines.piinterface.service.Constants.PIN_CALENDAR_ACTION_OFF;
-import static com.desolatetimelines.piinterface.service.Constants.PIN_CALENDAR_ACTION_SWITCH;
 import static com.desolatetimelines.piinterface.service.Constants.PIN_CALENDAR_ACTION_OFF_ON;
 import static com.desolatetimelines.piinterface.service.Constants.PIN_CALENDAR_ACTION_ON_OFF;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
