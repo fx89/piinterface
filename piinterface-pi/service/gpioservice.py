@@ -119,6 +119,7 @@ class GPIOService:
 
     def turnPinOff(self, boardId):
         if GPIO.gpio_function(boardId) == GPIO.OUT:
+            GPIO.setup(boardId, GPIO.OUT)
             GPIO.output(boardId, GPIO.LOW)
         GPIO.setup(boardId, GPIO.IN) # some realys just won't turn off unless turning off power to the pin
 
